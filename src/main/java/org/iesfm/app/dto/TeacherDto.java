@@ -24,7 +24,7 @@ public class TeacherDto {
     private String secondSurname;
 
     @NotBlank
-    @JsonProperty("Second Surname")
+    @JsonProperty("User Created")
     private String userCre;
 
     @NotBlank

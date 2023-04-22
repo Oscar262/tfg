@@ -1,11 +1,18 @@
 package org.iesfm.app.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.iesfm.app.entity.AbsenceEntity;
+import org.iesfm.app.entity.StudentEntity;
+import org.iesfm.app.entity.SubjectEntity;
 
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.time.LocalDate;
@@ -14,9 +21,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AbsenceDto {
-    @Positive
-    @NotNull
-    private Integer id;
 
     @JsonFormat(pattern = "yyyy/MM/dd")
     @NotNull
@@ -26,25 +30,45 @@ public class AbsenceDto {
     @NotNull
     private Integer numHours;
 
-    public static AbsenceEntity toEntity(AbsenceDto dto) {
-        return new AbsenceEntity(
-                dto.getId(),
-                dto.getDate(),
-                dto.getNumHours(),
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
-        );
-    }
+    @NotBlank
+    private String userCre;
 
-    public static AbsenceDto toDto(AbsenceEntity entity) {
-        return new AbsenceDto(
-                entity.getId(),
-                entity.getDate(),
-                entity.getNumHours()
-        );
-    }
+    @NotBlank
+    private String userMod;
+
+    @JsonFormat(pattern = "yyyy/MM/dd")
+    @NotNull
+    private LocalDate dateCre;
+
+    @JsonFormat(pattern = "yyyy/MM/dd")
+    @NotNull
+    private LocalDate dateMod;
+
+    @NotBlank
+    private StudentEntity student;
+
+    @NotBlank
+    private SubjectEntity subject;
+
+//    public static AbsenceEntity toEntity(AbsenceDto dto) {
+//        return new AbsenceEntity(
+//                null,
+//                dto.getDate(),
+//                dto.getNumHours(),
+//                null,
+//                null,
+//                null,
+//                null,
+//                null,
+//                null
+//        );
+//    }
+//
+//    public static AbsenceDto toDto(AbsenceEntity entity) {
+//        return new AbsenceDto(
+//                entity.getId(),
+//                entity.getDate(),
+//                entity.getNumHours()
+//        );
+//    }
 }
