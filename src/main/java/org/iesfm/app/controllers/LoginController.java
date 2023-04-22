@@ -1,4 +1,4 @@
-package org.iesfm.app.controller;
+package org.iesfm.app.controllers;
 
 import org.iesfm.app.exceptions.NotAdminException;
 import org.iesfm.app.service.StudentService;
