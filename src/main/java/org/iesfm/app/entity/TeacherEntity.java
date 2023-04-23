@@ -46,7 +46,8 @@ public class TeacherEntity implements Serializable {
 
     private String pass;
 
-    @ManyToMany(cascade =CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
+
     @JoinTable(name = "teacher_class",
             joinColumns = {@JoinColumn(name = "teacher")},
             inverseJoinColumns = {@JoinColumn(name = "class")})

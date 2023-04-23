@@ -25,7 +25,7 @@ public class LoginController {
 
 
     @GetMapping(path = "/login/{idLogin}/{email}/{pass}")
-    public ResponseEntity<Boolean> getUsser(
+    public ResponseEntity<Boolean> getUser(
             @PathVariable("idLogin") Integer id,
             @PathVariable("email") String email,
             @PathVariable("pass") String pass
