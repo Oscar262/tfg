@@ -14,8 +14,8 @@ public class TeacherService {
 
     public Boolean checkUsser(String email, String pass) throws NotAdminException {
         TeacherEntity teacher = teacherDao.findByEmailAndPass(email, pass);
-        if (teacher != null) {¡
-            if (teacher.getAdmin() != null){¡
+        if (teacher != null) {
+            if (teacher.getAdmin() != null){
                 return true;
             } else {
                 throw new NotAdminException();
