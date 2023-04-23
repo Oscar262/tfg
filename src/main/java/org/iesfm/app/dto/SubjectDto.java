@@ -6,10 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.iesfm.app.entity.AbsenceEntity;
 import org.iesfm.app.entity.StudentEntity;
-import org.iesfm.app.entity.SubjectEntity;
 import org.iesfm.app.entity.TeacherEntity;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;

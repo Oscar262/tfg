@@ -17,7 +17,7 @@ public class TeacherService {
         if (teacher != null) {
             if (teacher.getAdmin() != null){
                 return true;
-            }else{
+            } else {
                 throw new NotAdminException();
             }
         } else return false;

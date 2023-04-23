@@ -4,22 +4,19 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.iesfm.app.entity.StudentEntity;
 import org.iesfm.app.entity.TeacherEntity;
 
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClassDto {
+public class AdminDto {
 
-    @NotBlank
-    private String name;
 
     @NotBlank
     private String userCre;
@@ -36,25 +33,12 @@ public class ClassDto {
     private LocalDate dateMod;
 
     @NotBlank
-    private List<StudentEntity> students;
+    private String email;
 
     @NotBlank
-    private Set<TeacherEntity> teachers;
+    private String pass;
 
-//    public static ClassEntity toEntity(ClassDto dto) {
-//        return new ClassEntity(
-//                null,
-//                dto.getName(),
-//                null,
-//                null
-//        );
-//    }
-//
-//    public static ClassDto toDto(ClassEntity entity) {
-//        return new ClassDto(
-//                entity.getId(),
-//                entity.getName()
-//        );
-//    }
+    @NotBlank
+    private List<TeacherEntity> teachers;
 
 }
