@@ -49,7 +49,7 @@ public class TeacherEntity implements Serializable {
     @Column(name = "admin")
     private Boolean isAdmin;
 
-    @ManyToMany(cascade =CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "teacher_class",
             joinColumns = {@JoinColumn(name = "teacher")},
             inverseJoinColumns = {@JoinColumn(name = "class")})
