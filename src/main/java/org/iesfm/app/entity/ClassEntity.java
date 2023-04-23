@@ -38,6 +38,6 @@ public class ClassEntity implements Serializable {
     @OneToMany(mappedBy = "classEntity")
     private List<StudentEntity> students;
 
-    @ManyToMany(mappedBy = "classEntities")
-    private Set<TeacherEntity> teachers;
+    @OneToMany(mappedBy = "classEntity")
+    private Set<TeacherClassSubject> relation;
 }

@@ -26,28 +26,28 @@ public class LoginController {
 
     @GetMapping(path = "/login/{idLogin}/{email}/{pass}")
     public ResponseEntity<Boolean> getUsser(
-            @PathVariable("idLogin") Integer id,
+            @PathVariable("idLogin") int id,
             @PathVariable("email") String email,
             @PathVariable("pass") String pass
     ) {
         switch (id) {
             case 1:
                 if (studentService.checkUsser(email, pass)) {
-                    return ResponseEntity.ok().build();
+                    return ResponseEntity.ok(true);
                 } else
                     return ResponseEntity.notFound().build();
 
             case 2:
                 try {
                     if (teacherService.checkUsser(email, pass)) {
-                        return ResponseEntity.ok().build();
+                        return ResponseEntity.ok(true);
                     } else return ResponseEntity.notFound().build();
                 } catch (NotAdminException e) {
                     return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
                 }
             case 3:
                 if (adminService.checkUsser(email, pass)) {
-                    return ResponseEntity.ok().build();
+                    return ResponseEntity.ok(true);
                 } else
                     return ResponseEntity.notFound().build();
 
