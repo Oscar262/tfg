@@ -41,17 +41,15 @@ public class SubjectEntity implements Serializable {
 
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "teacher_subject",
-            joinColumns = {@JoinColumn(name = "subject")},
-            inverseJoinColumns = {@JoinColumn(name = "teacher")})
-    private Set<TeacherEntity> teacher;
-
-    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "student_subject",
             joinColumns = {@JoinColumn(name = "subject")},
             inverseJoinColumns = {@JoinColumn(name = "student")})
     private Set<StudentEntity> student;
 
     @OneToMany(mappedBy = "subject")
-    private List<AbsenceEntity> absence;
+    private Set<AbsenceEntity> absence;
+
+    @OneToMany(mappedBy = "subject")
+    private Set<TeacherClassSubject> relation;
+
 }
