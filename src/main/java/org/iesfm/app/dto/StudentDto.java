@@ -32,7 +32,7 @@ public class StudentDto {
     private String secondSurname;
 
     @NotBlank
-    @JsonProperty("Usuario de creacion")
+    @JsonProperty("User Created")
     private String userCre;
 
     @NotBlank

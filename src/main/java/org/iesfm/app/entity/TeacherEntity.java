@@ -46,10 +46,8 @@ public class TeacherEntity implements Serializable {
 
     private String pass;
 
-    @Column(name = "admin")
-    private Boolean isAdmin;
-
     @ManyToMany(cascade = CascadeType.ALL)
+
     @JoinTable(name = "teacher_class",
             joinColumns = {@JoinColumn(name = "teacher")},
             inverseJoinColumns = {@JoinColumn(name = "class")})
@@ -57,5 +55,9 @@ public class TeacherEntity implements Serializable {
 
     @OneToMany(mappedBy = "teacher")
     private List<SubjectEntity> subjectList;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "teacher")
+    private AdminEntity admin;
 
 }
