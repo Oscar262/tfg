@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.iesfm.app.entity.ClassEntity;
 import org.iesfm.app.entity.SubjectEntity;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -24,8 +26,20 @@ public class TeacherDto {
     private String secondSurname;
 
     @NotBlank
-    @JsonProperty("Second Surname")
+    @JsonProperty("Usuario de creacion")
     private String userCre;
+
+    @NotBlank
+    @JsonProperty("Usuario de modificacion")
+    private String userMod;
+
+    @NotBlank
+    @JsonProperty("Fecha de cracion")
+    private LocalDate dateCre;
+
+    @NotBlank
+    @JsonProperty("Fecha de modificacion")
+    private LocalDate dateMod;
 
     @NotBlank
     @JsonProperty("Email")

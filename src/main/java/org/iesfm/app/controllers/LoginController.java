@@ -29,14 +29,14 @@ public class LoginController {
         switch (id) {
             case 1:
                 if (studentService.checkUsser(email, pass)) {
-                    return ResponseEntity.ok(true);
+                    return ResponseEntity.ok().build();
                 } else
                     return ResponseEntity.notFound().build();
 
             case 2:
                 try {
                     if (teacherService.checkUsser(email, pass)) {
-                        return ResponseEntity.ok(true);
+                        return ResponseEntity.ok().build();
                     } else return ResponseEntity.notFound().build();
                 } catch (NotAdminException e) {
                     return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
