@@ -8,5 +8,4 @@ import org.springframework.stereotype.Repository;
 
 public interface AdminDao extends JpaRepository<AdminEntity, Integer> {
     AdminEntity findByEmailAndPass(String email, String pass);
-
 }
