@@ -6,9 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -22,17 +22,23 @@ public class SubjectEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotNull
     private String name;
 
+    @NotNull
     @Column(name = "total_hours")
     private Integer totalHours;
 
-    @Column(name = "user_cre")
-    private String userCre;
+    @NotNull
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_cre")
+    private UserEntity userCre;
 
-    @Column(name = "user_mod")
-    private String userMod;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_mod")
+    private UserEntity userMod;
 
+    @NotNull
     @Column(name = "date_cre")
     private LocalDate dateCre;
 
@@ -40,16 +46,10 @@ public class SubjectEntity implements Serializable {
     private LocalDate dateMod;
 
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "student_subject",
-            joinColumns = {@JoinColumn(name = "subject")},
-            inverseJoinColumns = {@JoinColumn(name = "student")})
-    private Set<StudentEntity> student;
-
     @OneToMany(mappedBy = "subject")
     private Set<AbsenceEntity> absence;
 
     @OneToMany(mappedBy = "subject")
-    private Set<TeacherClassSubject> relation;
+    private Set<UserClassSubject> relation;
 
 }

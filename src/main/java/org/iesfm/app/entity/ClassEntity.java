@@ -5,9 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -21,23 +21,26 @@ public class ClassEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotNull
     private String name;
 
-    @Column(name = "user_cre")
-    private String userCre;
+    @NotNull
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_cre")
+    private UserEntity userCre;
 
-    @Column(name = "user_mod")
-    private String userMod;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_mod")
+    private UserEntity userMod;
 
+    @NotNull
     @Column(name = "date_cre")
     private LocalDate dateCre;
 
     @Column(name = "date_mod")
     private LocalDate dateMod;
 
-    @OneToMany(mappedBy = "classEntity")
-    private List<StudentEntity> students;
 
     @OneToMany(mappedBy = "classEntity")
-    private Set<TeacherClassSubject> relation;
+    private Set<UserClassSubject> relation;
 }

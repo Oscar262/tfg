@@ -1,44 +1,46 @@
 package org.iesfm.app.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.iesfm.app.entity.TeacherEntity;
 
-import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.List;
+
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AdminDto {
-
-
-    @NotBlank
-    private String userCre;
+public class UserDto {
 
     @NotBlank
-    private String userMod;
+    private String name;
 
-    @JsonFormat(pattern = "yyyy/MM/dd")
+    @NotBlank
+    private String firstSurname;
+
+
+    private String secondSurname;
+
+
     @NotNull
     private LocalDate dateCre;
 
-    @JsonFormat(pattern = "yyyy/MM/dd")
-    @NotNull
+
     private LocalDate dateMod;
 
+
+    @Email
     @NotBlank
     private String email;
 
     @NotBlank
     private String pass;
 
-    @NotBlank
-    private List<TeacherEntity> teachers;
+    @NotNull
+    private RoleDto role;
+
 
 }

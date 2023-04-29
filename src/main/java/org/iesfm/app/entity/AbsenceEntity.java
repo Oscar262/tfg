@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -20,28 +21,33 @@ public class AbsenceEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private LocalDate date;
 
+    @NotNull
     @Column(name = "num_hours")
     private Integer numHours;
 
-    @Column(name = "user_cre")
-    private String userCre;
+    @NotNull
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "teacher_cre")
+    private UserEntity teacherCre;
 
-    @Column(name = "user_mod")
-    private String userMod;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_mod")
+    private UserEntity userMod;
 
-    @Column(name = "date_cre")
-    private LocalDate dateCre;
+    @NotNull
+    private LocalDate date;
 
     @Column(name = "date_mod")
     private LocalDate dateMod;
 
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student")
-    private StudentEntity student;
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "subject")
     private SubjectEntity subject;
