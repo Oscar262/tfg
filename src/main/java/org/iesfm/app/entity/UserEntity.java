@@ -37,7 +37,6 @@ public class UserEntity implements Serializable {
     @Column(name = "usu_cre")
     private Integer usuCre;
 
-    @NotNull
     @Column(name = "usu_mod")
     private Integer usuMod;
 
