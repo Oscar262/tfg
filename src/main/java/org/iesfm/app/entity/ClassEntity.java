@@ -22,6 +22,7 @@ public class ClassEntity implements Serializable {
     private Integer id;
 
     @NotNull
+    @Column(unique = true)
     private String name;
 
     @NotNull
