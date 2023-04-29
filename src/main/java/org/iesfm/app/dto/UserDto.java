@@ -15,6 +15,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class UserDto {
 
+    @NotNull
+    private Integer id;
+
     @NotBlank
     private String name;
 
@@ -24,13 +27,15 @@ public class UserDto {
 
     private String secondSurname;
 
+    @NotNull
+    private Integer userCre;
+
+    private Integer userMod;
 
     @NotNull
     private LocalDate dateCre;
 
-
     private LocalDate dateMod;
-
 
     @Email
     @NotBlank

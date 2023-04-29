@@ -15,6 +15,8 @@ public class UserMapper {
         user.setSecondSurname(userDto.getSecondSurname());
         user.setDateCre(userDto.getDateCre());
         user.setDateMod(userDto.getDateMod());
+        user.setUsuCre(userDto.getUserCre());
+        user.setUsuMod(userDto.getUserMod());
         user.setEmail(userDto.getEmail());
         user.setPass(userDto.getPass());
         user.setRole(RoleMapper.toEnity(userDto.getRole()));
@@ -30,6 +32,8 @@ public class UserMapper {
         dto.setSecondSurname(entity.getSecondSurname());
         dto.setDateCre(entity.getDateCre());
         dto.setDateMod(entity.getDateMod());
+        dto.setUserCre(entity.getUsuCre());
+        dto.setUserMod(entity.getUsuMod());
         dto.setEmail(entity.getEmail());
         dto.setPass(entity.getPass());
         dto.setRole(RoleMapper.toDto(entity.getRole()));
