@@ -11,13 +11,13 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "teacher_class_subjects")
-public class TeacherClassSubject implements Serializable {
+@Table(name = "user_class_subjects")
+public class UserClassSubject implements Serializable {
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "teacher_id")
-    private TeacherEntity teacher;
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)

@@ -1,17 +1,6 @@
 package org.iesfm.app.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.iesfm.app.entity.StudentEntity;
-import org.iesfm.app.entity.SubjectEntity;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import java.time.LocalDate;
-
+/*
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -45,6 +34,8 @@ public class AbsenceDto {
     @NotBlank
     private SubjectEntity subject;
 
+
+ */
 //    public static AbsenceEntity toEntity(AbsenceDto dto) {
 //        return new AbsenceEntity(
 //                null,
@@ -66,4 +57,4 @@ public class AbsenceDto {
 //                entity.getNumHours()
 //        );
 //    }
-}
+//}
