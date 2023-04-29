@@ -10,7 +10,7 @@ public class UserMapper {
 
         UserEntity user = new UserEntity();
 
-        user.setId(user.getId());
+        user.setId(userDto.getId());
         user.setName(userDto.getName());
         user.setFirstSurname(userDto.getFirstSurname());
         user.setSecondSurname(userDto.getSecondSurname());
