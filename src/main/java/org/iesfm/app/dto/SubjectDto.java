@@ -1,10 +1,25 @@
 package org.iesfm.app.dto;
 
-/*
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import java.time.LocalDate;
+import java.util.Set;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class SubjectDto {
+
+    @Positive
+    private Integer id;
 
     @NotBlank
     private String name;
@@ -14,51 +29,32 @@ public class SubjectDto {
     private Integer totalHours;
 
     @NotBlank
-    private String userCre;
+    private UserDto userCre;
 
-    @NotBlank
-    private String userMod;
+    private UserDto userMod;
 
-    @JsonFormat(pattern = "yyyy/MM/dd")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @NotNull
     private LocalDate dateCre;
 
-    @JsonFormat(pattern = "yyyy/MM/dd")
-    @NotNull
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateMod;
 
-    @NotBlank
-    private Set<TeacherEntity> teacher;
+    @NotNull
+    @JsonProperty(namespace = "teacher")
+    private Set<UserDto> teacher;
 
     @NotBlank
-    private Set<StudentEntity> student;
+    @JsonProperty(namespace = "student")
+    private Set<UserDto> student;
+
+    @NotNull
+    @JsonProperty(namespace = "class")
+    private Set<ClassDto> classDto;
 
     @NotBlank
-    private List<AbsenceEntity> absence;
+    private Set<AbsenceDto> absence;
 
-
-//    public static SubjectEntity toEntity(SubjectDto dto) {
-//        return new SubjectEntity(
-//                dto.getName(),
-//                dto.getTotalHours(),
-//                null,
-//                null,
-//                null,
-//                null,
-//                null,
-//                null,
-//                null
-//        );
-//    }
-//
-//    public static SubjectDto toDto(SubjectEntity entity) {
-//        return new SubjectDto(
-//                entity.getId(),
-//                entity.getName(),
-//                entity.getTotalHours()
-//        );
-//    }
 }
 
 
- */

@@ -1,60 +1,52 @@
 package org.iesfm.app.dto;
 
-/*
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class AbsenceDto {
 
-    @JsonFormat(pattern = "yyyy/MM/dd")
-    @NotNull
-    private LocalDate date;
+    @Positive
+    private Integer id;
+
 
     @Positive
     @NotNull
     private Integer numHours;
 
-    @NotBlank
-    private String userCre;
 
-    @NotBlank
-    private String userMod;
+    private UserDto userMod;
 
-    @JsonFormat(pattern = "yyyy/MM/dd")
     @NotNull
-    private LocalDate dateCre;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate date;
 
-    @JsonFormat(pattern = "yyyy/MM/dd")
-    @NotNull
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateMod;
 
     @NotBlank
-    private StudentEntity student;
+    @JsonProperty(namespace = "student")
+    private UserDto student;
 
     @NotBlank
-    private SubjectEntity subject;
+    @JsonProperty(namespace = "teacher")
+    private UserDto teacher;
+
+    @NotNull
+    private String subject;
 
 
- */
-//    public static AbsenceEntity toEntity(AbsenceDto dto) {
-//        return new AbsenceEntity(
-//                null,
-//                dto.getDate(),
-//                dto.getNumHours(),
-//                null,
-//                null,
-//                null,
-//                null,
-//                null,
-//                null
-//        );
-//    }
-//
-//    public static AbsenceDto toDto(AbsenceEntity entity) {
-//        return new AbsenceDto(
-//                entity.getId(),
-//                entity.getDate(),
-//                entity.getNumHours()
-//        );
-//    }
-//}
+
+
+}

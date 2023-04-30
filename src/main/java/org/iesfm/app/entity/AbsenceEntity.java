@@ -45,7 +45,7 @@ public class AbsenceEntity implements Serializable {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private UserEntity user;
+    private UserEntity student;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
