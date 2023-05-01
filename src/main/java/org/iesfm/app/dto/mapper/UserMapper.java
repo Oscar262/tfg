@@ -142,6 +142,7 @@ public class UserMapper {
         user.setFirstSurname(entity.getFirstSurname());
         user.setSecondSurname(entity.getSecondSurname());
         user.setEmail(entity.getEmail());
+        user.setRole(RoleMapper.toDto(entity.getRole()));
         return user;
     }
 }
