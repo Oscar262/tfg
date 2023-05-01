@@ -44,7 +44,7 @@ public class AbsenceDto {
     private UserDto teacher;
 
     @NotNull
-    private String subject;
+    private SubjectDto subject;
 
 
 

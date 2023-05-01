@@ -1,15 +1,16 @@
 package org.iesfm.app.dto.mapper;
 
-import org.iesfm.app.dto.*;
+import org.iesfm.app.dto.AbsenceDto;
+import org.iesfm.app.dto.ClassDto;
+import org.iesfm.app.dto.SubjectDto;
+import org.iesfm.app.dto.UserDto;
 import org.iesfm.app.entity.AbsenceEntity;
 import org.iesfm.app.entity.ClassEntity;
-import org.iesfm.app.entity.UserClassSubject;
+import org.iesfm.app.entity.SubjectEntity;
 import org.iesfm.app.entity.UserEntity;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class UserMapper {
 
@@ -43,19 +44,32 @@ public class UserMapper {
 
         UserDto dto = new UserDto();
 
-        List<ClassDto> classDto = new ArrayList<>();
         List<AbsenceDto> absenceDtos = new ArrayList<>();
-        List<SubjectDto> subjectDtos = new ArrayList<>();
 
-        for (UserClassSubject userClassSubject : entity.getRelation()) {
-            classDto.add(ClassMapper.toUserDto(userClassSubject.getClassEntity()));
+        List<SubjectDto> subjectDtos = new ArrayList<>();
+        List<ClassDto> classDto = new ArrayList<>();
+
+        for (ClassEntity classEntity : entity.getClassEntities()) {
+            ClassDto classDto1 = ClassMapper.toUserDto(classEntity);
+            classDto.add(classDto1);
+
         }
-        for (UserClassSubject userClassSubject : entity.getRelation()) {
-            subjectDtos.add(SubjectMapper.toUserDto(userClassSubject.getSubject()));
+
+
+        for (SubjectEntity subject : entity.getSubjectList()) {
+            SubjectDto subjectDto = SubjectMapper.toDtoInfo(subject);
+            subjectDtos.add(subjectDto);
         }
+
+
+
+
         for (AbsenceEntity absenceEntity : entity.getAbsenceList()) {
             absenceDtos.add(AbsenceMapper.toUserDto(absenceEntity));
         }
+
+
+
 
         dto.setId(entity.getId());
         dto.setName(entity.getName());
@@ -68,9 +82,14 @@ public class UserMapper {
         dto.setEmail(entity.getEmail());
         dto.setPass(entity.getPass());
         dto.setRole(RoleMapper.toDto(entity.getRole()));
-        dto.setClassList(classDto);
         dto.setAbsenceList(absenceDtos);
+
         dto.setSubjectList(subjectDtos);
+
+
+        dto.setClassList(classDto);
+
+
         return dto;
     }
 
@@ -86,6 +105,36 @@ public class UserMapper {
     }
 
     public static UserDto toDtoInfo(UserEntity entity) {
+        UserDto user = new UserDto();
+
+        List<SubjectDto> subjectDtos = new ArrayList<>();
+        List<ClassDto> classDto = new ArrayList<>();
+        for (ClassEntity classEntity : entity.getClassEntities()) {
+            ClassDto classDto1 = ClassMapper.toUserDto(classEntity);
+            classDto.add(classDto1);
+
+        }
+
+
+        for (SubjectEntity subject : entity.getSubjectList()) {
+            SubjectDto subjectDto = SubjectMapper.toDtoInfo(subject);
+            subjectDtos.add(subjectDto);
+        }
+
+        user.setId(entity.getId());
+        user.setName(entity.getName());
+        user.setFirstSurname(entity.getFirstSurname());
+        user.setSecondSurname(entity.getSecondSurname());
+        user.setEmail(entity.getEmail());
+        user.setSubjectList(subjectDtos);
+
+
+        user.setClassList(classDto);
+        return user;
+    }
+
+
+    public static UserDto toDtoLogin(UserEntity entity) {
         UserDto user = new UserDto();
 
         user.setId(entity.getId());

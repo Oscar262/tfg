@@ -1,8 +1,7 @@
 package org.iesfm.app.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -10,11 +9,14 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "user_entity")
 public class UserEntity implements Serializable {
@@ -34,10 +36,10 @@ public class UserEntity implements Serializable {
     private String secondSurname;
 
     @NotNull
-    @Column(name = "usu_cre")
+    @Column(name = "user_cre")
     private Integer usuCre;
 
-    @Column(name = "usu_mod")
+    @Column(name = "user_mod")
     private Integer usuMod;
 
     @NotNull
@@ -62,31 +64,42 @@ public class UserEntity implements Serializable {
     private RoleEntity role;
 
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "student")
+    @ToString.Exclude
     private List<AbsenceEntity> absenceList;
 
-    @OneToMany(mappedBy = "user")
-    private Set<UserClassSubject> relation;
+
+    @ToString.Exclude
+    @NotNull
+    @ManyToMany
+    @JoinTable(name = "user_subject",
+            joinColumns = @JoinColumn(name = "user_in_subject_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "subject_id", referencedColumnName = "id"))
+    private Set<SubjectEntity> subjectList;
+
+
+    @ManyToMany(mappedBy = "userEntities")
+    @ToString.Exclude
+    private List<ClassEntity> classEntities;
 
 
     @OneToOne(mappedBy = "teacherCre")
     private AbsenceEntity absenceCre;
 
-    @OneToOne(mappedBy= "userMod")
+    @OneToOne(mappedBy = "userMod")
     private AbsenceEntity absenceMod;
 
     @OneToOne(mappedBy = "userCre")
     private ClassEntity classCre;
 
-    @OneToOne(mappedBy= "userMod")
+    @OneToOne(mappedBy = "userMod")
     private ClassEntity classMod;
 
     @OneToOne(mappedBy = "userCre")
     private SubjectEntity subjectCre;
 
-    @OneToOne(mappedBy= "userMod")
+    @OneToOne(mappedBy = "userMod")
     private SubjectEntity subjectMod;
-
 
 
 }
