@@ -36,15 +36,16 @@ public class UserController {
     }
 
 
-    @GetMapping(path = "/user/student")
+    @GetMapping(path = "/user/{role}")
     public ResponseEntity<List<UserDto>> getAllStudents(
             @RequestParam(value = "class", required = false) String className,
-            @RequestParam(value = "subject", required = false) String subjectName
+            @RequestParam(value = "subject", required = false) String subjectName,
+            @PathVariable("role") String role
     ) {
 
         return ResponseEntity.ok(
                 userService
-                        .findAllStudents(className, subjectName, "Student")
+                        .findAllStudents(className, subjectName, role)
                         .stream()
                         .map(UserMapper::toDtoInfo)
                         .collect(Collectors.toList()));
