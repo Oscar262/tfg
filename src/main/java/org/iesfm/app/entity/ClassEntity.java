@@ -1,20 +1,23 @@
 package org.iesfm.app.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
+@ToString
 @Entity
-@Table(name = "class")
+@Table(name = "class_entity")
 public class ClassEntity implements Serializable {
 
     @Id
@@ -28,10 +31,12 @@ public class ClassEntity implements Serializable {
     @NotNull
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_cre")
+    @ToString.Exclude
     private UserEntity userCre;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_mod")
+    @ToString.Exclude
     private UserEntity userMod;
 
     @NotNull
@@ -42,6 +47,13 @@ public class ClassEntity implements Serializable {
     private LocalDate dateMod;
 
 
-    @OneToMany(mappedBy = "classEntity")
-    private Set<UserClassSubject> relation;
+
+    @ToString.Exclude
+    @NotNull
+    @ManyToMany
+    @JoinTable(name = "user_class",
+            joinColumns = @JoinColumn(name = "class_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "user_in_class_id", referencedColumnName = "id"))
+    private Set<UserEntity> userEntities;
+
 }

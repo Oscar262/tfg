@@ -3,8 +3,6 @@ package org.iesfm.app.dto.mapper;
 import org.iesfm.app.dto.AbsenceDto;
 import org.iesfm.app.entity.AbsenceEntity;
 
-import java.util.List;
-
 public class AbsenceMapper {
 
     //    public static AbsenceEntity toEntity(AbsenceDto absenceDto) {
@@ -30,7 +28,7 @@ public class AbsenceMapper {
         absenceEntity.setTeacherCre(UserMapper.toEntityInfo(absenceDto.getTeacher()));
         absenceEntity.setDate(absenceDto.getDate());
         absenceEntity.setStudent(UserMapper.toEntityInfo(absenceDto.getStudent()));
-        absenceEntity.setSubject(SubjectMapper.toEntity(absenceDto.getSubject()));
+        absenceEntity.setSubject(SubjectMapper.toEntityInfo(absenceDto.getSubject()));
 
         return absenceEntity;
     }
@@ -53,9 +51,8 @@ public class AbsenceMapper {
 
         absenceDto.setId(absence.getId());
         absenceDto.setNumHours(absence.getNumHours());
-        absenceDto.setSubject(absence.getSubject().getName());
+        absenceDto.setSubject(SubjectMapper.toDtoInfo(absence.getSubject()));
         absenceDto.setTeacher(UserMapper.toDtoInfo(absence.getTeacherCre()));
-        absenceDto.setStudent(UserMapper.toDtoInfo(absence.getStudent()));
         absenceDto.setDate(absence.getDate());
         return absenceDto;
     }

@@ -1,45 +1,36 @@
 package org.iesfm.app.dto.mapper;
 
 import org.iesfm.app.dto.ClassDto;
-import org.iesfm.app.dto.UserClassSubjectDto;
 import org.iesfm.app.dto.UserDto;
 import org.iesfm.app.entity.ClassEntity;
-import org.iesfm.app.entity.UserClassSubject;
 import org.iesfm.app.entity.UserEntity;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class ClassMapper {
+
     public static ClassDto toUserDto(ClassEntity entity) {
 
         ClassDto classDto = new ClassDto();
 
-        Set<UserDto> students = new HashSet<>();
         Set<UserDto> teachers = new HashSet<>();
 
-        for (UserClassSubject userClassSubject : entity.getRelation()) {
-            switch (userClassSubject.getUser().getRole().getName()) {
-                case "Student":
-                    students.add(UserMapper.toDtoInfo(userClassSubject.getUser()));
-                    break;
-                case "Teacher":
-                    teachers.add(UserMapper.toDtoInfo(userClassSubject.getUser()));
+        for (UserEntity user : entity.getUserEntities()) {
+            if (user.getRole().getName().equalsIgnoreCase("Teacher")) {
+                    teachers.add(UserMapper.toDtoLogin(user));
                     break;
             }
         }
 
         classDto.setId(entity.getId());
         classDto.setName(entity.getName());
-        classDto.setStudents(students);
         classDto.setTeachers(teachers);
 
         return classDto;
     }
 
-
+/*
     public static ClassDto toDto(ClassEntity classEntity) {
         ClassDto classDto = new ClassDto();
 
@@ -68,7 +59,7 @@ public class ClassMapper {
         return classDto;
     }
 
-    public static ClassEntity classEntity(ClassDto dto){
+    public static ClassEntity classEntity(ClassDto dto) {
         ClassEntity entity = new ClassEntity();
 
         entity.setId(dto.getId());
@@ -80,4 +71,6 @@ public class ClassMapper {
 
         return entity;
     }
+
+ */
 }

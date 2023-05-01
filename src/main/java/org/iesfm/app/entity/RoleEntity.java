@@ -1,8 +1,6 @@
 package org.iesfm.app.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -11,7 +9,9 @@ import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "role")
 public class RoleEntity implements Serializable {
@@ -24,5 +24,7 @@ public class RoleEntity implements Serializable {
     private String name;
 
     @OneToMany(mappedBy = "role")
+    @ToString.Exclude
     private Set<UserEntity> user;
+
 }

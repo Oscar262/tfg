@@ -1,21 +1,17 @@
 package org.iesfm.app.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.iesfm.app.entity.AbsenceEntity;
-import org.iesfm.app.entity.SubjectEntity;
-import org.iesfm.app.entity.UserClassSubject;
 
-import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 
 @Data
@@ -35,6 +31,7 @@ public class UserDto {
 
 
     private String secondSurname;
+
 
     @NotNull
     @Positive
