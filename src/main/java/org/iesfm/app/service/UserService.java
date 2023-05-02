@@ -1,6 +1,7 @@
 package org.iesfm.app.service;
 
 import org.iesfm.app.dao.UserDao;
+import org.iesfm.app.dto.UserDto;
 import org.iesfm.app.entity.UserEntity;
 import org.iesfm.app.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,4 +43,7 @@ public class UserService {
         return userEntities;
     }
 
+    public UserEntity getStudent(Integer idUser) {
+        return userDao.findById(idUser).orElseThrow();
+    }
 }
