@@ -70,7 +70,6 @@ public class UserEntity implements Serializable {
 
 
     @ToString.Exclude
-    @NotNull
     @ManyToMany
     @JoinTable(name = "user_subject",
             joinColumns = @JoinColumn(name = "user_in_subject_id", referencedColumnName = "id"),

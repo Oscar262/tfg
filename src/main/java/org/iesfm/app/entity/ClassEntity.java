@@ -49,7 +49,6 @@ public class ClassEntity implements Serializable {
 
 
     @ToString.Exclude
-    @NotNull
     @ManyToMany
     @JoinTable(name = "user_class",
             joinColumns = @JoinColumn(name = "class_id", referencedColumnName = "id"),
