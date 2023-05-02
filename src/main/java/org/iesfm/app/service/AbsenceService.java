@@ -14,6 +14,10 @@ public class AbsenceService {
 
     @Autowired
     private AbsenceDao absenceDao;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private SubjectService subjectService;
 
 /*
     public AbsenceDao getAbsenceDao() {
@@ -45,8 +49,6 @@ public class AbsenceService {
         esto es para los otros servicios, en las ausencias no tiene sentido hacer esto
 
  */
-        UserService userService = new UserService();
-        SubjectService subjectService = new SubjectService();
 
         UserEntity student = userService.getUser(idStudent);
         SubjectEntity subject = subjectService.getSubject(idSubject);
