@@ -2,13 +2,17 @@ package org.iesfm.app.controllers;
 
 import org.iesfm.app.dto.AbsenceDto;
 import org.iesfm.app.dto.mapper.AbsenceMapper;
+import org.iesfm.app.entity.AbsenceEntity;
+import org.iesfm.app.entity.UserEntity;
 import org.iesfm.app.service.AbsenceService;
+import org.iesfm.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityExistsException;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,6 +37,23 @@ public class AbsenceController {
                         .collect(Collectors.toList()));
 
     }
-    //puedes quitar los dtos y poner simplemente string y controlarlo desde java
+
+    @PostMapping(path = "/absence/{idSubject}/{idStudent}/{idTeacher}")
+    public ResponseEntity<Void> newAbsence(
+            @Valid @RequestBody AbsenceDto absence,
+            @PathVariable("idSubject") Integer idSubject,
+            @PathVariable("idStudent") Integer idStudent,
+            @PathVariable("idTeacher") Integer idTeacher
+    ) {
+        AbsenceEntity entity = null;
+
+        try {
+            entity = absenceService.addAbsence(AbsenceMapper.toEntity(absence), idSubject, idStudent, idTeacher);
+        } catch (EntityExistsException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
 
 }

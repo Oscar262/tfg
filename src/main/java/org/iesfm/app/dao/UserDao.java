@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserDao extends JpaRepository<UserEntity, Integer> {
@@ -24,9 +25,5 @@ public interface UserDao extends JpaRepository<UserEntity, Integer> {
     List<UserEntity> findByRole_NameAndSubjectList_NameAndClassEntities_Name(String name, String name1, String name2);
 
     List<UserEntity> findByRole_Name(String name);
-
-
-
-
 
 }

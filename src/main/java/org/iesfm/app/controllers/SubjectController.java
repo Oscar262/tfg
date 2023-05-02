@@ -20,7 +20,7 @@ public class SubjectController {
 
     @GetMapping(path = "/subject/{id}")
     public SubjectEntity findById(@PathVariable int id) {
-        return subjectService.findByid(id);
+        return subjectService.getSubject(id);
     }
 
     @PostMapping(path = "/subject")

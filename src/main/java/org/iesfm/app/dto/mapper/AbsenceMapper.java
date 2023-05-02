@@ -5,21 +5,19 @@ import org.iesfm.app.entity.AbsenceEntity;
 
 public class AbsenceMapper {
 
-    //    public static AbsenceEntity toEntity(AbsenceDto absenceDto) {
-//        AbsenceEntity absenceEntity = new AbsenceEntity();
-//
-//        absenceEntity.setId(absenceDto.getId());
-//        absenceEntity.setNumHours(absenceDto.getNumHours());
-//        absenceEntity.setTeacherCre(UserMapper.toEntityInfo(absenceDto.getTeacher()));
-//        absenceEntity.setUserMod(UserMapper.toEntityInfo(absenceDto.getUserMod()));
-//        absenceEntity.setDate(absenceDto.getDate());
-//        absenceEntity.setDateMod(absenceDto.getDateMod());
-//        absenceEntity.setStudent(UserMapper.toEntityInfo(absenceDto.getStudent()));
-//        absenceEntity.setSubject(SubjectMapper.toEntity(absenceDto.getSubject()));
-//
-//        return absenceEntity;
-//    }
-//
+
+    public static AbsenceEntity toEntity(AbsenceDto absenceDto) {
+        AbsenceEntity absenceEntity = new AbsenceEntity();
+
+
+        absenceEntity.setId(absenceDto.getId());
+        absenceEntity.setNumHours(absenceDto.getNumHours());
+        absenceEntity.setDate(absenceDto.getDate());
+        absenceEntity.setDateMod(absenceDto.getDateMod());
+
+        return absenceEntity;
+    }
+
     public static AbsenceEntity toEntityInfo(AbsenceDto absenceDto) {
         AbsenceEntity absenceEntity = new AbsenceEntity();
 
