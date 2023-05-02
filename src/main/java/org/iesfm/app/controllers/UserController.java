@@ -55,13 +55,13 @@ public class UserController {
 
 
     @GetMapping(path = "/user/{idUser}")
-    public ResponseEntity<UserDto> getStudent(
+    public ResponseEntity<UserDto> getUser(
             @PathVariable("idUser") Integer idUser
     ) {
 
         UserDto userDto = null;
         try {
-            userDto = UserMapper.toDtoInfo(userService.getStudent(idUser));;
+            userDto = UserMapper.toDtoInfo(userService.getUser(idUser));;
         } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }

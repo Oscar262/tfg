@@ -145,4 +145,5 @@ public class UserMapper {
         user.setRole(RoleMapper.toDto(entity.getRole()));
         return user;
     }
+
 }

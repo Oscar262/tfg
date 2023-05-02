@@ -43,7 +43,7 @@ public class UserService {
         return userEntities;
     }
 
-    public UserEntity getStudent(Integer idUser) {
+    public UserEntity getUser(int idUser) {
         return userDao.findById(idUser).orElseThrow();
     }
 }

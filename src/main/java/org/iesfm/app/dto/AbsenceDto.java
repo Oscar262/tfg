@@ -35,15 +35,15 @@ public class AbsenceDto {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateMod;
 
-    @NotBlank
+
     @JsonProperty(namespace = "student")
     private UserDto student;
 
-    @NotBlank
+
     @JsonProperty(namespace = "teacher")
     private UserDto teacher;
 
-    @NotNull
+
     private SubjectDto subject;
 
 

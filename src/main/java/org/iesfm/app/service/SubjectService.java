@@ -17,7 +17,7 @@ public class SubjectService {
         return subjectDao.findAll();
     }
 
-    public SubjectEntity findByid(int id) {
+    public SubjectEntity getSubject(int id) {
         return subjectDao.findById(id).orElse(null);
     }
 
@@ -28,4 +28,6 @@ public class SubjectService {
     public void deleteById(int id) {
         subjectDao.deleteById(id);
     }
+
+
 }
