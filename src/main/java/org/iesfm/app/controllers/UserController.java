@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Controller
@@ -36,7 +37,7 @@ public class UserController {
     }
 
 
-    @GetMapping(path = "/user/{role}")
+    @GetMapping(path = "/users/{role}")
     public ResponseEntity<List<UserDto>> getAllStudents(
             @RequestParam(value = "class", required = false) String className,
             @RequestParam(value = "subject", required = false) String subjectName,
@@ -49,6 +50,22 @@ public class UserController {
                         .stream()
                         .map(UserMapper::toDtoInfo)
                         .collect(Collectors.toList()));
+
+    }
+
+
+    @GetMapping(path = "/user/{idUser}")
+    public ResponseEntity<UserDto> getStudent(
+            @PathVariable("idUser") Integer idUser
+    ) {
+
+        UserDto userDto = null;
+        try {
+            userDto = UserMapper.toDtoInfo(userService.getStudent(idUser));;
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(userDto);
 
     }
 
