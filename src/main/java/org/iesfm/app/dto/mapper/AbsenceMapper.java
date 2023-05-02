@@ -24,8 +24,10 @@ public class AbsenceMapper {
         AbsenceEntity absenceEntity = new AbsenceEntity();
 
         absenceEntity.setId(absenceDto.getId());
-        absenceEntity.setNumHours(absenceDto.getNumHours());
+        absenceEntity.setNumHours(absenceDto.getNumHours());/*
         absenceEntity.setTeacherCre(UserMapper.toEntityInfo(absenceDto.getTeacher()));
+
+       */
         absenceEntity.setDate(absenceDto.getDate());
         absenceEntity.setStudent(UserMapper.toEntityInfo(absenceDto.getStudent()));
         absenceEntity.setSubject(SubjectMapper.toEntityInfo(absenceDto.getSubject()));
@@ -52,7 +54,11 @@ public class AbsenceMapper {
         absenceDto.setId(absence.getId());
         absenceDto.setNumHours(absence.getNumHours());
         absenceDto.setSubject(SubjectMapper.toDtoInfo(absence.getSubject()));
-        absenceDto.setTeacher(UserMapper.toDtoInfo(absence.getTeacherCre()));
+        /*
+        absenceDto.setTeacher(UserMapper.toDtoLogin(absence.getTeacherCre()));
+
+         */
+        absenceDto.setStudent(UserMapper.toDtoLogin(absence.getStudent()));
         absenceDto.setDate(absence.getDate());
         return absenceDto;
     }

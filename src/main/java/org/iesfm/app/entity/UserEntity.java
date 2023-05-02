@@ -102,4 +102,6 @@ public class UserEntity implements Serializable {
     private SubjectEntity subjectMod;
 
 
+
+
 }
