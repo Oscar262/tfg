@@ -40,20 +40,23 @@ public class SubjectDto {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateMod;
 
-    @NotNull
+
     @JsonProperty(namespace = "teacher")
     private Set<UserDto> teacher;
 
-    @NotBlank
+
     @JsonProperty(namespace = "student")
     private Set<UserDto> student;
 
-    @NotNull
+
     @JsonProperty(namespace = "class")
     private Set<ClassDto> classDto;
 
-    @NotBlank
+
     private Set<AbsenceDto> absence;
+
+    private Double percentage;
+
 
 }
 

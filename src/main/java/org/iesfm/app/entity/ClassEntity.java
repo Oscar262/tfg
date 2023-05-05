@@ -28,13 +28,13 @@ public class ClassEntity implements Serializable {
     @Column(unique = true)
     private String name;
 
-    @NotNull
-    @OneToOne(fetch = FetchType.LAZY)
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_cre")
     @ToString.Exclude
     private UserEntity userCre;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_mod")
     @ToString.Exclude
     private UserEntity userMod;

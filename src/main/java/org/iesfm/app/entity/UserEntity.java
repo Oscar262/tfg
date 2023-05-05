@@ -82,23 +82,23 @@ public class UserEntity implements Serializable {
     private List<ClassEntity> classEntities;
 
 
-    @OneToOne(mappedBy = "teacherCre")
-    private AbsenceEntity absenceCre;
+    @OneToMany(mappedBy = "teacherCre")
+    private List<AbsenceEntity> absenceCre;
 
-    @OneToOne(mappedBy = "userMod")
-    private AbsenceEntity absenceMod;
+    @OneToMany(mappedBy = "userMod")
+    private List<AbsenceEntity> absenceMod;
 
-    @OneToOne(mappedBy = "userCre")
-    private ClassEntity classCre;
+    @OneToMany(mappedBy = "userCre")
+    private List<ClassEntity> classCre;
 
-    @OneToOne(mappedBy = "userMod")
-    private ClassEntity classMod;
+    @OneToMany(mappedBy = "userMod")
+    private List<ClassEntity> classMod;
 
-    @OneToOne(mappedBy = "userCre")
-    private SubjectEntity subjectCre;
+    @OneToMany(mappedBy = "userCre")
+    private List<SubjectEntity> subjectCre;
 
-    @OneToOne(mappedBy = "userMod")
-    private SubjectEntity subjectMod;
+    @OneToMany(mappedBy = "userMod")
+    private List<SubjectEntity> subjectMod;
 
 
 

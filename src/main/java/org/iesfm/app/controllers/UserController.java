@@ -48,7 +48,7 @@ public class UserController {
                 userService
                         .findAllStudents(className, subjectName, role)
                         .stream()
-                        .map(UserMapper::toDtoInfo)
+                        .map(UserMapper::toDtoInfoWithSUbjectPercentage)
                         .collect(Collectors.toList()));
 
     }
@@ -60,8 +60,12 @@ public class UserController {
     ) {
 
         UserDto userDto = null;
+
+
+
         try {
-            userDto = UserMapper.toDtoInfo(userService.getUser(idUser));;
+            userDto = UserMapper.toDtoInfoWithSUbjectPercentage(userService.getUser(idUser));
+            ;
         } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }

@@ -57,13 +57,13 @@ public class UserDto {
     @NotNull
     private RoleDto role;
 
-    @NotNull
+
     private List<AbsenceDto> absenceList;
 
-    @NotNull
+
     private List<SubjectDto> subjectList;
 
-    @NotNull
+
     private List<ClassDto> classList;
 
 }
