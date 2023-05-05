@@ -40,7 +40,7 @@ public class UserMapper {
 
         return user;
     }
-/*
+
     public static UserDto toDto(UserEntity entity) {
 
         UserDto dto = new UserDto();
@@ -55,22 +55,14 @@ public class UserMapper {
             classDto.add(classDto1);
 
         }
-
-
         for (SubjectEntity subject : entity.getSubjectList()) {
             SubjectDto subjectDto = SubjectMapper.toDtoInfo(subject);
             subjectDtos.add(subjectDto);
         }
 
-
-
-
         for (AbsenceEntity absenceEntity : entity.getAbsenceList()) {
             absenceDtos.add(AbsenceMapper.toUserDto(absenceEntity));
         }
-
-
-
 
         dto.setId(entity.getId());
         dto.setName(entity.getName());
@@ -94,7 +86,33 @@ public class UserMapper {
         return dto;
     }
 
- */
+
+    public static UserDto toDtoAbsences(UserEntity entity) {
+
+        UserDto dto = new UserDto();
+
+        List<AbsenceDto> absenceDtos = new ArrayList<>();
+
+        for (AbsenceEntity absenceEntity : entity.getAbsenceList()) {
+            absenceDtos.add(AbsenceMapper.toUserDto(absenceEntity));
+        }
+
+        dto.setId(entity.getId());
+        dto.setName(entity.getName());
+        dto.setFirstSurname(entity.getFirstSurname());
+        dto.setSecondSurname(entity.getSecondSurname());
+        dto.setDateCre(entity.getDateCre());
+        dto.setDateMod(entity.getDateMod());
+        dto.setUserCre(entity.getUsuCre());
+        dto.setUserMod(entity.getUsuMod());
+        dto.setEmail(entity.getEmail());
+        dto.setPass(entity.getPass());
+        dto.setRole(RoleMapper.toDto(entity.getRole()));
+        dto.setAbsenceList(absenceDtos);
+        return dto;
+    }
+
+
 
     public static UserEntity toEntityInfo(UserDto userDto) {
         UserEntity user = new UserEntity();
