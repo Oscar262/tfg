@@ -1,19 +1,24 @@
 package org.iesfm.app.service;
 
+import org.iesfm.app.configuration.Config;
 import org.iesfm.app.dao.AbsenceDao;
 import org.iesfm.app.entity.AbsenceEntity;
 import org.iesfm.app.entity.SubjectEntity;
 import org.iesfm.app.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
-import javax.mail.*;
-import javax.mail.internet.*;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Properties;
 
@@ -26,9 +31,9 @@ public class AbsenceService {
     private UserService userService;
     @Autowired
     private SubjectService subjectService;
-
     @Autowired
-    private MailSender mailSender;
+    private EmailService emailService;
+
 
 /*
     public AbsenceDao getAbsenceDao() {
@@ -53,8 +58,7 @@ public class AbsenceService {
      */
 
     public AbsenceEntity addAbsence(AbsenceEntity absenceEntity, Integer idSubject, Integer idStudent, Integer idTeacher) {
-        int maxPercentage = 3;
-        double countAbsences = 0.00;
+        int countAbsences = 0;
 /*
         if (absenceDao.findById(absenceEntity.getId()).isPresent()){
             throw new EntityExistsException();
@@ -68,17 +72,15 @@ public class AbsenceService {
 
         double percentage = checkPercentage(subject, student, countAbsences);
 
-        if (percentage < maxPercentage) {
+        if (percentage < Config.maxPercentage) {
             double newCountHours = checkPercentage(subject, student, countAbsences) + absenceEntity.getNumHours();
-            double newPercentage = (newCountHours * 100) / subject.getTotalHours();
-            if (newCountHours >= maxPercentage) {
+            BigDecimal newPercentage = new BigDecimal(newCountHours).multiply(new BigDecimal(100)).divide(new BigDecimal(subject.getTotalHours()), 2, RoundingMode.HALF_UP);
+            if (newCountHours >= Config.maxPercentage) {
                 //TODO: crear metodo sendEmail(esta en el correo, se manda a dos correos, teacher y student, y en el texto del mensaja se pone el numero de faltas de asistencia,
                 // el porcentage y el maximo de porcentage posible con las horas totales de la asignatura)
                 try {
-                    sendEmail(subject, student.getEmail(),teacher.getEmail(),newCountHours, newPercentage, maxPercentage, subject.getTotalHours());
-                } catch (MessagingException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
+                    emailService.sendEmail(subject, student, teacher, newCountHours, newPercentage, Config.maxPercentage, subject.getTotalHours());
+                } catch (MessagingException | IOException e) {
                     e.printStackTrace();
                 }
             }
@@ -92,50 +94,6 @@ public class AbsenceService {
         return absenceDao.save(absenceEntity);
     }
 
-    private void sendEmail(SubjectEntity subject, String studentEmail, String teacherEmail, double newCountHours, double newPercentage, int maxPercentage, Integer totalHours) throws AddressException, MessagingException, IOException {
-
-
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
-
-
-        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("os.sanav.26@gmail.com", "Kirito262");
-            }
-        });
-
-        Message msg = new MimeMessage(session);
-        msg.setFrom(new InternetAddress("os.sanav.26@gmail.com", false));
-
-        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(studentEmail));
-        msg.setSubject("Superado el limite de faltas");
-        msg.setContent(
-                "Buenos días, ha superado el límite de faltas para la asignatura " + subject.getName() + ".\n" +
-                "Actualmente tiene un total de " + newCountHours + " faltas de asistencia, que suponen un " + newPercentage+ "% de las horas totales: " + totalHours + " y el " +
-                "máximo permitido es: " + maxPercentage+ ".\n" +
-                "Si existe algún error, póngase en contacto con la administración de su centro",
-                "text/html");
-
-        Transport.send(msg);
-
-
-/*
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(studentEmail, teacherEmail);
-        message.setSubject("Superado el limite de faltas");
-        message.setText("Buenos días, ha superado el límite de faltas para la asignatura " + subject.getName() + ".\n" +
-                "Actualmente tiene un total de " + newCountHours + " faltas de asistencia, que suponen un " + newPercentage+ "% de las horas totales: " + totalHours + " y el " +
-                "máximo permitido es: " + maxPercentage+ ".\n" +
-                "Si existe algún error, póngase en contacto con la administración de su centro");
-        mailSender.send(message);
-
- */
-
-    }
 
 
 
@@ -161,7 +119,7 @@ public class AbsenceService {
     }
 
 
-    private double checkPercentage(SubjectEntity subject, UserEntity user, Double countAbsences) {
+    private double checkPercentage(SubjectEntity subject, UserEntity user, int countAbsences) {
 
         for (AbsenceEntity absence : user.getAbsenceList()) {
             if (absence.getSubject().getId().equals(subject.getId()) && absence.getStudent().equals(user)) {
@@ -170,7 +128,7 @@ public class AbsenceService {
 
 
         }
-        return (countAbsences * 100) / subject.getTotalHours();
+        return (double) (countAbsences * 100) / subject.getTotalHours();
 
 
     }

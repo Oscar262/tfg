@@ -61,11 +61,26 @@ public class UserController {
 
         UserDto userDto = null;
 
-
-
         try {
             userDto = UserMapper.toDtoInfoWithSUbjectPercentage(userService.getUser(idUser));
             ;
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(userDto);
+
+    }
+
+    @GetMapping(path = "/user/{idUser}/absences")
+    public ResponseEntity<UserDto> getUserWithAbsences(
+            @PathVariable("idUser") Integer idUser
+    ) {
+
+        UserDto userDto = null;
+
+        try {
+            userDto = UserMapper.toDtoAbsences(userService.getUser(idUser));
+
         } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }
