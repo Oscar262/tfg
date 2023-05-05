@@ -1,7 +1,11 @@
 package org.iesfm.app.service;
 
 import org.iesfm.app.dao.UserDao;
+import org.iesfm.app.dto.SubjectDto;
 import org.iesfm.app.dto.UserDto;
+import org.iesfm.app.dto.mapper.SubjectMapper;
+import org.iesfm.app.entity.AbsenceEntity;
+import org.iesfm.app.entity.SubjectEntity;
 import org.iesfm.app.entity.UserEntity;
 import org.iesfm.app.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +47,30 @@ public class UserService {
         return userEntities;
     }
 
+
+
+
     public UserEntity getUser(int idUser) {
         return userDao.findById(idUser).orElseThrow();
+    }
+
+    public void getAbsencePercentage(UserEntity entity, List<SubjectDto> subjectDtos) {
+            for (SubjectEntity subject : entity.getSubjectList()) {
+                Double countAbsences = 0.00;
+                Double percentage = 0.00;
+
+
+                for (AbsenceEntity absence : entity.getAbsenceList()) {
+                    if (absence.getSubject().getId().equals(subject.getId()) && absence.getStudent().equals(entity)) {
+                        countAbsences += absence.getNumHours();
+                    }
+
+
+                }
+                percentage = (countAbsences * 100) / subject.getTotalHours();
+                SubjectDto subjectDto = SubjectMapper.toDtoInfoWithPercentage(subject, percentage);
+                subjectDtos.add(subjectDto);
+            }
+
     }
 }

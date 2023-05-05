@@ -28,13 +28,13 @@ public class AbsenceEntity implements Serializable {
     @Column(name = "num_hours")
     private Integer numHours;
 
-    @NotNull
-    @OneToOne(fetch = FetchType.LAZY)
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "teacher_cre")
     @ToString.Exclude
     private UserEntity teacherCre;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_mod")
     @ToString.Exclude
     private UserEntity userMod;
@@ -46,13 +46,13 @@ public class AbsenceEntity implements Serializable {
     private LocalDate dateMod;
 
 
-    @NotNull
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @ToString.Exclude
     private UserEntity student;
 
-    @NotNull
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "subject")
     @ToString.Exclude

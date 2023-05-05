@@ -37,10 +37,10 @@ public class ClassDto {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateMod;
 
-    @NotNull
+
     private Set<UserDto> students;
 
-    @NotBlank
+
     private Set<UserDto> teachers;
 
 }

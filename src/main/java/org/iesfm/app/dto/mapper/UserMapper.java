@@ -8,6 +8,7 @@ import org.iesfm.app.entity.AbsenceEntity;
 import org.iesfm.app.entity.ClassEntity;
 import org.iesfm.app.entity.SubjectEntity;
 import org.iesfm.app.entity.UserEntity;
+import org.iesfm.app.service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,7 @@ public class UserMapper {
 
         return user;
     }
-
+/*
     public static UserDto toDto(UserEntity entity) {
 
         UserDto dto = new UserDto();
@@ -93,6 +94,8 @@ public class UserMapper {
         return dto;
     }
 
+ */
+
     public static UserEntity toEntityInfo(UserDto userDto) {
         UserEntity user = new UserEntity();
 
@@ -132,6 +135,35 @@ public class UserMapper {
         user.setClassList(classDto);
         return user;
     }
+
+
+    public static UserDto toDtoInfoWithSUbjectPercentage(UserEntity entity) {
+        UserDto user = new UserDto();
+        UserService service = new UserService();
+
+        List<SubjectDto> subjectDtos = new ArrayList<>();
+        List<ClassDto> classDto = new ArrayList<>();
+        for (ClassEntity classEntity : entity.getClassEntities()) {
+            ClassDto classDto1 = ClassMapper.toUserDto(classEntity);
+            classDto.add(classDto1);
+
+        }
+
+        service.getAbsencePercentage(entity, subjectDtos);
+
+        user.setId(entity.getId());
+        user.setName(entity.getName());
+        user.setFirstSurname(entity.getFirstSurname());
+        user.setSecondSurname(entity.getSecondSurname());
+        user.setEmail(entity.getEmail());
+        user.setSubjectList(subjectDtos);
+
+
+        user.setClassList(classDto);
+        return user;
+    }
+
+
 
 
     public static UserDto toDtoLogin(UserEntity entity) {
