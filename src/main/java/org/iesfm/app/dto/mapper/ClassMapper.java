@@ -30,6 +30,25 @@ public class ClassMapper {
         return classDto;
     }
 
+    public static ClassDto toDtoToFindClass(ClassEntity entity) {
+
+        ClassDto classDto = new ClassDto();
+
+        Set<UserDto> student= new HashSet<>();
+
+        for (UserEntity user : entity.getUserEntities()) {
+            if (user.getRole().getName().equalsIgnoreCase("Student")) {
+                    student.add(UserMapper.toDtoCreateAbsences(user));
+            }
+        }
+
+        classDto.setId(entity.getId());
+        classDto.setName(entity.getName());
+        classDto.setStudents(student);
+
+        return classDto;
+    }
+
 /*
     public static ClassDto toDto(ClassEntity classEntity) {
         ClassDto classDto = new ClassDto();

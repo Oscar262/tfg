@@ -155,6 +155,27 @@ public class UserMapper {
     }
 
 
+    public static UserDto toDtoCreateAbsences(UserEntity entity) {
+        UserDto user = new UserDto();
+
+        List<SubjectDto> subjectDtos = new ArrayList<>();
+
+        for (SubjectEntity subject : entity.getSubjectList()) {
+            SubjectDto subjectDto = SubjectMapper.toDtoInfo(subject);
+            subjectDtos.add(subjectDto);
+        }
+
+        user.setId(entity.getId());
+        user.setName(entity.getName());
+        user.setFirstSurname(entity.getFirstSurname());
+        user.setSecondSurname(entity.getSecondSurname());
+        user.setEmail(entity.getEmail());
+        user.setSubjectList(subjectDtos);
+
+        return user;
+    }
+
+
     public static UserDto toDtoInfoWithSUbjectPercentage(UserEntity entity) {
         UserDto user = new UserDto();
         UserService service = new UserService();
