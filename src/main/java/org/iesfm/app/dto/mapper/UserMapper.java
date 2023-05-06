@@ -158,6 +158,7 @@ public class UserMapper {
     public static UserDto toDtoCreateAbsences(UserEntity entity) {
         UserDto user = new UserDto();
 
+
         List<SubjectDto> subjectDtos = new ArrayList<>();
 
         for (SubjectEntity subject : entity.getSubjectList()) {

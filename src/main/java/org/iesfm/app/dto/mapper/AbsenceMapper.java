@@ -60,4 +60,16 @@ public class AbsenceMapper {
     }
 
 
+    public static AbsenceDto toUserDtoToCreateAbsence(AbsenceEntity absence) {
+        AbsenceDto absenceDto = new AbsenceDto();
+
+
+        absenceDto.setId(absence.getId());
+        absenceDto.setNumHours(absence.getNumHours());
+        absenceDto.setTeacher(UserMapper.toDtoLogin(absence.getTeacherCre()));
+
+        absenceDto.setDate(absence.getDate());
+        return absenceDto;
+
+    }
 }
