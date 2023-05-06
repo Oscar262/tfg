@@ -15,6 +15,7 @@ import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Properties;
 
 @Service
@@ -41,7 +42,7 @@ public class EmailService {
         msg.addRecipients(Message.RecipientType.CC, InternetAddress.parse(teacher.getEmail()));
 
 
-        msg.setSubject("Superado el limite de faltas " + new Timestamp(System.currentTimeMillis()));
+        msg.setSubject("Superado el limite de faltas " + LocalDate.now());
         msg.setContent(
                 "Buenos días " + student.getName() + " "+student.getFirstSurname() + ".<br>" +
                         "Ha superado el límite de faltas para la asignatura " + subject.getName() + "<br>" +

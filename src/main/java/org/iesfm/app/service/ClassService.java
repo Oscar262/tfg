@@ -6,6 +6,7 @@ import org.iesfm.app.entity.ClassEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -28,5 +29,10 @@ public class ClassService {
 
     public void deleteById(int id) {
         classDao.deleteById(id);
+    }
+
+    public List<ClassEntity> findAllClassesByTeacher(Integer idTeacher) {
+        return classDao.findByUserEntities_Id(idTeacher);
+
     }
 }
