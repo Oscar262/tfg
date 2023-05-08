@@ -1,12 +1,15 @@
 package org.iesfm.app.service;
 
 import org.iesfm.app.dao.ClassDao;
-import org.iesfm.app.entity.AbsenceEntity;
+import org.iesfm.app.dao.UserDao;
+import org.iesfm.app.dto.ClassDto;
 import org.iesfm.app.entity.ClassEntity;
+import org.iesfm.app.entity.UserEntity;
+import org.iesfm.app.exceptions.IncorrectUserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
+import javax.persistence.EntityExistsException;
 import java.util.List;
 
 @Service
@@ -14,6 +17,9 @@ public class ClassService {
 
     @Autowired
     private ClassDao classDao;
+
+    @Autowired
+    private UserService userService;
 
     public List<ClassEntity> findAll() {
         return classDao.findAll();
@@ -34,5 +40,24 @@ public class ClassService {
     public List<ClassEntity> findAllClassesByTeacher(Integer idTeacher) {
         return classDao.findByUserEntities_Id(idTeacher);
 
+    }
+
+    private boolean entityExist(ClassEntity entity) {
+        if (classDao.findByName(entity.getName()) != null) {
+            throw new EntityExistsException();
+        }
+        return false;
+    }
+
+
+    public ClassEntity addClass(ClassEntity entity, Integer idUser) throws IncorrectUserException {
+        UserEntity user = userService.getUser(idUser);
+        if (userService.userIsAdmin(user)){
+        entity.setUserCre(user);
+        if (!entityExist(entity)) {
+            return classDao.save(entity);
+        }else throw new EntityExistsException();
+    }
+        throw new IncorrectUserException();
     }
 }

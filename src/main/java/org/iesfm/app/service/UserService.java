@@ -5,12 +5,15 @@ import org.iesfm.app.dto.SubjectDto;
 import org.iesfm.app.dto.UserDto;
 import org.iesfm.app.dto.mapper.SubjectMapper;
 import org.iesfm.app.entity.AbsenceEntity;
+import org.iesfm.app.entity.ClassEntity;
 import org.iesfm.app.entity.SubjectEntity;
 import org.iesfm.app.entity.UserEntity;
+import org.iesfm.app.exceptions.IncorrectUserException;
 import org.iesfm.app.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityExistsException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -34,13 +37,13 @@ public class UserService {
     public List<UserEntity> findAllStudents(String className, String subjectName, String role) {
         List<UserEntity> userEntities;
 
-        if (subjectName != null && className != null){
-            userEntities = userDao.findByRole_NameAndSubjectList_NameAndClassEntities_Name(role,subjectName,className);
-        }else if (subjectName != null){
+        if (subjectName != null && className != null) {
+            userEntities = userDao.findByRole_NameAndSubjectList_NameAndClassEntities_Name(role, subjectName, className);
+        } else if (subjectName != null) {
             userEntities = userDao.findByRole_NameAndSubjectList_Name(role, subjectName);
-        }else if (className != null){
-            userEntities = userDao.findByRole_NameAndClassEntities_Name(role,className);
-        }else {
+        } else if (className != null) {
+            userEntities = userDao.findByRole_NameAndClassEntities_Name(role, className);
+        } else {
             userEntities = userDao.findByRole_Name(role);
         }
 
@@ -48,29 +51,53 @@ public class UserService {
     }
 
 
-
-
     public UserEntity getUser(int idUser) {
         return userDao.findById(idUser).orElseThrow();
     }
 
     public void getAbsencePercentage(UserEntity entity, List<SubjectDto> subjectDtos) {
-            for (SubjectEntity subject : entity.getSubjectList()) {
-                Double countAbsences = 0.00;
-                Double percentage = 0.00;
+        for (SubjectEntity subject : entity.getSubjectList()) {
+            Double countAbsences = 0.00;
+            Double percentage = 0.00;
 
 
-                for (AbsenceEntity absence : entity.getAbsenceList()) {
-                    if (absence.getSubject().getId().equals(subject.getId()) && absence.getStudent().equals(entity)) {
-                        countAbsences += absence.getNumHours();
-                    }
-
-
+            for (AbsenceEntity absence : entity.getAbsenceList()) {
+                if (absence.getSubject().getId().equals(subject.getId()) && absence.getStudent().equals(entity)) {
+                    countAbsences += absence.getNumHours();
                 }
-                percentage = (countAbsences * 100) / subject.getTotalHours();
-                SubjectDto subjectDto = SubjectMapper.toDtoInfoWithPercentage(subject, percentage);
-                subjectDtos.add(subjectDto);
+
+
             }
+            percentage = (countAbsences * 100) / subject.getTotalHours();
+            SubjectDto subjectDto = SubjectMapper.toDtoInfoWithPercentage(subject, percentage);
+            subjectDtos.add(subjectDto);
+        }
 
     }
+
+    private boolean entityExist(UserEntity entity) {
+        if (userDao.findByEmail(entity.getEmail()) != null) {
+            throw new EntityExistsException();
+        }
+        return false;
+    }
+
+    public boolean userIsAdmin(UserEntity user){
+        return user.getRole().getName().equalsIgnoreCase("Admin");
+
+    }
+
+    public UserEntity addUser(UserEntity entity, Integer idUser) throws IncorrectUserException {
+        UserEntity user = userDao.findById(idUser).orElseThrow();
+        if (userIsAdmin(user)) {
+            entity.setUsuCre(user.getId());
+
+            if (!entityExist(entity)) {
+                return userDao.save(entity);
+            } else throw new EntityExistsException();
+
+        }
+        throw new IncorrectUserException();
+    }
 }
+
