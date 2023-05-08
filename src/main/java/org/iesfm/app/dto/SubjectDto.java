@@ -49,8 +49,8 @@ public class SubjectDto {
     private Set<UserDto> student;
 
 
-    @JsonProperty(namespace = "class")
-    private Set<ClassDto> classDto;
+    @JsonProperty(namespace = "classes")
+    private Set<ClassDto> classes;
 
 
     private Set<AbsenceDto> absence;

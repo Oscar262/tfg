@@ -44,18 +44,18 @@ public class AbsenceController {
     @PostMapping(path = "/absence/{idSubject}/{idStudent}/{idTeacher}")
     public ResponseEntity<Void> newAbsence(
             @Valid @RequestBody AbsenceDto absence,
-            @RequestParam(value = "idSubject") Integer idSubject,
-            @RequestParam(value = "idStudent") Integer idStudent,
-            @RequestParam(value = "idTeacher") Integer idTeacher
+            @PathVariable("idSubject") Integer idSubject,
+            @PathVariable("idStudent") Integer idStudent,
+            @PathVariable("idTeacher") Integer idTeacher
     ) {
         AbsenceEntity entity = null;
 
         try {
             entity = absenceService.addAbsence(AbsenceMapper.toEntity(absence), idSubject, idStudent, idTeacher);
-        } catch (IncorrectDateException | IncorrectDataExpected e) {
+        } catch (EntityExistsException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        } catch (UserNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (UserNotFoundException | IncorrectDateException | IncorrectDataExpected e) {
+            throw new RuntimeException(e);
         }
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
