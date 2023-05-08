@@ -4,6 +4,9 @@ import org.iesfm.app.dto.AbsenceDto;
 import org.iesfm.app.dto.mapper.AbsenceMapper;
 import org.iesfm.app.entity.AbsenceEntity;
 import org.iesfm.app.entity.UserEntity;
+import org.iesfm.app.exceptions.IncorrectDataExpected;
+import org.iesfm.app.exceptions.IncorrectDateException;
+import org.iesfm.app.exceptions.UserNotFoundException;
 import org.iesfm.app.service.AbsenceService;
 import org.iesfm.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,16 +44,18 @@ public class AbsenceController {
     @PostMapping(path = "/absence/{idSubject}/{idStudent}/{idTeacher}")
     public ResponseEntity<Void> newAbsence(
             @Valid @RequestBody AbsenceDto absence,
-            @PathVariable("idSubject") Integer idSubject,
-            @PathVariable("idStudent") Integer idStudent,
-            @PathVariable("idTeacher") Integer idTeacher
+            @RequestParam(value = "idSubject") Integer idSubject,
+            @RequestParam(value = "idStudent") Integer idStudent,
+            @RequestParam(value = "idTeacher") Integer idTeacher
     ) {
         AbsenceEntity entity = null;
 
         try {
             entity = absenceService.addAbsence(AbsenceMapper.toEntity(absence), idSubject, idStudent, idTeacher);
-        } catch (EntityExistsException e) {
+        } catch (IncorrectDateException | IncorrectDataExpected e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        } catch (UserNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

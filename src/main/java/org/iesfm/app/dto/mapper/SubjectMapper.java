@@ -3,8 +3,10 @@ package org.iesfm.app.dto.mapper;
 import org.iesfm.app.dto.AbsenceDto;
 import org.iesfm.app.dto.SubjectDto;
 import org.iesfm.app.entity.AbsenceEntity;
+import org.iesfm.app.entity.ClassEntity;
 import org.iesfm.app.entity.SubjectEntity;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -43,5 +45,16 @@ public class SubjectMapper {
         subjectEntity.setName(dto.getName());
 
         return subjectEntity;
+    }
+
+    public static SubjectEntity toEntity(SubjectDto subjectDto, LocalDate now) {
+        SubjectEntity entity = new SubjectEntity();
+
+        entity.setId(subjectDto.getId());
+        entity.setName(subjectDto.getName());
+        entity.setTotalHours(subjectDto.getTotalHours());
+        entity.setDateCre(now);
+
+        return entity;
     }
 }

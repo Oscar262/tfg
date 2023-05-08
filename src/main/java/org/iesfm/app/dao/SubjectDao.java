@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SubjectDao extends JpaRepository<SubjectEntity, Integer> {
+    SubjectEntity findByName(String name);
 
 }

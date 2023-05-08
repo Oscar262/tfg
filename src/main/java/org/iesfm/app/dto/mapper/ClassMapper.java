@@ -5,6 +5,7 @@ import org.iesfm.app.dto.UserDto;
 import org.iesfm.app.entity.ClassEntity;
 import org.iesfm.app.entity.UserEntity;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -77,19 +78,16 @@ public class ClassMapper {
         classDto.setStudents(students);
         return classDto;
     }
-
-    public static ClassEntity classEntity(ClassDto dto) {
+*/
+    public static ClassEntity toEntity(ClassDto dto, LocalDate localDate) {
         ClassEntity entity = new ClassEntity();
 
         entity.setId(dto.getId());
         entity.setName(dto.getName());
-        entity.setUserCre(UserMapper.toEntityInfo(dto.getUserCre()));
-        entity.setUserMod(UserMapper.toEntityInfo(dto.getUserMod()));
-        entity.setDateCre(dto.getDateCre());
-        entity.setDateMod(dto.getDateMod());
+        entity.setDateCre(localDate);
 
         return entity;
     }
 
- */
+
 }
