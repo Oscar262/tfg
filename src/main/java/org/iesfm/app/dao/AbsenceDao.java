@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -20,6 +21,11 @@ public interface AbsenceDao extends JpaRepository<AbsenceEntity, Integer> {
     List<AbsenceEntity> findByStudent_FirstSurname(String firstSurname);
 
     List<AbsenceEntity> findBySubject_NameAndStudent_NameAndStudent_FirstSurname(String name, String name1, String firstSurname);
+
+    List<AbsenceEntity> findByDateAndStudent_Id(LocalDate date, Integer id);
+
+
+
 
 
 }

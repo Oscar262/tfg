@@ -54,8 +54,10 @@ public class SubjectController {
 
          try {
              entity = subjectService.addSubject(SubjectMapper.toEntity(subjectDto, LocalDate.now()), idUser);
-         } catch (EntityExistsException | IncorrectUserException e) {
+         } catch (EntityExistsException  e) {
              return ResponseEntity.status(HttpStatus.CONFLICT).build();
+         }catch (IncorrectUserException e){
+             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
          }
          return ResponseEntity.status(HttpStatus.CREATED).build();
     }
