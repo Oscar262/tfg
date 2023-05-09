@@ -106,6 +106,9 @@ public class UserController {
         try {
             entity = userService.addUser(UserMapper.toEntity(userDto, LocalDate.now()), idUser);
         } catch (EntityExistsException | IncorrectUserException e) {
+            
+            //Incorrect user deberia lanzar el estatus no autorizado no un conflict(para el resto de controllers deberia ser igual)
+            
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
         return ResponseEntity.status(HttpStatus.CREATED).build();
