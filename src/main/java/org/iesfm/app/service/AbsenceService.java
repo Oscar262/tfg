@@ -56,27 +56,37 @@ public class AbsenceService {
 
     public AbsenceEntity addAbsence(AbsenceEntity absenceEntity, Integer idSubject, Integer idStudent, Integer idTeacher) throws IncorrectDateException, IncorrectDataExpected, UserNotFoundException {
         int countAbsences = 0;
+        int numHours = 0;
 
         LocalDate date = absenceEntity.getDate();
+
+        UserEntity student = userService.getUser(idStudent);
+        SubjectEntity subject = subjectService.getSubject(idSubject);
+        UserEntity teacher = userService.getUser(idTeacher);
+
+        if (teacher == null || student == null) {
+            throw new UserNotFoundException();
+        }
+
+        List<AbsenceEntity> absences = absenceDao.findByDateAndStudent_Id(date, student.getId());
+
+        for (AbsenceEntity absenceEntity1 : absences) {
+            numHours += absenceEntity1.getNumHours();
+        }
+
 
         if (date.getDayOfWeek().equals(DayOfWeek.SATURDAY) || date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
             throw new IncorrectDateException();
         } else if (date.isAfter(Config.endDate) || date.isBefore(Config.startDate)) {
             throw new IncorrectDateException();
-            
+
             //se necesita acceder a la base de datos y comprobar si las horas existentes mas las nuevas que se quieren agregar exceden las siete horas
-            // ya que de ser así no se deberia de poder introducir la falta en la base de datos porque excederia las 7 horas diarias 
-            
-        } else if (absenceEntity.getNumHours() > 7) {
+            // ya que de ser así no se deberia de poder introducir la falta en la base de datos porque excederia las 7 horas diarias
+
+
+        } else if ((numHours + absenceEntity.getNumHours()) > Config.maxHours) {
             throw new IncorrectDataExpected();
         } else {
-            UserEntity student = userService.getUser(idStudent);
-            SubjectEntity subject = subjectService.getSubject(idSubject);
-            UserEntity teacher = userService.getUser(idTeacher);
-
-            if (teacher == null || student ==null){
-                throw new UserNotFoundException();
-            }
 
             double percentage = checkPercentage(subject, student, countAbsences);
 
