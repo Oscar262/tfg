@@ -52,10 +52,9 @@ public class AbsenceController {
 
         try {
             entity = absenceService.addAbsence(AbsenceMapper.toEntity(absence), idSubject, idStudent, idTeacher);
-        } catch (EntityExistsException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            
         } catch (UserNotFoundException | IncorrectDateException | IncorrectDataExpected e) {
-            throw new RuntimeException(e);
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
