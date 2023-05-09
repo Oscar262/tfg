@@ -84,32 +84,34 @@ public class AbsenceService {
             // ya que de ser así no se deberia de poder introducir la falta en la base de datos porque excederia las 7 horas diarias
 
 
-        } else if ((numHours + absenceEntity.getNumHours()) > Config.maxHours) {
+        }
+        if ((numHours + absenceEntity.getNumHours()) > Config.maxHours) {
             throw new IncorrectDataExpected();
-        } else {
+        }
 
-            double percentage = checkPercentage(subject, student, countAbsences);
+        double percentage = checkPercentage(subject, student, countAbsences);
 
-            if (percentage < Config.maxPercentage) {
-                double newCountHours = checkPercentage(subject, student, countAbsences) + absenceEntity.getNumHours();
-                BigDecimal newPercentage = new BigDecimal(newCountHours).multiply(new BigDecimal(100)).divide(new BigDecimal(subject.getTotalHours()), 2, RoundingMode.HALF_UP);
-                if (newCountHours >= Config.maxPercentage) {
-                    try {
-                        emailService.sendEmail(subject, student, teacher, newCountHours, newPercentage, Config.maxPercentage, subject.getTotalHours());
-                    } catch (MessagingException | IOException e) {
-                        e.printStackTrace();
-                    }
+        if (percentage < Config.maxPercentage) {
+            double newCountHours = checkPercentage(subject, student, countAbsences) + absenceEntity.getNumHours();
+            BigDecimal newPercentage = new BigDecimal(newCountHours).multiply(new BigDecimal(100)).divide(new BigDecimal(subject.getTotalHours()), 2, RoundingMode.HALF_UP);
+            if (newCountHours >= Config.maxPercentage) {
+                try {
+                    emailService.sendEmail(subject, student, teacher, newCountHours, newPercentage, Config.maxPercentage, subject.getTotalHours());
+                } catch (MessagingException | IOException e) {
+                    e.printStackTrace();
                 }
             }
-
-
-            absenceEntity.setStudent(userService.getUser(student.getId()));
-            absenceEntity.setTeacherCre(userService.getUser(teacher.getId()));
-            absenceEntity.setSubject(subjectService.getSubject(subject.getId()));
-
-            return absenceDao.save(absenceEntity);
         }
+
+
+        absenceEntity.setStudent(userService.getUser(student.getId()));
+        absenceEntity.setTeacherCre(userService.getUser(teacher.getId()));
+        absenceEntity.setSubject(subjectService.getSubject(subject.getId()));
+
+        return absenceDao.save(absenceEntity);
     }
+
+
 
 
     public List<AbsenceEntity> findAllAbsences(String studentName, String studentSurname, String subjectName) {
