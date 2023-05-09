@@ -63,6 +63,10 @@ public class AbsenceService {
             throw new IncorrectDateException();
         } else if (date.isAfter(Config.endDate) || date.isBefore(Config.startDate)) {
             throw new IncorrectDateException();
+            
+            //se necesita acceder a la base de datos y comprobar si las horas existentes mas las nuevas que se quieren agregar exceden las siete horas
+            // ya que de ser así no se deberia de poder introducir la falta en la base de datos porque excederia las 7 horas diarias 
+            
         } else if (absenceEntity.getNumHours() > 7) {
             throw new IncorrectDataExpected();
         } else {
