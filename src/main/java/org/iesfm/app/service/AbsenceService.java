@@ -89,12 +89,20 @@ public class AbsenceService {
             throw new IncorrectDataExpected();
         }
 
-        double percentage = checkPercentage(subject, student, countAbsences);
+        for (AbsenceEntity absence : student.getAbsenceList()) {
+            if (absence.getSubject().getId().equals(subject.getId()) && absence.getStudent().equals(student)) {
+                countAbsences += absence.getNumHours();
+            }
+
+        }
+
+        double percentage = (double) (countAbsences * 100) / subject.getTotalHours();
 
         if (percentage < Config.maxPercentage) {
-            double newCountHours = checkPercentage(subject, student, countAbsences) + absenceEntity.getNumHours();
+            double newCountHours = countAbsences + absenceEntity.getNumHours();
             BigDecimal newPercentage = new BigDecimal(newCountHours).multiply(new BigDecimal(100)).divide(new BigDecimal(subject.getTotalHours()), 2, RoundingMode.HALF_UP);
-            if (newCountHours >= Config.maxPercentage) {
+            System.out.println(newPercentage);
+            if (newPercentage.compareTo(new BigDecimal(Config.maxPercentage)) > 0) {
                 try {
                     emailService.sendEmail(subject, student, teacher, newCountHours, newPercentage, Config.maxPercentage, subject.getTotalHours());
                 } catch (MessagingException | IOException e) {
@@ -136,17 +144,4 @@ public class AbsenceService {
     }
 
 
-    private double checkPercentage(SubjectEntity subject, UserEntity user, int countAbsences) {
-
-        for (AbsenceEntity absence : user.getAbsenceList()) {
-            if (absence.getSubject().getId().equals(subject.getId()) && absence.getStudent().equals(user)) {
-                countAbsences += absence.getNumHours();
-            }
-
-
-        }
-        return (double) (countAbsences * 100) / subject.getTotalHours();
-
-
-    }
 }
