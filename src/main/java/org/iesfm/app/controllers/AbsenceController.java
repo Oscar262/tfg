@@ -52,8 +52,15 @@ public class AbsenceController {
 
         try {
             entity = absenceService.addAbsence(AbsenceMapper.toEntity(absence), idSubject, idStudent, idTeacher);
+           
+        } catch (UserNotFoundException e1){
             
-        } catch (UserNotFoundException | IncorrectDateException | IncorrectDataExpected e) {
+            return ResponseEntity.status(HttpStatus.NOTFOUND).build();
+            
+        } catch (IncorrectDateException | IncorrectDataExpected e) {
+            
+            //deberian ser codigos diferentes, para poder diferenciar incorrect data de las excepciones provenientes de las fechas incorrect data 
+            
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
         return ResponseEntity.status(HttpStatus.CREATED).build();
