@@ -31,6 +31,10 @@ public class AbsenceController {
             @RequestParam(value = "studentSurname", required = false) String studentSurname,
             @RequestParam(value = "subject", required = false) String subjectName
     ) {
+        
+        //las ausencias deberian salir ordenadas por fecha, para ordenarlas se deberia ir al dao y desde alli 
+        //cambiar la query del metodo o crear una nueva que tambien ordene las ausencias, para que al verlas en la app
+        //aparezcan en orden segun su fecha
 
         return ResponseEntity.ok(
                 absenceService
