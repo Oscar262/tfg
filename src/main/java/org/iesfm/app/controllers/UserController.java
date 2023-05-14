@@ -96,11 +96,11 @@ public class UserController {
     }
 
     @PostMapping("/user/{idUserCre}")
-    public ResponseEntity<Void> addClass(
+    public ResponseEntity<Void> addUser(
             @Valid @RequestBody UserDto userDto,
             @PathVariable("idUserCre") Integer idUser
 
-    ){
+    ) {
 
         //se ha cambiado en todos los controlers los errores, ahora se lanzara un 403 si el usuario
         //que crea en este caso el usuario nuevo no es un admin, si el problema es que ya existe se lanzara un 409
@@ -112,10 +112,10 @@ public class UserController {
         UserEntity entity = null;
 
         try {
-            entity = userService.addUser(UserMapper.toEntity(userDto, LocalDate.now()), idUser);
+            entity = userService.addUser(UserMapper.toEntity(userDto), idUser);
         } catch (EntityExistsException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        } catch (IncorrectUserException e){
+        } catch (IncorrectUserException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
         return ResponseEntity.status(HttpStatus.CREATED).build();

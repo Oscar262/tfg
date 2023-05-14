@@ -16,15 +16,10 @@ import java.util.List;
 
 public class UserMapper {
 
-    public static UserEntity toEntity(UserDto userDto, LocalDate localDate) {
+    public static UserEntity toEntity(UserDto userDto) {
 
         UserEntity user = new UserEntity();
 
-        List<AbsenceEntity> absences = new ArrayList<>();
-        for (AbsenceDto absenceDto : userDto.getAbsenceList()) {
-
-            absences.add(AbsenceMapper.toEntityInfo(absenceDto));
-        }
 
         user.setId(userDto.getId());
         user.setName(userDto.getName());
@@ -37,7 +32,6 @@ public class UserMapper {
         user.setEmail(userDto.getEmail());
         user.setPass(userDto.getPass());
         user.setRole(RoleMapper.toEnity(userDto.getRole()));
-        user.setAbsenceList(absences);
 
         return user;
     }
