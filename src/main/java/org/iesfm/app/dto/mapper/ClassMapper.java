@@ -1,8 +1,10 @@
 package org.iesfm.app.dto.mapper;
 
 import org.iesfm.app.dto.ClassDto;
+import org.iesfm.app.dto.SubjectDto;
 import org.iesfm.app.dto.UserDto;
 import org.iesfm.app.entity.ClassEntity;
+import org.iesfm.app.entity.SubjectEntity;
 import org.iesfm.app.entity.UserEntity;
 
 import java.time.LocalDate;
@@ -87,6 +89,16 @@ public class ClassMapper {
         entity.setDateCre(localDate);
 
         return entity;
+    }
+
+
+    public static ClassDto toDtoName(ClassEntity entity) {
+        ClassDto classDto = new ClassDto();
+
+        classDto.setId(entity.getId());
+        classDto.setName(entity.getName());
+
+        return classDto;
     }
 
 

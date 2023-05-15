@@ -2,8 +2,10 @@ package org.iesfm.app.controllers;
 
 import org.iesfm.app.dto.AbsenceDto;
 import org.iesfm.app.dto.ClassDto;
+import org.iesfm.app.dto.SubjectDto;
 import org.iesfm.app.dto.mapper.AbsenceMapper;
 import org.iesfm.app.dto.mapper.ClassMapper;
+import org.iesfm.app.dto.mapper.SubjectMapper;
 import org.iesfm.app.dto.mapper.UserMapper;
 import org.iesfm.app.entity.AbsenceEntity;
 import org.iesfm.app.entity.ClassEntity;
@@ -58,4 +60,20 @@ public class ClassController {
         }
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
+    @GetMapping("classesList/{idUser}")
+    public ResponseEntity<List<ClassDto>> getAllClasses(
+            @PathVariable("idUser") Integer idUser
+    ) {
+
+        return ResponseEntity.ok(
+                classService
+                        .findAllclasses(idUser)
+                        .stream()
+                        .map(ClassMapper::toDtoName)
+                        .collect(Collectors.toList()));
+
+
+    }
+
 }
