@@ -4,13 +4,16 @@ import org.iesfm.app.dao.ClassDao;
 import org.iesfm.app.dao.UserDao;
 import org.iesfm.app.dto.ClassDto;
 import org.iesfm.app.entity.ClassEntity;
+import org.iesfm.app.entity.SubjectEntity;
 import org.iesfm.app.entity.UserEntity;
 import org.iesfm.app.exceptions.IncorrectUserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ClassService {
@@ -59,5 +62,23 @@ public class ClassService {
         }else throw new EntityExistsException();
     }
         throw new IncorrectUserException();
+    }
+
+    public List<ClassEntity> findAllclasses(Integer idUser) {
+        List<ClassEntity> classEntities = classDao.findAll();
+
+        UserEntity user = null;
+        if (userService.getUser(idUser) != null) {
+            user = userService.getUser(idUser);
+            List<ClassEntity> classUser = user.getClassEntities();
+
+            for (ClassEntity entity : classEntities) {
+                if (classUser.contains(entity)) {
+                    classEntities.remove(entity);
+                }
+            }
+
+        }
+        return classEntities;
     }
 }

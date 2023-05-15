@@ -1,8 +1,6 @@
 package org.iesfm.app.service;
 
 import org.iesfm.app.dao.SubjectDao;
-import org.iesfm.app.dao.UserDao;
-import org.iesfm.app.entity.ClassEntity;
 import org.iesfm.app.entity.SubjectEntity;
 import org.iesfm.app.entity.UserEntity;
 import org.iesfm.app.exceptions.IncorrectUserException;
@@ -11,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class SubjectService {
@@ -54,5 +53,24 @@ public class SubjectService {
             } else throw new EntityExistsException();
         }
         throw new IncorrectUserException();
+    }
+
+    public List<SubjectEntity> findAllSubjects(Integer idUser) {
+        List<SubjectEntity> subjectEntities = subjectDao.findAll();
+
+        UserEntity user = null;
+        if (userService.getUser(idUser) != null) {
+            user = userService.getUser(idUser);
+            Set<SubjectEntity> subjectsUser = user.getSubjectList();
+
+            for (SubjectEntity subject : subjectEntities) {
+                if (subjectsUser.contains(subject)) {
+                    subjectEntities.remove(subject);
+                }
+
+            }
+        }
+
+        return subjectEntities;
     }
 }

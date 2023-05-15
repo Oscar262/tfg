@@ -57,4 +57,13 @@ public class SubjectMapper {
 
         return entity;
     }
+
+    public static SubjectDto toDtoName(SubjectEntity subject) {
+        SubjectDto subjectDto = new SubjectDto();
+
+        subjectDto.setId(subject.getId());
+        subjectDto.setName(subject.getName());
+
+        return subjectDto;
+    }
 }
