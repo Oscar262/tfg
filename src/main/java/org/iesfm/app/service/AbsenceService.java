@@ -77,7 +77,7 @@ public class AbsenceService {
 
         if (date.getDayOfWeek().equals(DayOfWeek.SATURDAY) || date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
             throw new IncorrectDateException();
-        } else if (date.isAfter(Config.endDate) || date.isBefore(Config.startDate)) {
+        } else if (date.isAfter(Config.END_DATE) || date.isBefore(Config.START_DATE)) {
             throw new IncorrectDateException();
 
             //se necesita acceder a la base de datos y comprobar si las horas existentes mas las nuevas que se quieren agregar exceden las siete horas
@@ -85,7 +85,7 @@ public class AbsenceService {
 
 
         }
-        if ((numHours + absenceEntity.getNumHours()) > Config.maxHours) {
+        if ((numHours + absenceEntity.getNumHours()) > Config.MAX_HOURS) {
             throw new IncorrectDataExpected();
         }
 
@@ -98,13 +98,13 @@ public class AbsenceService {
 
         double percentage = (double) (countAbsences * 100) / subject.getTotalHours();
 
-        if (percentage < Config.maxPercentage) {
+        if (percentage < Config.MAX_PERCENTAGE) {
             double newCountHours = countAbsences + absenceEntity.getNumHours();
             BigDecimal newPercentage = new BigDecimal(newCountHours).multiply(new BigDecimal(100)).divide(new BigDecimal(subject.getTotalHours()), 2, RoundingMode.HALF_UP);
             System.out.println(newPercentage);
-            if (newPercentage.compareTo(new BigDecimal(Config.maxPercentage)) > 0) {
+            if (newPercentage.compareTo(new BigDecimal(Config.MAX_PERCENTAGE)) > 0) {
                 try {
-                    emailService.sendEmail(subject, student, teacher, newCountHours, newPercentage, Config.maxPercentage, subject.getTotalHours());
+                    emailService.sendEmail(subject, student, teacher, newCountHours, newPercentage, Config.MAX_PERCENTAGE, subject.getTotalHours());
                 } catch (MessagingException | IOException e) {
                     e.printStackTrace();
                 }

@@ -47,11 +47,10 @@ public class UserDto {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateMod;
 
-    @Email
-    @NotBlank
+
     private String email;
 
-    @NotBlank
+
     private String pass;
 
     @NotNull

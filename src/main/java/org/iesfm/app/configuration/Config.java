@@ -1,17 +1,31 @@
 package org.iesfm.app.configuration;
 
+import java.security.SecureRandom;
 import java.time.LocalDate;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Config {
 
-    public static int maxPercentage = 50;
-    public static String emailSend = "asistloapptfg@gmail.com";
+    public static int MAX_PERCENTAGE = 50;
+    public static String EMAIL_SEND = "asistloapptfg@gmail.com";
 
-    public static LocalDate endDate = configEndDate();
+    public static LocalDate END_DATE = configEndDate();
 
-    public static LocalDate startDate = configStartDate();
+    public static LocalDate START_DATE = configStartDate();
 
-    public static int maxHours = 7;
+    public static int MAX_HOURS = 7;
+
+    public static String createPass() {
+        SecureRandom random = new SecureRandom();
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+
+        return IntStream.range(0, 10)
+                .map(i -> random.nextInt(chars.length()))
+                .mapToObj(randomIndex -> String.valueOf(chars.charAt(randomIndex)))
+                .collect(Collectors.joining());
+    }
 
 
     private static LocalDate configStartDate(){
