@@ -14,7 +14,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Properties;
 
@@ -28,7 +27,7 @@ public class EmailService {
         props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
         props.setProperty("mail.smtp.starttls.enable", "true");
         props.setProperty("mail.smtp.port", "587");
-        props.setProperty("mail.smtp.user", Config.emailSend);
+        props.setProperty("mail.smtp.user", Config.EMAIL_SEND);
         props.setProperty("mail.smtp.ssl.protocls", "TLSv1.2");
         props.setProperty("mail.smtp.auth", "true");
 
@@ -36,7 +35,7 @@ public class EmailService {
         Session session = Session.getDefaultInstance(props);
 
         Message msg = new MimeMessage(session);
-        msg.setFrom(new InternetAddress(Config.emailSend, false));
+        msg.setFrom(new InternetAddress(Config.EMAIL_SEND, false));
 
         msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(student.getEmail()));
         msg.addRecipients(Message.RecipientType.CC, InternetAddress.parse(teacher.getEmail()));
@@ -52,7 +51,7 @@ public class EmailService {
                         "Por favor no conteste a este correo, se genera automáticamente",
                 "text/html");
         Transport transport = session.getTransport("smtp");
-        transport.connect(Config.emailSend, "hejevimvqdxzrgoc");
+        transport.connect(Config.EMAIL_SEND, "hejevimvqdxzrgoc");
         transport.sendMessage(msg, msg.getRecipients(Message.RecipientType.TO));
         transport.sendMessage(msg, msg.getRecipients(Message.RecipientType.CC));
         transport.close();

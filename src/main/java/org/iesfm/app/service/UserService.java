@@ -1,11 +1,10 @@
 package org.iesfm.app.service;
 
+import org.iesfm.app.configuration.Config;
 import org.iesfm.app.dao.UserDao;
 import org.iesfm.app.dto.SubjectDto;
-import org.iesfm.app.dto.UserDto;
 import org.iesfm.app.dto.mapper.SubjectMapper;
 import org.iesfm.app.entity.AbsenceEntity;
-import org.iesfm.app.entity.ClassEntity;
 import org.iesfm.app.entity.SubjectEntity;
 import org.iesfm.app.entity.UserEntity;
 import org.iesfm.app.exceptions.IncorrectUserException;
@@ -14,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -82,22 +79,36 @@ public class UserService {
         return false;
     }
 
-    public boolean userIsAdmin(UserEntity user){
+    public boolean userIsAdmin(UserEntity user) {
         return user.getRole().getName().equalsIgnoreCase("Admin");
 
     }
 
     public UserEntity addUser(UserEntity entity, Integer idUser) throws IncorrectUserException {
+        entity.setPass(Config.createPass());
+        String email = "@email.app";
+
         UserEntity user = userDao.findById(idUser).orElseThrow();
         if (userIsAdmin(user)) {
             entity.setUsuCre(user.getId());
+            if (entity.getSecondSurname() != null) {
+                entity.setEmail(entity.getName() + entity.getFirstSurname() + entity.getSecondSurname() + email);
 
+            } else {
+                entity.setEmail(entity.getName() + entity.getFirstSurname() + email);
+            }
             if (!entityExist(entity)) {
                 return userDao.save(entity);
-            } else throw new EntityExistsException();
+            } else {
+                entity.setEmail(entity.getEmail() + "1");
+                return userDao.save(entity);
+            }
+
 
         }
         throw new IncorrectUserException();
     }
+
+
 }
 

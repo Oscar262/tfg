@@ -113,8 +113,6 @@ public class UserController {
 
         try {
             entity = userService.addUser(UserMapper.toEntity(userDto), idUser);
-        } catch (EntityExistsException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         } catch (IncorrectUserException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
