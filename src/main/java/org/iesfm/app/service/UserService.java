@@ -7,6 +7,7 @@ import org.iesfm.app.dto.mapper.SubjectMapper;
 import org.iesfm.app.entity.AbsenceEntity;
 import org.iesfm.app.entity.SubjectEntity;
 import org.iesfm.app.entity.UserEntity;
+import org.iesfm.app.exceptions.ClassListException;
 import org.iesfm.app.exceptions.IncorrectUserException;
 import org.iesfm.app.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class UserService {
     @Autowired
     private UserDao userDao;
 
-    public UserEntity checkUser(String email, String pass) throws UserNotFoundException {
+    public UserEntity checkRole(String email, String pass) throws UserNotFoundException {
 
         UserEntity entity = userDao.findByEmailAndPass(email, pass);
         if (entity == null) {
@@ -84,9 +85,38 @@ public class UserService {
 
     }
 
-    public UserEntity addUser(UserEntity entity, Integer idUser) throws IncorrectUserException {
+    private int checkRole(UserEntity user) {
+        int idRole = 0;
+        switch (user.getRole().getId()) {
+            case 1:
+                idRole = 1;
+                break;
+            case 2:
+                idRole = 2;
+                break;
+            case 3:
+                idRole = 3;
+                break;
+        }
+        return idRole;
+
+    }
+
+    public UserEntity addUser(UserEntity entity, Integer idUser) throws IncorrectUserException, ClassListException {
         entity.setPass(Config.createPass());
         String email = "@email.app";
+
+        int idRole = checkRole(entity);
+
+        if (idRole == 1){
+            if (entity.getClassEntities().size() > 1){
+                throw new ClassListException();
+            }
+        }else if (idRole == 3){
+            if (!entity.getClassEntities().isEmpty()){
+                throw new ClassListException();
+            }
+        }
 
         UserEntity user = userDao.findById(idUser).orElseThrow();
         if (userIsAdmin(user)) {
