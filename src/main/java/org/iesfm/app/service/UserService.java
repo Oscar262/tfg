@@ -128,21 +128,25 @@ public class UserService {
     }
 
     private String checkEmail(UserEntity entity, String email){
+        String emailUser = "";
         if (entity.getSecondSurname() != null) {
-            entity.setEmail(entity.getName() + entity.getFirstSurname() + entity.getSecondSurname());
+             emailUser = entity.getName() + entity.getFirstSurname() + entity.getSecondSurname();
 
         } else {
-            entity.setEmail(entity.getName() + entity.getFirstSurname());
+            emailUser = entity.getName() + entity.getFirstSurname();
         }
-        if (!entityExist(entity)) {
-            return (entity.getEmail() + email);
+        if (userDao.findByEmail(emailUser + email) == null) {
+            entity.setEmail(emailUser + email);
+            return (emailUser + email);
 
         } else {
-            String emailUser = entity.getEmail() + "1";
+            emailUser = entity.getEmail() + "1";
 
             if (userDao.findByEmail(emailUser + email) != null){
                 return checkEmail(entity, emailUser);
-            }else return emailUser + email;
+            }else {
+                return emailUser + email;
+            }
         }
     }
 
