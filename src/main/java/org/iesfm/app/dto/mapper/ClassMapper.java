@@ -87,6 +87,7 @@ public class ClassMapper {
         entity.setId(dto.getId());
         entity.setName(dto.getName());
         entity.setDateCre(localDate);
+        entity.setUserCre(UserMapper.toEntity(dto.getUserCre()));
 
         return entity;
     }
