@@ -1,14 +1,14 @@
 package org.iesfm.app.dto.mapper;
 
 import org.iesfm.app.dto.ClassDto;
-import org.iesfm.app.dto.SubjectDto;
 import org.iesfm.app.dto.UserDto;
 import org.iesfm.app.entity.ClassEntity;
-import org.iesfm.app.entity.SubjectEntity;
 import org.iesfm.app.entity.UserEntity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ClassMapper {
@@ -21,8 +21,8 @@ public class ClassMapper {
 
         for (UserEntity user : entity.getUserEntities()) {
             if (user.getRole().getName().equalsIgnoreCase("Teacher")) {
-                    teachers.add(UserMapper.toDtoLogin(user));
-                    break;
+                teachers.add(UserMapper.toDtoLogin(user));
+                break;
             }
         }
 
@@ -37,11 +37,11 @@ public class ClassMapper {
 
         ClassDto classDto = new ClassDto();
 
-        Set<UserDto> student= new HashSet<>();
+        Set<UserDto> student = new HashSet<>();
 
         for (UserEntity user : entity.getUserEntities()) {
             if (user.getRole().getName().equalsIgnoreCase("Student")) {
-                    student.add(UserMapper.toDtoCreateAbsences(user));
+                student.add(UserMapper.toDtoCreateAbsences(user));
             }
         }
 
@@ -52,35 +52,35 @@ public class ClassMapper {
         return classDto;
     }
 
-/*
-    public static ClassDto toDto(ClassEntity classEntity) {
-        ClassDto classDto = new ClassDto();
+    /*
+        public static ClassDto toDto(ClassEntity classEntity) {
+            ClassDto classDto = new ClassDto();
 
-        Set<UserDto> students = new HashSet<>();
-        Set<UserDto> teachers = new HashSet<>();
+            Set<UserDto> students = new HashSet<>();
+            Set<UserDto> teachers = new HashSet<>();
 
-        for (UserClassSubject userClassSubject : classEntity.getRelation()) {
-            switch (userClassSubject.getUser().getRole().getName()) {
-                case "Student":
-                    students.add(UserMapper.toDtoInfo(userClassSubject.getUser()));
-                    break;
-                case "Teacher":
-                    teachers.add(UserMapper.toDtoInfo(userClassSubject.getUser()));
-                    break;
+            for (UserClassSubject userClassSubject : classEntity.getRelation()) {
+                switch (userClassSubject.getUser().getRole().getName()) {
+                    case "Student":
+                        students.add(UserMapper.toDtoInfo(userClassSubject.getUser()));
+                        break;
+                    case "Teacher":
+                        teachers.add(UserMapper.toDtoInfo(userClassSubject.getUser()));
+                        break;
+                }
             }
-        }
 
-        classDto.setId(classEntity.getId());
-        classDto.setName(classEntity.getName());
-        classDto.setUserCre(UserMapper.toDtoInfo(classEntity.getUserCre()));
-        classDto.setUserMod(UserMapper.toDtoInfo(classEntity.getUserMod()));
-        classDto.setDateCre(classEntity.getDateCre());
-        classDto.setDateMod(classEntity.getDateMod());
-        classDto.setTeachers(teachers);
-        classDto.setStudents(students);
-        return classDto;
-    }
-*/
+            classDto.setId(classEntity.getId());
+            classDto.setName(classEntity.getName());
+            classDto.setUserCre(UserMapper.toDtoInfo(classEntity.getUserCre()));
+            classDto.setUserMod(UserMapper.toDtoInfo(classEntity.getUserMod()));
+            classDto.setDateCre(classEntity.getDateCre());
+            classDto.setDateMod(classEntity.getDateMod());
+            classDto.setTeachers(teachers);
+            classDto.setStudents(students);
+            return classDto;
+        }
+    */
     public static ClassEntity toEntity(ClassDto dto, LocalDate localDate) {
         ClassEntity entity = new ClassEntity();
 
@@ -103,4 +103,15 @@ public class ClassMapper {
     }
 
 
+    public static List<ClassEntity> toEntityList(List<ClassDto> classList) {
+        List<ClassEntity> listEntity = new ArrayList<>();
+        ClassEntity entity = new ClassEntity();
+
+        for (int i = 0; i < classList.size(); i++) {
+            entity.setId(classList.get(i).getId());
+            listEntity.add(entity);
+        }
+        return listEntity;
+
+    }
 }

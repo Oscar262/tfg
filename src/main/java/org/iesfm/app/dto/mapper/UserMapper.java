@@ -31,6 +31,8 @@ public class UserMapper {
         user.setUsuMod(userDto.getUserMod());
         user.setEmail(userDto.getEmail());
         user.setPass(userDto.getPass());
+        user.setClassEntities(ClassMapper.toEntityList(userDto.getClassList()));
+        user.setSubjectList(SubjectMapper.toEntityList(userDto.getSubjectList()));
         user.setRole(RoleMapper.toEnity(userDto.getRole()));
 
         return user;
