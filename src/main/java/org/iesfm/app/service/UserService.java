@@ -107,7 +107,7 @@ public class UserService {
         String email = "@email.app";
 
         int idRole = checkRole(entity);
-        if (!entity.getClassEntities().isEmpty()) {
+       // if (!entity.getClassEntities().isEmpty()) {
             if (idRole == 1) {
                 if (entity.getClassEntities().size() > 1) {
                     throw new ClassListException();
@@ -117,7 +117,7 @@ public class UserService {
                     throw new ClassListException();
                 }
             }
-        }
+       // }
 
         UserEntity user = userDao.findById(idUser).orElseThrow();
         if (userIsAdmin(user)) {

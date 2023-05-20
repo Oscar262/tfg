@@ -1,6 +1,7 @@
 package org.iesfm.app.dto.mapper;
 
 import org.iesfm.app.dto.AbsenceDto;
+import org.iesfm.app.dto.ClassDto;
 import org.iesfm.app.dto.SubjectDto;
 import org.iesfm.app.entity.AbsenceEntity;
 import org.iesfm.app.entity.ClassEntity;
@@ -66,5 +67,19 @@ public class SubjectMapper {
         subjectDto.setName(subject.getName());
 
         return subjectDto;
+    }
+
+    public static Set<SubjectEntity> toEntityList(List<SubjectDto> subjectList) {
+
+            List<SubjectEntity> listEntity = new ArrayList<>();
+            SubjectEntity entity = new SubjectEntity();
+
+            for (int i = 0; i < subjectList.size(); i++) {
+                entity.setId(subjectList.get(i).getId());
+                listEntity.add(entity);
+            }
+            return new HashSet<>(listEntity);
+
+
     }
 }
