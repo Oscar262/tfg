@@ -138,9 +138,9 @@ public class UserService {
             return (entity.getEmail() + email);
 
         } else {
-            String emailUser = entity.getEmail() + "1" + email;
+            String emailUser = entity.getEmail() + "1";
             entity.setEmail(emailUser);
-            if (entityExist(entity)){
+            if (userDao.findByEmail(entity.getEmail() + email) == null){
                 return checkEmail(entity, emailUser);
             }else return emailUser;
         }
