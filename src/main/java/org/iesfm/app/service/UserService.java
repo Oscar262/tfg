@@ -122,25 +122,29 @@ public class UserService {
         UserEntity user = userDao.findById(idUser).orElseThrow();
         if (userIsAdmin(user)) {
             entity.setUsuCre(user.getId());
-            if (entity.getSecondSurname() != null) {
-                entity.setEmail(entity.getName() + entity.getFirstSurname() + entity.getSecondSurname());
-
-            } else {
-                entity.setEmail(entity.getName() + entity.getFirstSurname());
-            }
-            if (!entityExist(entity)) {
-                user.setEmail(entity.getEmail() + email);
-                return userDao.save(entity);
-            } else {
-                entity.setEmail(entity.getEmail() + "1" + email);
-                return userDao.save(entity);
-            }
-
-
+            checkEmail(entity, email);
         }
         throw new IncorrectUserException();
     }
 
+    private String checkEmail(UserEntity entity, String email){
+        if (entity.getSecondSurname() != null) {
+            entity.setEmail(entity.getName() + entity.getFirstSurname() + entity.getSecondSurname());
+
+        } else {
+            entity.setEmail(entity.getName() + entity.getFirstSurname());
+        }
+        if (!entityExist(entity)) {
+            return (entity.getEmail() + email);
+
+        } else {
+            String emailUser = entity.getEmail() + "1";
+            entity.setEmail(emailUser);
+            if (userDao.findByEmail(entity.getEmail() + email) == null){
+                return checkEmail(entity, emailUser);
+            }else return emailUser + email;
+        }
+    }
 
 }
 
