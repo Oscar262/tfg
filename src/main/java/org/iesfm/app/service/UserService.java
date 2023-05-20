@@ -73,16 +73,16 @@ public class UserService {
 
     }
 
-    private boolean entityExist(UserEntity entity) {
-        if (userDao.findByEmail(entity.getEmail()) != null) {
-            throw new EntityExistsException();
-        }
-        return false;
-    }
-
     public boolean userIsAdmin(UserEntity user) {
         return user.getRole().getName().equalsIgnoreCase("Admin");
 
+    }
+
+    private boolean entityExist(UserEntity entity) {
+        if (userDao.findByEmail(entity.getEmail()) != null){
+            return false;
+        }
+        return true;
     }
 
     private int checkRole(UserEntity user) {
@@ -123,15 +123,16 @@ public class UserService {
         if (userIsAdmin(user)) {
             entity.setUsuCre(user.getId());
             if (entity.getSecondSurname() != null) {
-                entity.setEmail(entity.getName() + entity.getFirstSurname() + entity.getSecondSurname() + email);
+                entity.setEmail(entity.getName() + entity.getFirstSurname() + entity.getSecondSurname());
 
             } else {
-                entity.setEmail(entity.getName() + entity.getFirstSurname() + email);
+                entity.setEmail(entity.getName() + entity.getFirstSurname());
             }
             if (!entityExist(entity)) {
+                user.setEmail(entity.getEmail() + email);
                 return userDao.save(entity);
             } else {
-                entity.setEmail(entity.getEmail() + "1");
+                entity.setEmail(entity.getEmail() + "1" + email);
                 return userDao.save(entity);
             }
 
