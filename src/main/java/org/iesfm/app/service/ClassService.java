@@ -64,6 +64,7 @@ public class ClassService {
         throw new IncorrectUserException();
     }
 
+
     public List<ClassEntity> findAllclasses(Integer idUser) {
         List<ClassEntity> classEntities = classDao.findAll();
 

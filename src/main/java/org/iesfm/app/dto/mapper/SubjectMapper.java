@@ -54,7 +54,6 @@ public class SubjectMapper {
         entity.setId(subjectDto.getId());
         entity.setName(subjectDto.getName());
         entity.setTotalHours(subjectDto.getTotalHours());
-        entity.setUserCre(UserMapper.toEntity(subjectDto.getUserCre()));
         entity.setDateCre(now);
 
         return entity;

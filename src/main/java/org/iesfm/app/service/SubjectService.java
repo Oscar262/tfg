@@ -62,7 +62,6 @@ public class SubjectService {
         if (userService.getUser(idUser) != null) {
             user = userService.getUser(idUser);
             Set<SubjectEntity> subjectsUser = user.getSubjectList();
-
             for (SubjectEntity subject : subjectEntities) {
                 if (subjectsUser.contains(subject)) {
                     subjectEntities.remove(subject);
