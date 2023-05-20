@@ -118,32 +118,33 @@ public class UserService {
                 }
             }
        // }
-
         UserEntity admin = userDao.findById(idUser).orElseThrow();
         if (userIsAdmin(admin)) {
             entity.setUsuCre(admin.getId());
-           entity.setEmail(checkEmail(entity, email));
+
+            String emailUser = "";
+            if (entity.getSecondSurname() != null) {
+                emailUser = entity.getName() + entity.getFirstSurname() + entity.getSecondSurname();
+
+            } else {
+                emailUser = entity.getName() + entity.getFirstSurname();
+            }
+
+           entity.setEmail(checkEmail(emailUser, email));
            return userDao.save(entity);
         } else throw new IncorrectUserException();
     }
 
-    private String checkEmail(UserEntity entity, String email){
-        String emailUser = "";
-        if (entity.getSecondSurname() != null) {
-             emailUser = entity.getName() + entity.getFirstSurname() + entity.getSecondSurname();
+    private String checkEmail(String emailUser, String email){
 
-        } else {
-            emailUser = entity.getName() + entity.getFirstSurname();
-        }
         if (userDao.findByEmail(emailUser + email) == null) {
-            entity.setEmail(emailUser + email);
             return (emailUser + email);
 
         } else {
-            emailUser = entity.getEmail() + "1";
+            emailUser = emailUser + "1";
 
             if (userDao.findByEmail(emailUser + email) != null){
-                return checkEmail(entity, emailUser);
+                return checkEmail(emailUser, email);
             }else {
                 return emailUser + email;
             }
