@@ -25,7 +25,7 @@ public class ClassDto {
     @NotBlank
     private String name;
 
-    @NotBlank
+    @NotNull
     private UserDto userCre;
 
     private UserDto userMod;
