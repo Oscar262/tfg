@@ -41,7 +41,7 @@ public class EmailService {
         msg.addRecipients(Message.RecipientType.CC, InternetAddress.parse(teacher.getEmail()));
 
 
-        msg.setSubject("Superado el limite de faltas " + LocalDate.now());
+        msg.setSubject("Superado el limite de faltas " + LocalDate.now() + subject.getName());
         msg.setContent(
                 "Buenos días " + student.getName() + " "+student.getFirstSurname() + ".<br>" +
                         "Ha superado el límite de faltas para la asignatura " + subject.getName() + "<br>" +
