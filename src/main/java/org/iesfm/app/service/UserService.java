@@ -107,14 +107,15 @@ public class UserService {
         String email = "@email.app";
 
         int idRole = checkRole(entity);
-
-        if (idRole == 1){
-            if (entity.getClassEntities().size() > 1){
-                throw new ClassListException();
-            }
-        }else if (idRole == 3){
-            if (!entity.getClassEntities().isEmpty()){
-                throw new ClassListException();
+        if (!entity.getClassEntities().isEmpty()) {
+            if (idRole == 1) {
+                if (entity.getClassEntities().size() > 1) {
+                    throw new ClassListException();
+                }
+            } else if (idRole == 3) {
+                if (!entity.getClassEntities().isEmpty()) {
+                    throw new ClassListException();
+                }
             }
         }
 
