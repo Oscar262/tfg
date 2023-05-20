@@ -142,7 +142,7 @@ public class UserService {
             entity.setEmail(emailUser);
             if (userDao.findByEmail(entity.getEmail() + email) == null){
                 return checkEmail(entity, emailUser);
-            }else return emailUser;
+            }else return emailUser + email;
         }
     }
 
