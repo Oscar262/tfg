@@ -32,6 +32,4 @@ public interface UserDao extends JpaRepository<UserEntity, Integer> {
     List<UserEntity> findByRole_Name(String name);
 
 
-    @Query("select u from UserEntity u where u.email LIKE ?1%@email.app")
-    UserEntity findByEmailOnlyName(String email);
 }
