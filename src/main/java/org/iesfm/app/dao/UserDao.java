@@ -6,13 +6,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface UserDao extends JpaRepository<UserEntity, Integer> {
 
     UserEntity findByEmailAndPass(String email, String pass);
 
+    @Query("select u from UserEntity u where u.email = ?1")
     UserEntity findByEmail(String email);
 
 
@@ -31,4 +31,7 @@ public interface UserDao extends JpaRepository<UserEntity, Integer> {
 
     List<UserEntity> findByRole_Name(String name);
 
+
+    @Query("select u from UserEntity u where u.email LIKE ?1%@email.app")
+    UserEntity findByEmailOnlyName(String email);
 }
