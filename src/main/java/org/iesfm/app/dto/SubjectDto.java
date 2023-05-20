@@ -28,7 +28,7 @@ public class SubjectDto {
     @NotNull
     private Integer totalHours;
 
-    @NotBlank
+    @NotNull
     private UserDto userCre;
 
     private UserDto userMod;
