@@ -5,6 +5,7 @@ import org.iesfm.app.dao.UserDao;
 import org.iesfm.app.dto.SubjectDto;
 import org.iesfm.app.dto.mapper.SubjectMapper;
 import org.iesfm.app.entity.AbsenceEntity;
+import org.iesfm.app.entity.ClassEntity;
 import org.iesfm.app.entity.SubjectEntity;
 import org.iesfm.app.entity.UserEntity;
 import org.iesfm.app.exceptions.ClassListException;
@@ -13,7 +14,6 @@ import org.iesfm.app.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityExistsException;
 import java.util.List;
 
 @Service
@@ -32,20 +32,12 @@ public class UserService {
 
     }
 
-    public List<UserEntity> findAllStudents(String className, String subjectName, String role) {
-        List<UserEntity> userEntities;
+    public List<UserEntity> findAllStudents(Integer className, Integer subjectName, String role) {
 
-        if (subjectName != null && className != null) {
-            userEntities = userDao.findByRole_NameAndSubjectList_NameAndClassEntities_Name(role, subjectName, className);
-        } else if (subjectName != null) {
-            userEntities = userDao.findByRole_NameAndSubjectList_Name(role, subjectName);
-        } else if (className != null) {
-            userEntities = userDao.findByRole_NameAndClassEntities_Name(role, className);
-        } else {
-            userEntities = userDao.findByRole_Name(role);
-        }
 
-        return userEntities;
+        return userDao.findByRole_NameAndSubjectList_IdAndClassEntities_Id(role, subjectName, className);
+
+
     }
 
 
@@ -79,7 +71,7 @@ public class UserService {
     }
 
     private boolean entityExist(UserEntity entity) {
-        if (userDao.findByEmail(entity.getEmail()) == null){
+        if (userDao.findByEmail(entity.getEmail()) == null) {
             return false;
         }
         return true;
@@ -107,17 +99,17 @@ public class UserService {
         String email = "@email.app";
 
         int idRole = checkRole(entity);
-       // if (!entity.getClassEntities().isEmpty()) {
-            if (idRole == 1) {
-                if (entity.getClassEntities().size() > 1) {
-                    throw new ClassListException();
-                }
-            } else if (idRole == 3) {
-                if (!entity.getClassEntities().isEmpty()) {
-                    throw new ClassListException();
-                }
+        // if (!entity.getClassEntities().isEmpty()) {
+        if (idRole == 1) {
+            if (entity.getClassEntities().size() > 1) {
+                throw new ClassListException();
             }
-       // }
+        } else if (idRole == 3) {
+            if (!entity.getClassEntities().isEmpty()) {
+                throw new ClassListException();
+            }
+        }
+        // }
         UserEntity admin = userDao.findById(idUser).orElseThrow();
         if (userIsAdmin(admin)) {
             entity.setUsuCre(admin.getId());
@@ -130,12 +122,12 @@ public class UserService {
                 emailUser = entity.getName() + entity.getFirstSurname();
             }
 
-           entity.setEmail(checkEmail(emailUser, email));
-           return userDao.save(entity);
+            entity.setEmail(checkEmail(emailUser, email));
+            return userDao.save(entity);
         } else throw new IncorrectUserException();
     }
 
-    private String checkEmail(String emailUser, String email){
+    private String checkEmail(String emailUser, String email) {
 
         if (userDao.findByEmail(emailUser + email) == null) {
             return (emailUser + email);
@@ -143,9 +135,9 @@ public class UserService {
         } else {
             emailUser = emailUser + "1";
 
-            if (userDao.findByEmail(emailUser + email) != null){
+            if (userDao.findByEmail(emailUser + email) != null) {
                 return checkEmail(emailUser, email);
-            }else {
+            } else {
                 return emailUser + email;
             }
         }

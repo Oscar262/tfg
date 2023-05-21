@@ -40,16 +40,16 @@ public class UserController {
     }
 
 
-    @GetMapping(path = "/users/{role}")
+    @GetMapping(path = "/users/{role}/{classId}/{subjectId}")
     public ResponseEntity<List<UserDto>> getAllStudents(
-            @RequestParam(value = "class", required = false) String className,
-            @RequestParam(value = "subject", required = false) String subjectName,
+            @PathVariable("classId") Integer classId,
+            @PathVariable("subjectId") Integer subjectId,
             @PathVariable("role") String role
     ) {
 
         return ResponseEntity.ok(
                 userService
-                        .findAllStudents(className, subjectName, role)
+                        .findAllStudents(classId, subjectId, role)
                         .stream()
                         .map(UserMapper::toDtoInfoWithSUbjectPercentage)
                         .collect(Collectors.toList()));
