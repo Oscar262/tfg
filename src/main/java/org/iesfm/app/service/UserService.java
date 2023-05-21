@@ -32,10 +32,10 @@ public class UserService {
 
     }
 
-    public List<UserEntity> findAllStudents(Integer className, Integer subjectName, String role) {
+    public List<UserEntity> findAllStudents(Integer classId, Integer subjectId, Integer role) {
 
 
-        return userDao.findByRole_NameAndSubjectList_IdAndClassEntities_Id(role, subjectName, className);
+        return userDao.findByRole_IdAndSubjectList_IdAndClassEntities_Id(role, subjectId, classId);
 
 
     }
