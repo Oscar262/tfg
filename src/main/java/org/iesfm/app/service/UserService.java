@@ -5,10 +5,10 @@ import org.iesfm.app.dao.UserDao;
 import org.iesfm.app.dto.SubjectDto;
 import org.iesfm.app.dto.mapper.SubjectMapper;
 import org.iesfm.app.entity.AbsenceEntity;
-import org.iesfm.app.entity.ClassEntity;
 import org.iesfm.app.entity.SubjectEntity;
 import org.iesfm.app.entity.UserEntity;
 import org.iesfm.app.exceptions.ClassListException;
+import org.iesfm.app.exceptions.EmptytListException;
 import org.iesfm.app.exceptions.IncorrectUserException;
 import org.iesfm.app.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +32,11 @@ public class UserService {
 
     }
 
-    public List<UserEntity> findAllStudents(Integer classId, Integer subjectId, Integer role) {
+    public List<UserEntity> findAllStudents(Integer classId, Integer subjectId, Integer role) throws EmptytListException {
 
-
-        return userDao.findByRole_IdAndSubjectList_IdAndClassEntities_Id(role, subjectId, classId);
+        if (userDao.findByRole_IdAndSubjectList_IdAndClassEntities_Id(role, subjectId, classId).isEmpty()) {
+            throw new EmptytListException();
+        }else return userDao.findByRole_IdAndSubjectList_IdAndClassEntities_Id(role, subjectId, classId);
 
 
     }

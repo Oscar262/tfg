@@ -5,6 +5,7 @@ import org.iesfm.app.dto.UserDto;
 import org.iesfm.app.dto.mapper.UserMapper;
 import org.iesfm.app.entity.UserEntity;
 import org.iesfm.app.exceptions.ClassListException;
+import org.iesfm.app.exceptions.EmptytListException;
 import org.iesfm.app.exceptions.IncorrectUserException;
 import org.iesfm.app.exceptions.UserNotFoundException;
 import org.iesfm.app.service.UserService;
@@ -12,9 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -47,13 +52,16 @@ public class UserController {
             @PathVariable("role") Integer role
     ) {
 
-        return ResponseEntity.ok(
-                userService
-                        .findAllStudents(classId, subjectId, role)
-                        .stream()
-                        .map(UserMapper::toDtoLogin)
-                        .collect(Collectors.toList()));
-
+        List<UserDto> students;
+        try {
+            students = userService
+                    .findAllStudents(classId, subjectId, role)
+                    .stream()
+                    .map(UserMapper::toDtoLogin).collect(Collectors.toList());
+        } catch (EmptytListException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.ok(students);
     }
 
 
@@ -66,7 +74,7 @@ public class UserController {
 
         try {
             userDto = UserMapper.toDtoInfoWithSUbjectPercentage(userService.getUser(idUser));
-            ;
+
         } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }
