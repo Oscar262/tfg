@@ -29,7 +29,9 @@ public interface UserDao extends JpaRepository<UserEntity, Integer> {
             "where u.role.name = ?1 and subjectList.name = ?2 and classEntities.name = ?3")
     List<UserEntity> findByRole_NameAndSubjectList_NameAndClassEntities_Name(String name, String name1, String name2);
 
-    List<UserEntity> findByRole_NameAndSubjectList_IdAndClassEntities_Id(String name, Integer id, Integer id1);
+    @Query("select u from UserEntity u inner join u.subjectList subjectList inner join u.classEntities classEntities " +
+            "where u.role.id = ?1 and subjectList.id = ?2 and classEntities.id = ?3")
+    List<UserEntity> findByRole_IdAndSubjectList_IdAndClassEntities_Id(Integer name, Integer id, Integer id1);
 
 
     

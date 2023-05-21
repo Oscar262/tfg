@@ -44,14 +44,14 @@ public class UserController {
     public ResponseEntity<List<UserDto>> getAllStudents(
             @PathVariable("classId") Integer classId,
             @PathVariable("subjectId") Integer subjectId,
-            @PathVariable("role") String role
+            @PathVariable("role") Integer role
     ) {
 
         return ResponseEntity.ok(
                 userService
                         .findAllStudents(classId, subjectId, role)
                         .stream()
-                        .map(UserMapper::toDtoInfoWithSUbjectPercentage)
+                        .map(UserMapper::toDtoLogin)
                         .collect(Collectors.toList()));
 
     }
