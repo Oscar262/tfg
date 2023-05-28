@@ -144,5 +144,8 @@ public class UserService {
         }
     }
 
+    public UserEntity updateUser(UserEntity entity) {
+      return userDao.save(entity);
+    }
 }
 

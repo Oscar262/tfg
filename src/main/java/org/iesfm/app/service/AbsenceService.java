@@ -143,4 +143,7 @@ public class AbsenceService {
     }
 
 
+    public void delete(Integer absenceId) {
+        absenceDao.deleteById(absenceId);
+    }
 }

@@ -46,6 +46,20 @@ public class AbsenceController {
 
     }
 
+
+    @DeleteMapping(path = "/absence/{absenceId}")
+    public ResponseEntity<Void> deleteAbsence(
+            @PathVariable("absenceId") Integer absenceId
+    ){
+
+       AbsenceEntity entity = null;
+       absenceService.delete(absenceId);
+
+        return ResponseEntity.ok().build();
+
+
+    }
+
     @PostMapping(path = "/absence/{idSubject}/{idStudent}/{idTeacher}")
     public ResponseEntity<Void> newAbsence(
             @Valid @RequestBody AbsenceDto absence,
