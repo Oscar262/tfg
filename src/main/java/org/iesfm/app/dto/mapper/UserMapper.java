@@ -110,7 +110,6 @@ public class UserMapper {
     }
 
 
-
     public static UserEntity toEntityInfo(UserDto userDto) {
         UserEntity user = new UserEntity();
 
@@ -201,8 +200,6 @@ public class UserMapper {
     }
 
 
-
-
     public static UserDto toDtoLogin(UserEntity entity) {
         UserDto user = new UserDto();
 
@@ -212,6 +209,8 @@ public class UserMapper {
         user.setSecondSurname(entity.getSecondSurname());
         user.setEmail(entity.getEmail());
         user.setPass(entity.getPass());
+        user.setUserCre(entity.getUsuCre());
+        user.setDateCre(entity.getDateCre());
         user.setRole(RoleMapper.toDto(entity.getRole()));
         return user;
     }
@@ -225,6 +224,8 @@ public class UserMapper {
         entity.setSecondSurname(userDto.getSecondSurname());
         entity.setEmail(userDto.getEmail());
         entity.setPass(userDto.getPass());
+        entity.setUsuCre(userDto.getUserCre());
+        entity.setDateCre(userDto.getDateCre());
         entity.setRole(RoleMapper.toEnity(userDto.getRole()));
         return entity;
 
