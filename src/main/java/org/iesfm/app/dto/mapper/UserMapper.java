@@ -211,8 +211,22 @@ public class UserMapper {
         user.setFirstSurname(entity.getFirstSurname());
         user.setSecondSurname(entity.getSecondSurname());
         user.setEmail(entity.getEmail());
+        user.setPass(entity.getPass());
         user.setRole(RoleMapper.toDto(entity.getRole()));
         return user;
     }
 
+    public static UserEntity toEntityChangePass(UserDto userDto) {
+        UserEntity entity = new UserEntity();
+
+        entity.setId(userDto.getId());
+        entity.setName(userDto.getName());
+        entity.setFirstSurname(userDto.getFirstSurname());
+        entity.setSecondSurname(userDto.getSecondSurname());
+        entity.setEmail(userDto.getEmail());
+        entity.setPass(userDto.getPass());
+        entity.setRole(RoleMapper.toEnity(userDto.getRole()));
+        return entity;
+
+    }
 }

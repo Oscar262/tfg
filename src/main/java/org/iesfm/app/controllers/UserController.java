@@ -124,13 +124,13 @@ public class UserController {
 
 
     @PutMapping(path = "/user/newPass")
-    public ResponseEntity<UserDto> changePass(
+    public ResponseEntity<Void> changePass(
             @Valid @RequestBody UserDto userDto
     ){
 
         UserEntity entity = null;
 
-        entity = userService.updateUser(UserMapper.toEntity(userDto));
+        entity = userService.updateUser(UserMapper.toEntityChangePass(userDto));
 
         return ResponseEntity.ok().build();
     }

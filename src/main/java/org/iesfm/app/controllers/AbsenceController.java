@@ -52,7 +52,6 @@ public class AbsenceController {
             @PathVariable("absenceId") Integer absenceId
     ){
 
-       AbsenceEntity entity = null;
        absenceService.delete(absenceId);
 
         return ResponseEntity.ok().build();
