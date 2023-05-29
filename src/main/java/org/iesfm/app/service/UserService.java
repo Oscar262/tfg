@@ -123,7 +123,7 @@ public class UserService {
                 emailUser = entity.getName() + entity.getFirstSurname();
             }
 
-            entity.setEmail(checkEmail(emailUser, email));
+            //entity.setEmail(checkEmail(emailUser, email));
             return userDao.save(entity);
         } else throw new IncorrectUserException();
     }
