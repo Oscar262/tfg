@@ -26,11 +26,10 @@ public class AbsenceController {
     @Autowired
     private AbsenceService absenceService;
 
-    @GetMapping(path = "/absences")
+    @GetMapping(path = "/absences/{teacher}/{subjectId}")
     public ResponseEntity<List<AbsenceDto>> getAbsences(
-            @RequestParam(value = "studentName", required = false) String studentName,
-            @RequestParam(value = "studentSurname", required = false) String studentSurname,
-            @RequestParam(value = "subject", required = false) String subjectName
+            @PathVariable("teacher") Integer teacher,
+            @PathVariable("subjectId") Integer subjectId
     ) {
         
         //las ausencias deberian salir ordenadas por fecha, para ordenarlas se deberia ir al dao y desde alli 
@@ -39,7 +38,7 @@ public class AbsenceController {
 
         return ResponseEntity.ok(
                 absenceService
-                        .findAllAbsences(studentName, studentSurname, subjectName)
+                        .findAllAbsences(teacher,subjectId)
                         .stream()
                         .map(AbsenceMapper::toUserDto)
                         .collect(Collectors.toList()));

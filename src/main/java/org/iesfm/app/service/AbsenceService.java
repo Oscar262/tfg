@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -121,25 +122,9 @@ public class AbsenceService {
 
 
 
-    public List<AbsenceEntity> findAllAbsences(String studentName, String studentSurname, String subjectName) {
+    public List<AbsenceEntity> findAllAbsences(Integer teacherId, Integer subjectId) {
 
-        List<AbsenceEntity> AbsenceList;
-
-        if (subjectName != null && studentName != null && studentSurname != null) {
-            AbsenceList = absenceDao.findBySubject_NameAndStudent_NameAndStudent_FirstSurname(subjectName, studentName, studentSurname);
-        } else if (subjectName != null) {
-            AbsenceList = absenceDao.findBySubject_Name(subjectName);
-        } else if (studentName != null && studentSurname != null) {
-            AbsenceList = absenceDao.findByStudent_NameAndStudent_FirstSurname(studentName, studentSurname);
-        } else if (studentName != null) {
-            AbsenceList = absenceDao.findByStudent_Name(studentName);
-        } else if (studentSurname != null) {
-            AbsenceList = absenceDao.findByStudent_FirstSurname(studentSurname);
-        } else {
-            AbsenceList = absenceDao.findAll();
-        }
-
-        return AbsenceList;
+        return absenceDao.findByTeacherCre_IdAndSubject_IdOrderByStudent_IdAscDateAsc(teacherId, subjectId);
     }
 
 
