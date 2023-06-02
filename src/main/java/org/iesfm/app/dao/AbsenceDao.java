@@ -24,8 +24,9 @@ public interface AbsenceDao extends JpaRepository<AbsenceEntity, Integer> {
 
     List<AbsenceEntity> findByDateAndStudent_Id(LocalDate date, Integer id);
 
-    List<AbsenceEntity> findByTeacherCre_IdAndSubject_IdOrderByStudent_IdAscDateAsc(Integer id, Integer id1);
+    List<AbsenceEntity> findByTeacherCre_IdAndSubject_IdOrderByStudent_IdAsc(Integer teacherId, Integer subjectId);
 
+    List<AbsenceEntity> findByTeacherCre_IdAndSubject_IdOrderByStudent_IdAscDateDesc(Integer teacherId, Integer subjectId);
 
 
 

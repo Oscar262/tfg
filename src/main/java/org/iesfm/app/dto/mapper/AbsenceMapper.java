@@ -53,6 +53,8 @@ public class AbsenceMapper {
         absenceDto.setNumHours(absence.getNumHours());
         absenceDto.setSubject(SubjectMapper.toDtoInfo(absence.getSubject()));
 
+        absenceDto.setStudent(UserMapper.toDtoLogin(absence.getStudent()));
+
         absenceDto.setTeacher(UserMapper.toDtoLogin(absence.getTeacherCre()));
 
         absenceDto.setDate(absence.getDate());

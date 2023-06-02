@@ -120,11 +120,9 @@ public class AbsenceService {
     }
 
 
-
-
     public List<AbsenceEntity> findAllAbsences(Integer teacherId, Integer subjectId) {
 
-        return absenceDao.findByTeacherCre_IdAndSubject_IdOrderByStudent_IdAscDateAsc(teacherId, subjectId);
+        return absenceDao.findByTeacherCre_IdAndSubject_IdOrderByStudent_IdAscDateDesc(teacherId, subjectId);
     }
 
 
