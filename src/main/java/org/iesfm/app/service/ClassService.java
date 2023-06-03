@@ -1,19 +1,14 @@
 package org.iesfm.app.service;
 
 import org.iesfm.app.dao.ClassDao;
-import org.iesfm.app.dao.UserDao;
-import org.iesfm.app.dto.ClassDto;
 import org.iesfm.app.entity.ClassEntity;
-import org.iesfm.app.entity.SubjectEntity;
 import org.iesfm.app.entity.UserEntity;
 import org.iesfm.app.exceptions.IncorrectUserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class ClassService {
@@ -55,12 +50,12 @@ public class ClassService {
 
     public ClassEntity addClass(ClassEntity entity, Integer idUser) throws IncorrectUserException {
         UserEntity user = userService.getUser(idUser);
-        if (userService.userIsAdmin(user)){
-        entity.setUserCre(user);
-        if (!entityExist(entity)) {
-            return classDao.save(entity);
-        }else throw new EntityExistsException();
-    }
+        if (userService.userIsAdmin(user)) {
+            entity.setUserCre(user);
+            if (!entityExist(entity)) {
+                return classDao.save(entity);
+            } else throw new EntityExistsException();
+        }
         throw new IncorrectUserException();
     }
 

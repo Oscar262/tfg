@@ -1,14 +1,11 @@
 package org.iesfm.app.entity;
 
 import lombok.*;
-import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -45,7 +42,6 @@ public class ClassEntity implements Serializable {
 
     @Column(name = "date_mod")
     private LocalDate dateMod;
-
 
 
     @ToString.Exclude

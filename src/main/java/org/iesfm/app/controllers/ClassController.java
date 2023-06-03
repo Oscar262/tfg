@@ -1,16 +1,8 @@
 package org.iesfm.app.controllers;
 
-import org.iesfm.app.dto.AbsenceDto;
 import org.iesfm.app.dto.ClassDto;
-import org.iesfm.app.dto.SubjectDto;
-import org.iesfm.app.dto.mapper.AbsenceMapper;
 import org.iesfm.app.dto.mapper.ClassMapper;
-import org.iesfm.app.dto.mapper.SubjectMapper;
-import org.iesfm.app.dto.mapper.UserMapper;
-import org.iesfm.app.entity.AbsenceEntity;
 import org.iesfm.app.entity.ClassEntity;
-import org.iesfm.app.exceptions.IncorrectDataExpected;
-import org.iesfm.app.exceptions.IncorrectDateException;
 import org.iesfm.app.exceptions.IncorrectUserException;
 import org.iesfm.app.service.ClassService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +25,7 @@ public class ClassController {
     @GetMapping("/classes/{idTeacher}")
     public ResponseEntity<List<ClassDto>> getClasses(
             @PathVariable("idTeacher") Integer idTeacher
-    ){
+    ) {
         return ResponseEntity.ok(
                 classService
                         .findAllClassesByTeacher(idTeacher)
@@ -48,21 +40,18 @@ public class ClassController {
             @Valid @RequestBody ClassDto classDto,
             @PathVariable("idUserCre") Integer idUser
 
-    ){
+    ) {
         ClassEntity entity = null;
 
         try {
             entity = classService.addClass(ClassMapper.toEntity(classDto, LocalDate.now()), idUser);
         } catch (EntityExistsException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        }catch (IncorrectUserException e){
+        } catch (IncorrectUserException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-
-
-
 
 
     @GetMapping("classesList/{idUser}")

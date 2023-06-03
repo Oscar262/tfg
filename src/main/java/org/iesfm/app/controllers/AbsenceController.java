@@ -3,19 +3,15 @@ package org.iesfm.app.controllers;
 import org.iesfm.app.dto.AbsenceDto;
 import org.iesfm.app.dto.mapper.AbsenceMapper;
 import org.iesfm.app.entity.AbsenceEntity;
-import org.iesfm.app.entity.UserEntity;
 import org.iesfm.app.exceptions.IncorrectDataExpected;
 import org.iesfm.app.exceptions.IncorrectDateException;
-import org.iesfm.app.exceptions.IncorrectUserException;
-import org.iesfm.app.exceptions.UserNotFoundException;
 import org.iesfm.app.service.AbsenceService;
-import org.iesfm.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,14 +27,14 @@ public class AbsenceController {
             @PathVariable("teacher") Integer teacher,
             @PathVariable("subjectId") Integer subjectId
     ) {
-        
+
         //las ausencias deberian salir ordenadas por fecha, para ordenarlas se deberia ir al dao y desde alli 
         //cambiar la query del metodo o crear una nueva que tambien ordene las ausencias, para que al verlas en la app
         //aparezcan en orden segun su fecha
 
         return ResponseEntity.ok(
                 absenceService
-                        .findAllAbsences(teacher,subjectId)
+                        .findAllAbsences(teacher, subjectId)
                         .stream()
                         .map(AbsenceMapper::toUserDto)
                         .collect(Collectors.toList()));
@@ -49,9 +45,9 @@ public class AbsenceController {
     @DeleteMapping(path = "/absence/{absenceId}")
     public ResponseEntity<Void> deleteAbsence(
             @PathVariable("absenceId") Integer absenceId
-    ){
+    ) {
 
-       absenceService.delete(absenceId);
+        absenceService.delete(absenceId);
 
         return ResponseEntity.ok().build();
 
@@ -76,11 +72,11 @@ public class AbsenceController {
             // no es correcto, compruebe las horas asignadas, el estudiante no puede tener más de 7 horas asignadas a la misma fecha",
             //y para el ultimo, el 422, el toast seria como: "esa fecha no es elegible, pruebe a seleccionar una fecha para este curso escolar"
 
-        } catch (UserNotFoundException e){
+        } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         } catch (IncorrectDataExpected e) {
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
-        }catch (IncorrectDateException e){
+        } catch (IncorrectDateException e) {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
         }
         return ResponseEntity.status(HttpStatus.CREATED).build();

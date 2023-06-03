@@ -28,15 +28,15 @@ public class Config {
     }
 
 
-    private static LocalDate configStartDate(){
-        if (LocalDate.now().isBefore(LocalDate.of(LocalDate.now().getYear(), 9, 1))){
+    private static LocalDate configStartDate() {
+        if (LocalDate.now().isBefore(LocalDate.of(LocalDate.now().getYear(), 9, 1))) {
             return LocalDate.of(LocalDate.now().getYear() - 1, 9, 1);
         }
         return LocalDate.of(LocalDate.now().getYear(), 9, 1);
     }
 
-    private static LocalDate configEndDate(){
-        if (LocalDate.now().isAfter(LocalDate.of(LocalDate.now().getYear() + 1, 7, 1))){
+    private static LocalDate configEndDate() {
+        if (LocalDate.now().isAfter(LocalDate.of(LocalDate.now().getYear() + 1, 7, 1))) {
             return LocalDate.of(LocalDate.now().getYear() - 1, 7, 1);
         }
         return LocalDate.of(LocalDate.now().getYear(), 7, 1);

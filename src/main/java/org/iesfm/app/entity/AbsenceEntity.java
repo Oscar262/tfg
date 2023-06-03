@@ -2,13 +2,11 @@ package org.iesfm.app.entity;
 
 
 import lombok.*;
-import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Objects;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -44,7 +42,6 @@ public class AbsenceEntity implements Serializable {
 
     @Column(name = "date_mod")
     private LocalDate dateMod;
-
 
 
     @ManyToOne(fetch = FetchType.LAZY)

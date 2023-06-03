@@ -29,7 +29,4 @@ public interface AbsenceDao extends JpaRepository<AbsenceEntity, Integer> {
     List<AbsenceEntity> findByTeacherCre_IdAndSubject_IdOrderByStudent_IdAscDateDesc(Integer teacherId, Integer subjectId);
 
 
-
-
-
 }
