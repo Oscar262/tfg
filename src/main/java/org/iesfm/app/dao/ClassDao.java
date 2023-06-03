@@ -9,6 +9,7 @@ import java.util.List;
 @Repository
 public interface ClassDao extends JpaRepository<ClassEntity, Integer> {
     ClassEntity findByName(String name);
+
     List<ClassEntity> findByUserEntities_Id(Integer id);
 
 

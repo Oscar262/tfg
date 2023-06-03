@@ -2,7 +2,6 @@ package org.iesfm.app.controllers;
 
 import org.iesfm.app.dto.SubjectDto;
 import org.iesfm.app.dto.mapper.SubjectMapper;
-import org.iesfm.app.dto.mapper.UserMapper;
 import org.iesfm.app.entity.SubjectEntity;
 import org.iesfm.app.exceptions.IncorrectUserException;
 import org.iesfm.app.service.SubjectService;

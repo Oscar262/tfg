@@ -7,17 +7,16 @@ import org.iesfm.app.entity.SubjectEntity;
 import org.iesfm.app.entity.UserEntity;
 import org.iesfm.app.exceptions.IncorrectDataExpected;
 import org.iesfm.app.exceptions.IncorrectDateException;
-import org.iesfm.app.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
+import javax.persistence.EntityNotFoundException;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -55,19 +54,19 @@ public class AbsenceService {
 
      */
 
-    public AbsenceEntity addAbsence(AbsenceEntity absenceEntity, Integer idSubject, Integer idStudent, Integer idTeacher) throws IncorrectDateException, IncorrectDataExpected, UserNotFoundException {
+    public AbsenceEntity addAbsence(AbsenceEntity absenceEntity, Integer idSubject, Integer idStudent, Integer idTeacher) throws IncorrectDateException, IncorrectDataExpected, EntityNotFoundException {
         int countAbsences = 0;
         int numHours = 0;
 
         LocalDate date = absenceEntity.getDate();
 
+        if (userService.getUser(idTeacher) == null || userService.getUser(idStudent) == null) {
+            throw new EntityNotFoundException();
+        }
+
         UserEntity student = userService.getUser(idStudent);
         SubjectEntity subject = subjectService.getSubject(idSubject);
         UserEntity teacher = userService.getUser(idTeacher);
-
-        if (teacher == null || student == null) {
-            throw new UserNotFoundException();
-        }
 
         List<AbsenceEntity> absences = absenceDao.findByDateAndStudent_Id(date, student.getId());
 

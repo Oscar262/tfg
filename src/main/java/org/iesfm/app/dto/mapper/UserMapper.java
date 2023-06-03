@@ -10,7 +10,6 @@ import org.iesfm.app.entity.SubjectEntity;
 import org.iesfm.app.entity.UserEntity;
 import org.iesfm.app.service.UserService;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 

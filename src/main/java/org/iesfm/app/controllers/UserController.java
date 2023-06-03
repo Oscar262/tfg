@@ -15,8 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityExistsException;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -117,6 +117,8 @@ public class UserController {
         } catch (IncorrectUserException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         } catch (ClassListException e) {
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+        } catch (EntityExistsException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -126,7 +128,7 @@ public class UserController {
     @PutMapping(path = "/user/newPass")
     public ResponseEntity<Void> changePass(
             @Valid @RequestBody UserDto userDto
-    ){
+    ) {
 
         UserEntity entity = null;
 

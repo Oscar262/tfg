@@ -34,8 +34,6 @@ public interface UserDao extends JpaRepository<UserEntity, Integer> {
     List<UserEntity> findByRole_IdAndSubjectList_IdAndClassEntities_Id(Integer name, Integer id, Integer id1);
 
 
-    
-
     List<UserEntity> findByRole_Name(String name);
 
 

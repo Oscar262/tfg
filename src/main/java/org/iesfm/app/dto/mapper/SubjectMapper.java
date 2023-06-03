@@ -1,10 +1,8 @@
 package org.iesfm.app.dto.mapper;
 
 import org.iesfm.app.dto.AbsenceDto;
-import org.iesfm.app.dto.ClassDto;
 import org.iesfm.app.dto.SubjectDto;
 import org.iesfm.app.entity.AbsenceEntity;
-import org.iesfm.app.entity.ClassEntity;
 import org.iesfm.app.entity.SubjectEntity;
 
 import java.time.LocalDate;
@@ -18,7 +16,7 @@ public class SubjectMapper {
         SubjectDto subjectDto = new SubjectDto();
         Set<AbsenceDto> absences = new HashSet<>();
 
-        for (AbsenceEntity entity : subject.getAbsence()){
+        for (AbsenceEntity entity : subject.getAbsence()) {
             absences.add(AbsenceMapper.toUserDtoToCreateAbsence(entity));
         }
 
@@ -70,14 +68,14 @@ public class SubjectMapper {
 
     public static Set<SubjectEntity> toEntityList(List<SubjectDto> subjectList) {
 
-            List<SubjectEntity> listEntity = new ArrayList<>();
-            SubjectEntity entity = new SubjectEntity();
+        List<SubjectEntity> listEntity = new ArrayList<>();
+        SubjectEntity entity = new SubjectEntity();
 
-            for (int i = 0; i < subjectList.size(); i++) {
-                entity.setId(subjectList.get(i).getId());
-                listEntity.add(entity);
-            }
-            return new HashSet<>(listEntity);
+        for (int i = 0; i < subjectList.size(); i++) {
+            entity.setId(subjectList.get(i).getId());
+            listEntity.add(entity);
+        }
+        return new HashSet<>(listEntity);
 
 
     }

@@ -14,6 +14,8 @@ import org.iesfm.app.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -36,14 +38,14 @@ public class UserService {
 
         if (userDao.findByRole_IdAndSubjectList_IdAndClassEntities_Id(role, subjectId, classId).isEmpty()) {
             throw new EmptytListException();
-        }else return userDao.findByRole_IdAndSubjectList_IdAndClassEntities_Id(role, subjectId, classId);
+        } else return userDao.findByRole_IdAndSubjectList_IdAndClassEntities_Id(role, subjectId, classId);
 
 
     }
 
 
     public UserEntity getUser(int idUser) {
-        return userDao.findById(idUser).orElseThrow();
+        return userDao.findById(idUser).orElseThrow(EntityNotFoundException::new);
     }
 
     public void getAbsencePercentage(UserEntity entity, List<SubjectDto> subjectDtos) {
@@ -95,37 +97,39 @@ public class UserService {
 
     }
 
-    public UserEntity addUser(UserEntity entity, Integer idUser) throws IncorrectUserException, ClassListException {
+    public UserEntity addUser(UserEntity entity, Integer idUser) throws IncorrectUserException, ClassListException, EntityExistsException {
         entity.setPass(Config.createPass());
         String email = "@email.app";
+        if (!entityExist(entity)) {
 
-        int idRole = checkRole(entity);
-        // if (!entity.getClassEntities().isEmpty()) {
-        if (idRole == 1) {
-            if (entity.getClassEntities().size() > 1) {
-                throw new ClassListException();
+            int idRole = checkRole(entity);
+            // if (!entity.getClassEntities().isEmpty()) {
+            if (idRole == 1) {
+                if (entity.getClassEntities().size() > 1) {
+                    throw new ClassListException();
+                }
+            } else if (idRole == 3) {
+                if (!entity.getClassEntities().isEmpty()) {
+                    throw new ClassListException();
+                }
             }
-        } else if (idRole == 3) {
-            if (!entity.getClassEntities().isEmpty()) {
-                throw new ClassListException();
-            }
-        }
-        // }
-        UserEntity admin = userDao.findById(idUser).orElseThrow();
-        if (userIsAdmin(admin)) {
-            entity.setUsuCre(admin.getId());
-
-            String emailUser = "";
-            if (entity.getSecondSurname() != null) {
-                emailUser = entity.getName() + entity.getFirstSurname() + entity.getSecondSurname();
-
-            } else {
-                emailUser = entity.getName() + entity.getFirstSurname();
-            }
-
-            //entity.setEmail(checkEmail(emailUser, email));
-            return userDao.save(entity);
-        } else throw new IncorrectUserException();
+            // }
+            UserEntity admin = userDao.findById(idUser).orElseThrow();
+            if (userIsAdmin(admin)) {
+                //entity.setUsuCre(admin.getId());
+                //
+                //String emailUser = "";
+                //if (entity.getSecondSurname() != null) {
+                //    emailUser = entity.getName() + entity.getFirstSurname() + entity.getSecondSurname();
+                //
+                //} else {
+                //    emailUser = entity.getName() + entity.getFirstSurname();
+                //}
+                //
+                //entity.setEmail(checkEmail(emailUser, email));
+                return userDao.save(entity);
+            } else throw new IncorrectUserException();
+        } else throw new EntityExistsException();
     }
 
     private String checkEmail(String emailUser, String email) {
@@ -145,7 +149,7 @@ public class UserService {
     }
 
     public UserEntity updateUser(UserEntity entity) {
-      return userDao.save(entity);
+        return userDao.save(entity);
     }
 }
 

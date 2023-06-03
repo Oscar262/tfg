@@ -43,7 +43,7 @@ public class EmailService {
 
         msg.setSubject("Superado el limite de faltas " + LocalDate.now() + subject.getName());
         msg.setContent(
-                "Buenos días " + student.getName() + " "+student.getFirstSurname() + ".<br>" +
+                "Buenos días " + student.getName() + " " + student.getFirstSurname() + ".<br>" +
                         "Ha superado el límite de faltas para la asignatura " + subject.getName() + "<br>" +
                         "Actualmente tiene un total de " + newCountHours + " faltas de asistencia, que suponen un " + newPercentage + "% de las horas totales: " + totalHours + " y el " +
                         "máximo permitido es: " + maxPercentage + "<br>" +
