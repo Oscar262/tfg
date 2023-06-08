@@ -54,14 +54,12 @@ public class ClassController {
     }
 
 
-    @GetMapping("classesList/{idUser}")
-    public ResponseEntity<List<ClassDto>> getAllClasses(
-            @PathVariable("idUser") Integer idUser
-    ) {
+    @GetMapping("classesList")
+    public ResponseEntity<List<ClassDto>> getAllClasses() {
 
         return ResponseEntity.ok(
                 classService
-                        .findAllclasses(idUser)
+                        .findAll()
                         .stream()
                         .map(ClassMapper::toDtoName)
                         .collect(Collectors.toList()));
