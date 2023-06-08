@@ -4,10 +4,7 @@ package org.iesfm.app.controllers;
 import org.iesfm.app.dto.UserDto;
 import org.iesfm.app.dto.mapper.UserMapper;
 import org.iesfm.app.entity.UserEntity;
-import org.iesfm.app.exceptions.ClassListException;
-import org.iesfm.app.exceptions.EmptytListException;
-import org.iesfm.app.exceptions.IncorrectUserException;
-import org.iesfm.app.exceptions.UserNotFoundException;
+import org.iesfm.app.exceptions.*;
 import org.iesfm.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -116,10 +113,12 @@ public class UserController {
             entity = userService.addUser(UserMapper.toEntity(userDto), idUser);
         } catch (IncorrectUserException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        } catch (ClassListException e) {
+        } catch (ClassListException | IncorrectDataExpected e) {
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
         } catch (EntityExistsException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        } catch (ClassListExceptionStudent e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
