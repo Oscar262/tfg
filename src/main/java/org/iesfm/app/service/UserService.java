@@ -150,6 +150,10 @@ public class UserService {
     }
 
     public UserEntity updateUser(UserEntity entity) {
+        UserEntity user = getUser(entity.getId());
+        user.setUsuMod(entity.getUsuMod());
+        user.setDateMod(entity.getDateMod());
+        user.setPass(entity.getPass());
         return userDao.save(entity);
     }
 }

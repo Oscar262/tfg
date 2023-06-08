@@ -228,6 +228,8 @@ public class UserMapper {
         entity.setDateCre(userDto.getDateCre());
         entity.setUsuMod(userDto.getId());
         entity.setDateMod(LocalDate.now());
+      // entity.setClassEntities(ClassMapper.toEntityList(userDto.getClassList()));
+      // entity.setSubjectList(SubjectMapper.toEntityList(userDto.getSubjectList()));
         entity.setRole(RoleMapper.toEnity(userDto.getRole()));
         return entity;
 
