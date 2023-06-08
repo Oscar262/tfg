@@ -226,7 +226,7 @@ public class UserMapper {
         entity.setPass(userDto.getPass());
         entity.setUsuCre(userDto.getUserCre());
         entity.setDateCre(userDto.getDateCre());
-        entity.setUsuCre(userDto.getId());
+        entity.setUsuMod(userDto.getId());
         entity.setDateMod(LocalDate.now());
         entity.setRole(RoleMapper.toEnity(userDto.getRole()));
         return entity;
