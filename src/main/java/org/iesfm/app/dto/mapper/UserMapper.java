@@ -210,8 +210,6 @@ public class UserMapper {
         user.setPass(entity.getPass());
         user.setUserCre(entity.getUsuCre());
         user.setDateCre(entity.getDateCre());
-        user.setUserMod(entiy.getId);
-        user.setDateMod(LocalDate.now());
         user.setRole(RoleMapper.toDto(entity.getRole()));
         return user;
     }
@@ -227,6 +225,8 @@ public class UserMapper {
         entity.setPass(userDto.getPass());
         entity.setUsuCre(userDto.getUserCre());
         entity.setDateCre(userDto.getDateCre());
+        entity.setUserMod(userDto.getId);
+        entity.setDateMod(LocalDate.now());
         entity.setRole(RoleMapper.toEnity(userDto.getRole()));
         return entity;
 
