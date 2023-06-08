@@ -43,13 +43,11 @@ public class SubjectController {
     //}
 
     @GetMapping("subjects/{idUser}")
-    public ResponseEntity<List<SubjectDto>> getSubjects(
-            @PathVariable("idUser") Integer idUser
-    ) {
+    public ResponseEntity<List<SubjectDto>> getSubjects() {
 
         return ResponseEntity.ok(
                 subjectService
-                        .findAllSubjects(idUser)
+                        .findAll()
                         .stream()
                         .map(SubjectMapper::toDtoName)
                         .collect(Collectors.toList()));
