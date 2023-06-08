@@ -54,7 +54,8 @@ public class AbsenceService {
 
      */
 
-    public AbsenceEntity addAbsence(AbsenceEntity absenceEntity, Integer idSubject, Integer idStudent, Integer idTeacher) throws IncorrectDateException, IncorrectDataExpected, EntityNotFoundException {
+    public AbsenceEntity addAbsence(AbsenceEntity absenceEntity, Integer idSubject, Integer idStudent, Integer idTeacher)
+            throws IncorrectDateException, IncorrectDataExpected, EntityNotFoundException {
         int countAbsences = 0;
         int numHours = 0;
 

@@ -20,8 +20,6 @@ import java.util.List;
 @Transactional
 public class AbsenceServiceTest {
 
-    private MockMvc mockMvc;
-
     @Autowired
     private AbsenceService absenceService;
     @Autowired

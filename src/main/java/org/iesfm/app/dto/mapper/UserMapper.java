@@ -10,6 +10,7 @@ import org.iesfm.app.entity.SubjectEntity;
 import org.iesfm.app.entity.UserEntity;
 import org.iesfm.app.service.UserService;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -225,7 +226,7 @@ public class UserMapper {
         entity.setPass(userDto.getPass());
         entity.setUsuCre(userDto.getUserCre());
         entity.setDateCre(userDto.getDateCre());
-        entity.setUserMod(userDto.getId);
+        entity.setUsuMod(userDto.getId());
         entity.setDateMod(LocalDate.now());
         entity.setRole(RoleMapper.toEnity(userDto.getRole()));
         return entity;

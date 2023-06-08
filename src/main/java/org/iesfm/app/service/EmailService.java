@@ -20,7 +20,8 @@ import java.util.Properties;
 @Service
 public class EmailService {
 
-    public void sendEmail(SubjectEntity subject, UserEntity student, UserEntity teacher, double newCountHours, BigDecimal newPercentage, int maxPercentage, Integer totalHours) throws AddressException, MessagingException, IOException {
+    public void sendEmail(SubjectEntity subject, UserEntity student, UserEntity teacher, double newCountHours, BigDecimal newPercentage, int maxPercentage, Integer totalHours)
+            throws AddressException, MessagingException, IOException {
 
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
