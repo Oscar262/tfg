@@ -7,10 +7,7 @@ import org.iesfm.app.dto.mapper.SubjectMapper;
 import org.iesfm.app.entity.AbsenceEntity;
 import org.iesfm.app.entity.SubjectEntity;
 import org.iesfm.app.entity.UserEntity;
-import org.iesfm.app.exceptions.ClassListException;
-import org.iesfm.app.exceptions.EmptytListException;
-import org.iesfm.app.exceptions.IncorrectUserException;
-import org.iesfm.app.exceptions.UserNotFoundException;
+import org.iesfm.app.exceptions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -98,7 +95,7 @@ public class UserService {
     }
 
     public UserEntity addUser(UserEntity entity, Integer idUser) throws IncorrectUserException,
-            ClassListException, EntityExistsException {
+            ClassListException, EntityExistsException, IncorrectDataExpected, ClassListExceptionStudent {
         entity.setPass(Config.createPass());
         String email = "@email.app";
         if (!entityExist(entity)) {
@@ -107,11 +104,14 @@ public class UserService {
             // if (!entity.getClassEntities().isEmpty()) {
             if (idRole == 1) {
                 if (entity.getClassEntities().size() > 1) {
-                    throw new ClassListException();
+                    throw new ClassListExceptionStudent();
                 }
             } else if (idRole == 3) {
                 if (!entity.getClassEntities().isEmpty()) {
                     throw new ClassListException();
+                }
+                if (!entity.getSubjectList().isEmpty()){
+                    throw new IncorrectDataExpected();
                 }
             }
             // }
@@ -154,7 +154,7 @@ public class UserService {
         user.setUsuMod(entity.getUsuMod());
         user.setDateMod(entity.getDateMod());
         user.setPass(entity.getPass());
-        return userDao.save(entity);
+        return userDao.save(user);
     }
 }
 
