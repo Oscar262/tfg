@@ -17,7 +17,6 @@ import java.util.List;
 @Transactional
 public class SubjectServiceTest {
 
-    private MockMvc mockMvc;
 
     @Autowired
     private SubjectService subjectService;

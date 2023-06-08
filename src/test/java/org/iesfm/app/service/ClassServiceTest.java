@@ -17,7 +17,6 @@ import java.time.LocalDate;
 @Transactional
 public class ClassServiceTest {
 
-    private MockMvc mockMvc;
 
     @Autowired
     private ClassService classService;

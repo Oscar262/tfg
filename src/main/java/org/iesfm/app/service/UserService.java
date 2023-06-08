@@ -97,7 +97,8 @@ public class UserService {
 
     }
 
-    public UserEntity addUser(UserEntity entity, Integer idUser) throws IncorrectUserException, ClassListException, EntityExistsException {
+    public UserEntity addUser(UserEntity entity, Integer idUser) throws IncorrectUserException,
+            ClassListException, EntityExistsException {
         entity.setPass(Config.createPass());
         String email = "@email.app";
         if (!entityExist(entity)) {

@@ -29,7 +29,6 @@ import java.util.Set;
 @Transactional
 public class UserServiceTest {
 
-    private MockMvc mockMvc;
 
     @Autowired
     private AbsenceService absenceService;
@@ -107,6 +106,8 @@ public class UserServiceTest {
     @Test
     public void addUserTest() {
         UserEntity entity = new UserEntity();
+        List<ClassEntity> classEntities = new ArrayList<>();
+        classEntities.add(classService.findByid(2));
         RoleEntity role = new RoleEntity();
         role.setId(1);
         role.setName("Student");
@@ -119,6 +120,7 @@ public class UserServiceTest {
         entity.setUsuCre(4);
         entity.setClassEntities(new ArrayList<>());
         entity.setRole(role);
+        entity.setClassEntities(classEntities);
         userService.addUser(entity, 4);
         Assertions.assertNotNull(entity.getId());
     }
