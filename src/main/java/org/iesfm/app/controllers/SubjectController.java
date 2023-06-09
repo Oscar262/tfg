@@ -42,7 +42,7 @@ public class SubjectController {
     //    subjectService.deleteById(id);
     //}
 
-    @GetMapping("subjects/{idUser}")
+    @GetMapping("/subjects")
     public ResponseEntity<List<SubjectDto>> getSubjects() {
 
         return ResponseEntity.ok(

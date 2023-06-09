@@ -60,21 +60,21 @@ public class ClassService {
     }
 
 
-    public List<ClassEntity> findAllclasses(Integer idUser) {
-        List<ClassEntity> classEntities = classDao.findAll();
-
-        UserEntity user = null;
-        if (userService.getUser(idUser) != null) {
-            user = userService.getUser(idUser);
-            List<ClassEntity> classUser = user.getClassEntities();
-
-            for (ClassEntity entity : classEntities) {
-                if (classUser.contains(entity)) {
-                    classEntities.remove(entity);
-                }
-            }
-
-        }
-        return classEntities;
-    }
+//    public List<ClassEntity> findAllclasses(Integer idUser) {
+//        List<ClassEntity> classEntities = classDao.findAll();
+//
+//        UserEntity user = null;
+//        if (userService.getUser(idUser) != null) {
+//            user = userService.getUser(idUser);
+//            List<ClassEntity> classUser = user.getClassEntities();
+//
+//            for (ClassEntity entity : classEntities) {
+//                if (classUser.contains(entity)) {
+//                    classEntities.remove(entity);
+//                }
+//            }
+//
+//        }
+//        return classEntities;
+//    }
 }

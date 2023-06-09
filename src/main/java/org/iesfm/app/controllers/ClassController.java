@@ -54,7 +54,7 @@ public class ClassController {
     }
 
 
-    @GetMapping("classesList")
+    @GetMapping("/classesList")
     public ResponseEntity<List<ClassDto>> getAllClasses() {
 
         return ResponseEntity.ok(

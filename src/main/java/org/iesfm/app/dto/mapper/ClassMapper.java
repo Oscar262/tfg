@@ -102,15 +102,13 @@ public class ClassMapper {
     }
 
 
-    public static List<ClassEntity> toEntityList(List<ClassDto> classList) {
+    public static Set<ClassEntity> toEntityList(List<ClassDto> classList) {
         List<ClassEntity> listEntity = new ArrayList<>();
-        ClassEntity entity = new ClassEntity();
 
-        for (int i = 0; i < classList.size(); i++) {
-            entity.setId(classList.get(i).getId());
-            listEntity.add(entity);
+        for (ClassDto dto : classList) {
+            listEntity.add(toEntity(dto, LocalDate.now()));
         }
-        return listEntity;
+        return new HashSet<>(listEntity);
 
     }
 }

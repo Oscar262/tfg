@@ -75,9 +75,12 @@ public class UserEntity implements Serializable {
     private Set<SubjectEntity> subjectList;
 
 
-    @ManyToMany(mappedBy = "userEntities")
     @ToString.Exclude
-    private List<ClassEntity> classEntities;
+    @ManyToMany
+    @JoinTable(name = "user_class",
+            joinColumns = @JoinColumn(name = "user_in_class_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "class_id", referencedColumnName = "id"))
+    private Set<ClassEntity> classEntities;
 
 
     @OneToMany(mappedBy = "teacherCre")

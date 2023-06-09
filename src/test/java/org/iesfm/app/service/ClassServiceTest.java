@@ -24,10 +24,10 @@ public class ClassServiceTest {
     private UserService userService;
 
 
-    @Test
-    public void findAllclassesTest() {
-        Assertions.assertNotNull(classService.findAllclasses(1));
-    }
+//    @Test
+//    public void findAllclassesTest() {
+//        Assertions.assertNotNull(classService.findAllclasses(1));
+//    }
 
     @SneakyThrows
     @Test

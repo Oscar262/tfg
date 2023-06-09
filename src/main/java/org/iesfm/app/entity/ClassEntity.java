@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -43,12 +44,14 @@ public class ClassEntity implements Serializable {
     @Column(name = "date_mod")
     private LocalDate dateMod;
 
+//    @ToString.Exclude
+//    @ManyToMany
+//    @JoinTable(name = "user_class",
+//            joinColumns = @JoinColumn(name = "class_id", referencedColumnName = "id"),
+//            inverseJoinColumns = @JoinColumn(name = "user_in_class_id", referencedColumnName = "id"))
 
+    @ManyToMany(mappedBy = "classEntities")
     @ToString.Exclude
-    @ManyToMany
-    @JoinTable(name = "user_class",
-            joinColumns = @JoinColumn(name = "class_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "user_in_class_id", referencedColumnName = "id"))
-    private Set<UserEntity> userEntities;
+    private List<UserEntity> userEntities;
 
 }
