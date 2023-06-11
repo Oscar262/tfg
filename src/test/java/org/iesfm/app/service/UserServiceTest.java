@@ -25,6 +25,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * En esta clase se encuentran todos los test que se van a hacer para la clase "UserService"
+ */
 @SpringBootTest
 @Transactional
 public class UserServiceTest {
@@ -39,6 +42,10 @@ public class UserServiceTest {
     @Autowired
     private ClassService classService;
 
+    /**
+     * En este test se comprueba que metiendo todos los datos correctamente el resultado obtenido es el deseado para el
+     * metodo "getUserLogin"
+     */
     @SneakyThrows
     @Test
     public void getUserLoginTest() {
@@ -51,12 +58,20 @@ public class UserServiceTest {
         Assertions.assertEquals(admin.getRole().getId(), 3);
     }
 
+    /**
+     * En este test se comprueba que metiendo todos los datos correctamente el resultado obtenido es el deseado para el
+     * metodo "findAllStudents"
+     */
     @SneakyThrows
     @Test
     public void findAllStudentsTest() {
         Assertions.assertNotNull(userService.findAllStudents(1, 1, 1));
     }
 
+    /**
+     * En este test se comprueba que metiendo datos erroneos (se introducen datos que no existe, o que no tienen relaciones)
+     * el resultado obtenido es el deseado para el metodo "findAllStudents"
+     */
     @SneakyThrows
     @Test
     public void findAllStudentsTestFail() {
@@ -66,11 +81,19 @@ public class UserServiceTest {
         });
     }
 
+    /**
+     * En este test se comprueba que metiendo todos los datos correctamente el resultado obtenido es el deseado para el
+     * metodo "getUser"
+     */
     @Test
     public void getUserTest() {
         Assertions.assertNotNull(userService.getUser(1));
     }
 
+    /**
+     * En este test se comprueba que metiendo un valor incorrecto para el id de usuario (se introduce uno que no existe)
+     * el resultado obtenido es el deseado para el metodo "getUser"
+     */
     @Test
     public void getUserTestFail() {
 
@@ -79,6 +102,10 @@ public class UserServiceTest {
         });
     }
 
+    /**
+     * En este test se comprueba que metiendo todos los datos correctamente el resultado obtenido es el deseado para el
+     * metodo "getAbsencePercentage"
+     */
     @Test
     public void getAbsencePercentageTest() {
         Set<SubjectEntity> subjectEntities = userService.getUser(1).getSubjectList();
@@ -92,16 +119,28 @@ public class UserServiceTest {
         }
     }
 
+    /**
+     * En este test se comprueba que metiendo todos los datos correctamente el resultado obtenido es el deseado para el
+     * metodo "userIsAdmin"
+     */
     @Test
     public void userIsAdminTest() {
         Assertions.assertTrue(userService.userIsAdmin(userService.getUser(4)));
     }
 
+    /**
+     * En este test se comprueba que metiendo un valor incorrecto para el id user (se introduce uno que no es admin)
+     * el resultado obtenido es el deseado para el metodo "userIsAdmin"
+     */
     @Test
     public void userIsAdminTestFail() {
         Assertions.assertFalse(userService.userIsAdmin(userService.getUser(1)));
     }
 
+    /**
+     * En este test se comprueba que metiendo todos los datos correctamente el resultado obtenido es el deseado para el
+     * metodo "addUser"
+     */
     @SneakyThrows
     @Test
     public void addUserTest() {
@@ -125,7 +164,10 @@ public class UserServiceTest {
         Assertions.assertNotNull(entity.getId());
     }
 
-
+    /**
+     * En este test se comprueba que metiendo todos los datos correctamente, excepto la lista de clases (no esta vacia)
+     * el resultado obtenido es el deseado para el metodo "addUser"
+     */
     @Test
     public void addUserTestFailListClassAdmin() {
         Set<ClassEntity> classEntities = new HashSet<>();
@@ -148,6 +190,10 @@ public class UserServiceTest {
         });
     }
 
+    /**
+     * En este test se comprueba que metiendo todos los datos correctamente, excepto la lista de clases (hay mas de una)
+     * el resultado obtenido es el deseado para el metodo "addUser"
+     */
     @Test
     public void addUserTestFailListClassStudent() {
         Set<ClassEntity> classEntities = new HashSet<>();
@@ -171,6 +217,10 @@ public class UserServiceTest {
         });
     }
 
+    /**
+     * En este test se comprueba que metiendo todos los datos correctamente, excepto el administrador (no es admin)
+     * el resultado obtenido es el deseado para el metodo "addUser"
+     */
     @Test
     public void addUserTestFailAdmin() {
         UserEntity entity = new UserEntity();
@@ -191,6 +241,10 @@ public class UserServiceTest {
         });
     }
 
+    /**
+     * En este test se comprueba que metiendo todos los datos correctamente, excepto el email (ya existe)
+     * el resultado obtenido es el deseado para el metodo "addUser"
+     */
     @Test
     public void addUserTestFailEmail() {
         UserEntity entity = new UserEntity();

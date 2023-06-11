@@ -8,11 +8,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
+/**
+ * En esta clase se encuentran todos los test que se van a hacer para la clase "ClassService"
+ */
 @SpringBootTest
 @Transactional
 public class ClassServiceTest {
@@ -24,11 +26,19 @@ public class ClassServiceTest {
     private UserService userService;
 
 
+    /**
+     * En este test se comprueba que metiendo todos los datos correctamente el resultado obtenido es el deseado para el
+     * metodo "findAllClasses"
+     */
     @Test
-    public void findAllclassesTest() {
+    public void findAllClassesTest() {
         Assertions.assertNotNull(classService.findAllclasses(1));
     }
 
+    /**
+     * En este test se comprueba que metiendo todos los datos correctamente el resultado obtenido es el deseado para el
+     * metodo "addClasses"
+     */
     @SneakyThrows
     @Test
     public void addClassesTest() {
@@ -41,6 +51,10 @@ public class ClassServiceTest {
         Assertions.assertNotNull(classEntity.getId());
     }
 
+    /**
+     * En este test se comprueba que metiendo todos los datos correctamente, excepto el administrador (no es admin)
+     * el resultado obtenido es el deseado para el metodo "addClasses"
+     */
     @SneakyThrows
     @Test
     public void addClassesTestFailAdmin() {
@@ -53,6 +67,10 @@ public class ClassServiceTest {
         });
     }
 
+    /**
+     * En este test se comprueba que metiendo todos los datos correctamente el resultado obtenido es el deseado para el
+     * metodo "findAllClassesByTeacher"
+     */
     @Test
     public void findAllClassesByTeacherTest() {
         Assertions.assertNotNull(classService.findAllClassesByTeacher(4));

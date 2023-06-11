@@ -15,7 +15,9 @@ import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
 
-
+/**
+ * En esta clase se encuentran todos los test que se van a hacer para la clase "AbsenceService"
+ */
 @SpringBootTest
 @Transactional
 public class AbsenceServiceTest {
@@ -27,6 +29,10 @@ public class AbsenceServiceTest {
     @Autowired
     private SubjectService subjectService;
 
+    /**
+     * En este test se comprueba que metiendo todos los datos correctamente el resultado obtenido es el deseado para el
+     * metodo "addAbsence"
+     */
     @SneakyThrows
     @Test
     public void addAbsenceTest() {
@@ -36,6 +42,10 @@ public class AbsenceServiceTest {
         Assertions.assertNotNull(absence.getId());
     }
 
+    /**
+     * En este test se comprueba que metiendo todos los datos correctamente, excepto la fecha (se introduce en fin de semana)
+     * el resultado obtenido es el deseado para el metodo "addAbsence"
+     */
     @SneakyThrows
     @Test
     public void addAbsenceTestFailDateWeekEnd() {
@@ -45,7 +55,10 @@ public class AbsenceServiceTest {
             absenceService.addAbsence(absence, 2, 1, 3);
         });
     }
-
+    /**
+     * En este test se comprueba que metiendo todos los datos correctamente, excepto la fecha (se introduce en julio)
+     * el resultado obtenido es el deseado para el metodo "addAbsence"
+     */
     @SneakyThrows
     @Test
     public void addAbsenceTestFailDateJuly() {
@@ -56,6 +69,10 @@ public class AbsenceServiceTest {
         });
     }
 
+    /**
+     * En este test se comprueba que metiendo todos los datos correctamente, excepto la fecha (se introduce en agosto)
+     * el resultado obtenido es el deseado para el metodo "addAbsence"
+     */
     @SneakyThrows
     @Test
     public void addAbsenceTestFailDateAugust() {
@@ -66,6 +83,10 @@ public class AbsenceServiceTest {
         });
     }
 
+    /**
+     * En este test se comprueba que metiendo todos los datos correctamente, excepto el profesor (se introduce uno que no existe)
+     * el resultado obtenido es el deseado para el metodo "addAbsence"
+     */
     @SneakyThrows
     @Test
     public void addAbsenceTestFailTeacherNotFound() {
@@ -75,6 +96,10 @@ public class AbsenceServiceTest {
         });
     }
 
+    /**
+     * En este test se comprueba que metiendo todos los datos correctamente, excepto el estudiante (se introduce uno que no existe)
+     * el resultado obtenido es el deseado para el metodo "addAbsence"
+     */
     @SneakyThrows
     @Test
     public void addAbsenceTestFailStudentNotFound() {
@@ -84,6 +109,10 @@ public class AbsenceServiceTest {
         });
     }
 
+    /**
+     * En este test se comprueba que metiendo todos los datos correctamente, excepto el numero de horas (se introduce uno
+     * que supere las permitidas) el resultado obtenido es el deseado para el metodo "addAbsence"
+     */
     @SneakyThrows
     @Test
     public void addAbsenceTestFailIncorrectData() {
@@ -94,13 +123,21 @@ public class AbsenceServiceTest {
         });
     }
 
+    /**
+     * En este test se comprueba que metiendo todos los datos correctamente el resultado obtenido es el deseado para el
+     * metodo "getAllStudentsByTeacherAndSubject"
+     */
     @Test
     public void getAllStudentsByTeacherAndSubjectTest() {
         List<AbsenceEntity> absenceEntities = absenceService.findAllAbsences(3, 2);
         Assertions.assertNotNull(absenceEntities);
     }
 
-
+    /**
+     * Este metodo se utilizara para crear una ausencia que se utilizara en el resto de test
+     * @param idSubject es el id de la asignatura a la que se creara la ausencia
+     * @return devuelve la ausencia
+     */
     private AbsenceEntity absence(int idSubject) {
         AbsenceEntity entity = new AbsenceEntity();
 

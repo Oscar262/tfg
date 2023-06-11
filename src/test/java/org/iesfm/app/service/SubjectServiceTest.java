@@ -13,6 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * En esta clase se encuentran todos los test que se van a hacer para la clase "SubjectService"
+ */
 @SpringBootTest
 @Transactional
 public class SubjectServiceTest {
@@ -23,16 +26,28 @@ public class SubjectServiceTest {
     @Autowired
     private UserService userService;
 
+    /**
+     * En este test se comprueba que metiendo todos los datos correctamente el resultado obtenido es el deseado para el
+     * metodo "getSubject"
+     */
     @Test
     public void getSubjectTest() {
         Assertions.assertNotNull(subjectService.getSubject(1));
     }
 
+    /**
+     * En este test se comprueba que metiendo un id incorrecto para "subject" (se introduce uno que no existe)
+     * el resultado obtenido es el deseado para el metodo "getSubject"
+     */
     @Test
     public void getSubjectTestFail() {
         Assertions.assertNull(subjectService.getSubject(900));
     }
 
+    /**
+     * En este test se comprueba que metiendo todos los datos correctamente el resultado obtenido es el deseado para el
+     * metodo "addSubject"
+     */
     @SneakyThrows
     @Test
     public void addSubjectTest() {
@@ -44,6 +59,10 @@ public class SubjectServiceTest {
         subjectService.addSubject(subject, 4);
     }
 
+    /**
+     * En este test se comprueba que metiendo todos los datos correctamente, excepto el admin (se introduce uno que no es admin)
+     * el resultado obtenido es el deseado para el metodo "addSubject"
+     */
     @SneakyThrows
     @Test
     public void addSubjectTestFaillAdmin() {
@@ -57,6 +76,10 @@ public class SubjectServiceTest {
         });
     }
 
+    /**
+     * En este test se comprueba que metiendo todos los datos correctamente el resultado obtenido es el deseado para el
+     * metodo "findAllSubjects"
+     */
     @Test
     public void findAllSubjectsTest() {
         List<SubjectEntity> subjectEntities = subjectService.findAllSubjects(3);

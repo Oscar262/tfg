@@ -6,6 +6,9 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
+/**
+ * En esta clase se crea el metodo que genera el contexto de SpringBoot y arranca todos los servicios y endpoints
+ */
 @SpringBootApplication
 @EnableAutoConfiguration
 @AutoConfiguration
