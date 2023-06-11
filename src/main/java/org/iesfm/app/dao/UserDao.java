@@ -30,19 +30,6 @@ public interface UserDao extends JpaRepository<UserEntity, Integer> {
     UserEntity findByEmail(String email);
 
 
-    UserEntity findByIdAndRole_Name(Integer id, String name);
-
-
-    List<UserEntity> findByRole_NameAndSubjectList_Name(String name, String name1);
-
-    @Query("select u from UserEntity u inner join u.classEntities classEntities " +
-            "where u.role.name = ?1 and classEntities.name = ?2")
-    List<UserEntity> findByRole_NameAndClassEntities_Name(String name, String name1);
-
-    @Query("select u from UserEntity u inner join u.subjectList subjectList inner join u.classEntities classEntities " +
-            "where u.role.name = ?1 and subjectList.name = ?2 and classEntities.name = ?3")
-    List<UserEntity> findByRole_NameAndSubjectList_NameAndClassEntities_Name(String name, String name1, String name2);
-
     /**
      * En este metodo se busca una lista de usuarios en la base de datos
      * @param idRole es el id del role que se buscara en la base de datos
@@ -57,7 +44,6 @@ public interface UserDao extends JpaRepository<UserEntity, Integer> {
     List<UserEntity> findByRole_IdAndSubjectList_IdAndClassEntities_Id(Integer idRole, Integer id, Integer id1);
 
 
-    List<UserEntity> findByRole_Name(String name);
 
 
 }

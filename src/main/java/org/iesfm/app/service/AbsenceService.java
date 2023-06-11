@@ -35,28 +35,23 @@ public class AbsenceService {
     @Autowired
     private EmailService emailService;
 
-
-/*
-    public AbsenceDao getAbsenceDao() {
-        return absenceDao;
-    }
-
-
+    /**
+     * Este metodo busca toda la lista de ausencias en la base de datos
+     * @return devuelve la lista
+     */
     public List<AbsenceEntity> findAll() {
         return absenceDao.findAll();
     }
 
+    /**
+     * En este metodo se busca una ausencia en la base de datos
+     * @param id el id de la ausencia a buscar
+     * @return devuelve la ausencia que se ha buscado
+     */
     public AbsenceEntity findByid(int id) {
         return absenceDao.findById(id).orElse(null);
     }
 
-
-
-    public void deleteById(int id) {
-        absenceDao.deleteById(id);
-    }
-
-     */
 
     /**
      * En este metodo se crea una nueva ausencia en la base de datos

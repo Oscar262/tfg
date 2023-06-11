@@ -1,7 +1,6 @@
 package org.iesfm.app.dto.mapper;
 
 import org.iesfm.app.dto.AbsenceDto;
-import org.iesfm.app.dto.ClassDto;
 import org.iesfm.app.dto.SubjectDto;
 import org.iesfm.app.entity.AbsenceEntity;
 import org.iesfm.app.entity.SubjectEntity;
@@ -51,20 +50,6 @@ public class SubjectMapper {
         subjectDto.setPercentage(percentege);
 
         return subjectDto;
-    }
-
-    /**
-     * En este metodo se transforma un dto de asignatura en una entidad de asignatura
-     * @param dto es el dto que se transformara
-     * @return devuelve la entidad de la asignatura
-     */
-    public static SubjectEntity toEntityInfo(SubjectDto dto) {
-        SubjectEntity subjectEntity = new SubjectEntity();
-
-        subjectEntity.setId(dto.getId());
-        subjectEntity.setName(dto.getName());
-
-        return subjectEntity;
     }
 
     /**

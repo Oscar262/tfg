@@ -38,10 +38,6 @@ public class AbsenceController {
             @PathVariable("subjectId") Integer subjectId
     ) {
 
-        //las ausencias deberian salir ordenadas por fecha, para ordenarlas se deberia ir al dao y desde alli 
-        //cambiar la query del metodo o crear una nueva que tambien ordene las ausencias, para que al verlas en la app
-        //aparezcan en orden segun su fecha
-
         return ResponseEntity.ok(
                 absenceService
                         .findAllAbsences(teacher, subjectId)
@@ -88,12 +84,6 @@ public class AbsenceController {
 
         try {
             entity = absenceService.addAbsence(AbsenceMapper.toEntity(absence), idSubject, idStudent, idTeacher);
-
-            //en este controller se lanzara un 404 si no se encuentra alguno de los usuarios, ya sea el profesor o el alumno,
-            //por lo que para este error se debera crear un toast en android en plan: "estudiante no encontrado, pruebe a recargar la
-            // pagina y selecione de nuevo al estudiante", o algo similar, si salta el 406, el toast seria: "El contenido introducido
-            // no es correcto, compruebe las horas asignadas, el estudiante no puede tener más de 7 horas asignadas a la misma fecha",
-            //y para el ultimo, el 422, el toast seria como: "esa fecha no es elegible, pruebe a seleccionar una fecha para este curso escolar"
 
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

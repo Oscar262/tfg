@@ -25,26 +25,6 @@ public class SubjectController {
     @Autowired
     private SubjectService subjectService;
 
-    //@GetMapping(path = "/subject")
-    //public List<SubjectEntity> findAll() {
-    //    return subjectService.findAll();
-    //}
-
-    //@GetMapping(path = "/subject/{id}")
-    //public SubjectEntity findById(@PathVariable int id) {
-    //    return subjectService.getSubject(id);
-    // }
-
-    // @PostMapping(path = "/subject")
-    // public SubjectEntity save(@RequestBody SubjectEntity subjectEntity) {
-    //     return subjectService.save(subjectEntity);
-    // }
-
-    //@DeleteMapping(path = "/subject/{id}")
-    //public void deleteById(@PathVariable int id) {
-    //    subjectService.deleteById(id);
-    //}
-
     /**
      * En este metodo se envia al cliente una lista con todas las asignaturas que existen en base de datos
      * @return devuelve la lista

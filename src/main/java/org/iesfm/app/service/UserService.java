@@ -157,7 +157,6 @@ public class UserService {
         if (!entityExist(entity)) {
 
             int idRole = checkRoleUser(entity);
-            // if (!entity.getClassEntities().isEmpty()) {
             if (idRole == 1) {
                 if (entity.getClassEntities().size() > 1) {
                     throw new ClassListExceptionStudent();
@@ -170,20 +169,23 @@ public class UserService {
                     throw new IncorrectDataExpected();
                 }
             }
-            // }
             UserEntity admin = userDao.findById(idUser).orElseThrow();
             if (userIsAdmin(admin)) {
-                //entity.setUsuCre(admin.getId());
-                //
-                //String emailUser = "";
-                //if (entity.getSecondSurname() != null) {
-                //    emailUser = entity.getName() + entity.getFirstSurname() + entity.getSecondSurname();
-                //
-                //} else {
-                //    emailUser = entity.getName() + entity.getFirstSurname();
-                //}
-                //
-                //entity.setEmail(checkEmail(emailUser, email));
+                //TODO: en esta parte del codigo se encuentra la generacion de correo automatico al añadir usuario
+                /*
+                entity.setUsuCre(admin.getId());
+
+                String emailUser = "";
+                if (entity.getSecondSurname() != null) {
+                    emailUser = entity.getName() + entity.getFirstSurname() + entity.getSecondSurname();
+
+                } else {
+                    emailUser = entity.getName() + entity.getFirstSurname();
+                }
+
+                entity.setEmail(checkEmail(emailUser, email));
+
+                 */
                 return userDao.save(entity);
             } else throw new IncorrectUserException();
         } else throw new EntityExistsException();

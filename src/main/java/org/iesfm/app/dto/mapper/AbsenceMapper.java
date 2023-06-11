@@ -25,33 +25,6 @@ public class AbsenceMapper {
         return absenceEntity;
     }
 
-    public static AbsenceEntity toEntityInfo(AbsenceDto absenceDto) {
-        AbsenceEntity absenceEntity = new AbsenceEntity();
-
-        absenceEntity.setId(absenceDto.getId());
-        absenceEntity.setNumHours(absenceDto.getNumHours());/*
-        absenceEntity.setTeacherCre(UserMapper.toEntityInfo(absenceDto.getTeacher()));
-
-       */
-        absenceEntity.setDate(absenceDto.getDate());
-        absenceEntity.setStudent(UserMapper.toEntityInfo(absenceDto.getStudent()));
-        absenceEntity.setSubject(SubjectMapper.toEntityInfo(absenceDto.getSubject()));
-
-        return absenceEntity;
-    }
-//
-//    public static AbsenceEntity toEntityForSubject(AbsenceDto absenceDto){
-//        AbsenceEntity absenceEntity = new AbsenceEntity();
-//
-//        absenceEntity.setId(absenceDto.getId());
-//        absenceEntity.setNumHours(absenceDto.getNumHours());
-//        absenceEntity.setTeacherCre(UserMapper.toEntityInfo(absenceDto.getTeacher()));
-//        absenceEntity.setDate(absenceDto.getDate());
-//        absenceEntity.setStudent(UserMapper.toEntityInfo(absenceDto.getStudent()));
-//
-//        return absenceEntity;
-//    }
-
     /**
      * En este metodo se transforma una entidad de ausencia a un dto de ausencia
      * @param absence es la entidad que se tiene que trasnformar

@@ -131,14 +131,6 @@ public class UserController {
             @PathVariable("idUserCre") Integer idUser
 
     ) {
-
-        //se ha cambiado en todos los controlers los errores, ahora se lanzara un 403 si el usuario
-        //que crea en este caso el usuario nuevo no es un admin, si el problema es que ya existe se lanzara un 409
-        //sera asi para el resto de los controller excepto AbsencesController, se ha hecho asi para poder lanzar tast
-        //diferentes en android deperndiendo del error, por ejemplo si falla porque ya existe la entidad el toast seria
-        //algo como: "usuario ya existente, compruebe los datos", y si el problema es por forbidde(403), lo que se deberia
-        //poner seria algo como: "Permiso denegado: esta accion debe realizarla un administrado", por ejemplo
-
         UserEntity entity = null;
 
         try {

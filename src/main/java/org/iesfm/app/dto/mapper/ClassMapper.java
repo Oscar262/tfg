@@ -65,36 +65,6 @@ public class ClassMapper {
         return classDto;
     }
 
-    /*
-        public static ClassDto toDto(ClassEntity classEntity) {
-            ClassDto classDto = new ClassDto();
-
-            Set<UserDto> students = new HashSet<>();
-            Set<UserDto> teachers = new HashSet<>();
-
-            for (UserClassSubject userClassSubject : classEntity.getRelation()) {
-                switch (userClassSubject.getUser().getRole().getName()) {
-                    case "Student":
-                        students.add(UserMapper.toDtoInfo(userClassSubject.getUser()));
-                        break;
-                    case "Teacher":
-                        teachers.add(UserMapper.toDtoInfo(userClassSubject.getUser()));
-                        break;
-                }
-            }
-
-            classDto.setId(classEntity.getId());
-            classDto.setName(classEntity.getName());
-            classDto.setUserCre(UserMapper.toDtoInfo(classEntity.getUserCre()));
-            classDto.setUserMod(UserMapper.toDtoInfo(classEntity.getUserMod()));
-            classDto.setDateCre(classEntity.getDateCre());
-            classDto.setDateMod(classEntity.getDateMod());
-            classDto.setTeachers(teachers);
-            classDto.setStudents(students);
-            return classDto;
-        }
-    */
-
     /**
      * En este metodo se trasnforma un dto de clase en una entidad de clase
      * @param dto es el dto a transformar

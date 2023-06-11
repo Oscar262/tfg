@@ -40,10 +40,10 @@ public class SubjectService {
         return subjectDao.findById(id).orElse(null);
     }
 
-    public SubjectEntity save(SubjectEntity subjectEntity) {
-        return subjectDao.save(subjectEntity);
-    }
-
+    /**
+     * En este metodo se elimina una asignatura
+     * @param id el id de la asignatura a eliminar
+     */
     public void deleteById(int id) {
         subjectDao.deleteById(id);
     }

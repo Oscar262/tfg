@@ -46,51 +46,6 @@ public class UserMapper {
         return user;
     }
 
-//    public static UserDto toDto(UserEntity entity) {
-//
-//        UserDto dto = new UserDto();
-//
-//        List<AbsenceDto> absenceDtos = new ArrayList<>();
-//
-//        List<SubjectDto> subjectDtos = new ArrayList<>();
-//        List<ClassDto> classDto = new ArrayList<>();
-//
-//        for (ClassEntity classEntity : entity.getClassEntities()) {
-//            ClassDto classDto1 = ClassMapper.toUserDto(classEntity);
-//            classDto.add(classDto1);
-//
-//        }
-//        for (SubjectEntity subject : entity.getSubjectList()) {
-//            SubjectDto subjectDto = SubjectMapper.toDtoInfo(subject);
-//            subjectDtos.add(subjectDto);
-//        }
-//
-//        for (AbsenceEntity absenceEntity : entity.getAbsenceList()) {
-//            absenceDtos.add(AbsenceMapper.toUserDto(absenceEntity));
-//        }
-//
-//        dto.setId(entity.getId());
-//        dto.setName(entity.getName());
-//        dto.setFirstSurname(entity.getFirstSurname());
-//        dto.setSecondSurname(entity.getSecondSurname());
-//        dto.setDateCre(entity.getDateCre());
-//        dto.setDateMod(entity.getDateMod());
-//        dto.setUserCre(entity.getUsuCre());
-//        dto.setUserMod(entity.getUsuMod());
-//        dto.setEmail(entity.getEmail());
-//        dto.setPass(entity.getPass());
-//        dto.setRole(RoleMapper.toDto(entity.getRole()));
-//        dto.setAbsenceList(absenceDtos);
-//
-//        dto.setSubjectList(subjectDtos);
-//
-//
-//        dto.setClassList(classDto);
-//
-//
-//        return dto;
-//    }
-
     /**
      * En este metodo se transformara una entidad de usuario en un dto de usuario
      * @param entity es el usuario que se transformara
@@ -120,51 +75,6 @@ public class UserMapper {
         dto.setAbsenceList(absenceDtos);
         return dto;
     }
-
-    /**
-     * En este metodo se transforma un dto de usuario en una entidad de usuario
-     * @param userDto es el dto que se transformara
-     * @return devuelve la entidad de usuario
-     */
-    public static UserEntity toEntityInfo(UserDto userDto) {
-        UserEntity user = new UserEntity();
-
-        user.setId(userDto.getId());
-        user.setName(userDto.getName());
-        user.setFirstSurname(userDto.getFirstSurname());
-        user.setSecondSurname(userDto.getSecondSurname());
-        user.setEmail(userDto.getEmail());
-        return user;
-    }
-
-//    public static UserDto toDtoInfo(UserEntity entity) {
-//        UserDto user = new UserDto();
-//
-//        List<SubjectDto> subjectDtos = new ArrayList<>();
-//        List<ClassDto> classDto = new ArrayList<>();
-//        for (ClassEntity classEntity : entity.getClassEntities()) {
-//            ClassDto classDto1 = ClassMapper.toUserDto(classEntity);
-//            classDto.add(classDto1);
-//
-//        }
-//
-//
-//        for (SubjectEntity subject : entity.getSubjectList()) {
-//            SubjectDto subjectDto = SubjectMapper.toDtoInfo(subject);
-//            subjectDtos.add(subjectDto);
-//        }
-//
-//        user.setId(entity.getId());
-//        user.setName(entity.getName());
-//        user.setFirstSurname(entity.getFirstSurname());
-//        user.setSecondSurname(entity.getSecondSurname());
-//        user.setEmail(entity.getEmail());
-//        user.setSubjectList(subjectDtos);
-//
-//
-//        user.setClassList(classDto);
-//        return user;
-//    }
 
     /**
      * En este metodo se transformara una entidad de usuario en un dto de usuario
@@ -261,8 +171,6 @@ public class UserMapper {
         entity.setDateCre(userDto.getDateCre());
         entity.setUsuMod(userDto.getId());
         entity.setDateMod(LocalDate.now());
-      // entity.setClassEntities(ClassMapper.toEntityList(userDto.getClassList()));
-      // entity.setSubjectList(SubjectMapper.toEntityList(userDto.getSubjectList()));
         entity.setRole(RoleMapper.toEnity(userDto.getRole()));
         return entity;
 

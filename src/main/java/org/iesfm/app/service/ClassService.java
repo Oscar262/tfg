@@ -40,10 +40,10 @@ public class ClassService {
         return classDao.findById(id).orElse(null);
     }
 
-    public ClassEntity save(ClassEntity classEntity) {
-        return classDao.save(classEntity);
-    }
-
+    /**
+     * En este metodo se borra una clase
+     * @param id el id de la clase a borrar
+     */
     public void deleteById(int id) {
         classDao.deleteById(id);
     }
