@@ -13,6 +13,9 @@ import javax.validation.constraints.Positive;
 import java.time.LocalDate;
 import java.util.Set;
 
+/**
+ * En esta clase describen los campos que tendra el dto(Data Transfer Object) de la entidad asignatura
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

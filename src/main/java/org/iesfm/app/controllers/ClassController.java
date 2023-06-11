@@ -16,12 +16,20 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * En esta clase se controla la informacion que se envia al cliente o que se recibe de el para las clases
+ */
 @RestController
 public class ClassController {
 
     @Autowired
     private ClassService classService;
 
+    /**
+     * En este metodo se envia al cliente la lista de clases que tiene un profesor
+     * @param idTeacher  el id del profesor para el que se buscaran las clases
+     * @return devuelve la lista de clases
+     */
     @GetMapping("/classes/{idTeacher}")
     public ResponseEntity<List<ClassDto>> getClasses(
             @PathVariable("idTeacher") Integer idTeacher
@@ -35,6 +43,12 @@ public class ClassController {
 
     }
 
+    /**
+     * En este metodo se envia desde el cliente una nueva clase para crearla en base de datos
+     * @param classDto es la clase que se envia desde el cliente
+     * @param idUser es el administrador que crea la nueva clase
+     * @return devuelve diferentes codigos HTTP dependiendo de si se ha podido crear o no la nueva clase en base de datos
+     */
     @PostMapping("/class/{idUserCre}")
     public ResponseEntity<Void> addClass(
             @Valid @RequestBody ClassDto classDto,
@@ -53,7 +67,10 @@ public class ClassController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-
+    /**
+     * Se envia al cliente todas las clases que existen creadas en base de datos
+     * @return devuelve la lista con todas las clases
+     */
     @GetMapping("/classesList")
     public ResponseEntity<List<ClassDto>> getAllClasses() {
 

@@ -7,6 +7,9 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Set;
 
+/**
+ * En esta clase describen los campos que tendra la entidad role, asi como los campos en la tabla "role" y sus relaciones
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

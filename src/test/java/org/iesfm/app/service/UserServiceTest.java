@@ -15,13 +15,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -41,10 +41,10 @@ public class UserServiceTest {
 
     @SneakyThrows
     @Test
-    public void checkRoleTest() {
-        UserEntity user = (userService.checkRole("s1@gmail.com", "pass"));
-        UserEntity teacher = (userService.checkRole("t@gmail.com", "pass"));
-        UserEntity admin = (userService.checkRole("a@gmail.com", "pass"));
+    public void getUserLoginTest() {
+        UserEntity user = (userService.getUserLogin("s1@gmail.com", "pass"));
+        UserEntity teacher = (userService.getUserLogin("t@gmail.com", "pass"));
+        UserEntity admin = (userService.getUserLogin("a@gmail.com", "pass"));
 
         Assertions.assertEquals(user.getRole().getId(), 1);
         Assertions.assertEquals(teacher.getRole().getId(), 2);
@@ -106,7 +106,7 @@ public class UserServiceTest {
     @Test
     public void addUserTest() {
         UserEntity entity = new UserEntity();
-        List<ClassEntity> classEntities = new ArrayList<>();
+        Set<ClassEntity> classEntities = new HashSet<>();
         classEntities.add(classService.findByid(2));
         RoleEntity role = new RoleEntity();
         role.setId(1);
@@ -118,7 +118,7 @@ public class UserServiceTest {
         entity.setFirstSurname("Apellido");
         entity.setDateCre(LocalDate.now());
         entity.setUsuCre(4);
-        entity.setClassEntities(new ArrayList<>());
+        entity.setSubjectList(new HashSet<>());
         entity.setRole(role);
         entity.setClassEntities(classEntities);
         userService.addUser(entity, 4);
@@ -128,7 +128,7 @@ public class UserServiceTest {
 
     @Test
     public void addUserTestFailListClassAdmin() {
-        List<ClassEntity> classEntities = new ArrayList<>();
+        Set<ClassEntity> classEntities = new HashSet<>();
         classEntities.add(classService.findByid(2));
         UserEntity entity = new UserEntity();
         RoleEntity role = new RoleEntity();
@@ -150,7 +150,7 @@ public class UserServiceTest {
 
     @Test
     public void addUserTestFailListClassStudent() {
-        List<ClassEntity> classEntities = new ArrayList<>();
+        Set<ClassEntity> classEntities = new HashSet<>();
         classEntities.add(classService.findByid(1));
         classEntities.add(classService.findByid(2));
         UserEntity entity = new UserEntity();
@@ -185,7 +185,7 @@ public class UserServiceTest {
         entity.setDateCre(LocalDate.now());
         entity.setUsuCre(2);
         entity.setRole(role);
-        entity.setClassEntities(new ArrayList<>());
+        entity.setClassEntities(new HashSet<>());
         Assertions.assertThrows(IncorrectUserException.class, () -> {
             userService.addUser(entity, 2);
         });
@@ -204,7 +204,7 @@ public class UserServiceTest {
         entity.setFirstSurname("Apellido");
         entity.setDateCre(LocalDate.now());
         entity.setUsuCre(4);
-        entity.setClassEntities(new ArrayList<>());
+        entity.setClassEntities(new HashSet<>());
         entity.setRole(role);
         Assertions.assertThrows(EntityExistsException.class, () -> {
             userService.addUser(entity, 4);

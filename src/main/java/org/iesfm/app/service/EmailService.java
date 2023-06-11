@@ -17,9 +17,28 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Properties;
 
+/**
+ * Esta clase se encuentran los metodos relacionados con el servicio de la aplicacion que afectan al envio por correo electronico
+ */
 @Service
 public class EmailService {
 
+    /**
+     * En este metodo se genera un email que se enviara a un estudiante y a un profesor cuando el profesor le registre
+     * una nueva falta al alumno y este supere el maximo de faltas posibles para una asignatura
+     * @param subject es la asignatura a la que ha faltado el alumno
+     * @param student es el alumno que ha faltado
+     * @param teacher es el profesor que registra la falta
+     * @param newCountHours es el numero de horas que ha faltado el alumno despues de haberle sumado las horas que
+     *                      se han registrado en la nueva falta
+     * @param newPercentage es el porcentaje de horas que ha faltado el alumno despues de haberle sumado las horas que
+     *                      se han registrado en la nueva falta
+     * @param maxPercentage es el porcentaje maximo que se puede faltar a una asignatura (se configura en la clase "Config")
+     * @param totalHours es el numero de horas totales que tiene la asignatura
+     * @throws AddressException es una excepcioon generica que se lanzara en algunos casos del metodo
+     * @throws MessagingException es una excepcioon generica que se lanzara en algunos casos del metodo
+     * @throws IOException es una excepcioon generica que se lanzara en algunos casos del metodo
+     */
     public void sendEmail(SubjectEntity subject, UserEntity student, UserEntity teacher, double newCountHours, BigDecimal newPercentage, int maxPercentage, Integer totalHours)
             throws AddressException, MessagingException, IOException {
 

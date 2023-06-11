@@ -19,6 +19,10 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 
+
+/**
+ * Esta clase se encuentran los metodos relacionados con el servicio de la aplicacion que afectan a las ausencias
+ */
 @Service
 public class AbsenceService {
 
@@ -54,6 +58,19 @@ public class AbsenceService {
 
      */
 
+    /**
+     * En este metodo se crea una nueva ausencia en la base de datos
+     * @param absenceEntity es la ausencia que se debe guardar en la base de datos
+     * @param idSubject es la asignatura a la que se ha faltado
+     * @param idStudent es el estudiante que ha faltado
+     * @param idTeacher es el profesor que ha mandado la falta
+     * @return devuelve la ausencia que se ha guardado en la base de datos
+     * @throws IncorrectDateException esta excepcion se lanzara si la fecha de la ausencia no es correcta
+     * @throws IncorrectDataExpected esta excepcion se lanzara si al añadir esta ausencia se sobrepasa el nuemero maximo
+     * de ausencias que un alumno puede tener en el mismo dia
+     * @throws EntityNotFoundException esta excepcion se lanzara si el estudiante o el profesor no se encuentran en la
+     * base de datos
+     */
     public AbsenceEntity addAbsence(AbsenceEntity absenceEntity, Integer idSubject, Integer idStudent, Integer idTeacher)
             throws IncorrectDateException, IncorrectDataExpected, EntityNotFoundException {
         int countAbsences = 0;
@@ -80,9 +97,6 @@ public class AbsenceService {
             throw new IncorrectDateException();
         } else if (date.isAfter(Config.END_DATE) || date.isBefore(Config.START_DATE)) {
             throw new IncorrectDateException();
-
-            //se necesita acceder a la base de datos y comprobar si las horas existentes mas las nuevas que se quieren agregar exceden las siete horas
-            // ya que de ser así no se deberia de poder introducir la falta en la base de datos porque excederia las 7 horas diarias
 
 
         }
@@ -119,13 +133,21 @@ public class AbsenceService {
         return absenceDao.save(absenceEntity);
     }
 
-
+    /**
+     * En este metodo se busca una lista de ausencias en la base de datos
+     * @param teacherId es el profesor que ha creado las ausencias
+     * @param subjectId es la asignatura para la que estan creadas las ausencias
+     * @return devuelve una lista de ausencias que cumplan los dos campos anteriores
+     */
     public List<AbsenceEntity> findAllAbsences(Integer teacherId, Integer subjectId) {
 
         return absenceDao.findByTeacherCre_IdAndSubject_IdOrderByStudent_IdAscDateDesc(teacherId, subjectId);
     }
 
-
+    /**
+     * En este metodo se elimina una ausencia en la base de datos
+     * @param absenceId es la ausencia que se va a eliminar
+     */
     public void delete(Integer absenceId) {
         absenceDao.deleteById(absenceId);
     }

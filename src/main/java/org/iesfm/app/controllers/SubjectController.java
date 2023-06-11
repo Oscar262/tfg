@@ -16,6 +16,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * En esta clase se controla la informacion que se envia al cliente o que se recibe de el para las asignaturas
+ */
 @RestController
 public class SubjectController {
 
@@ -42,6 +45,10 @@ public class SubjectController {
     //    subjectService.deleteById(id);
     //}
 
+    /**
+     * En este metodo se envia al cliente una lista con todas las asignaturas que existen en base de datos
+     * @return devuelve la lista
+     */
     @GetMapping("/subjects")
     public ResponseEntity<List<SubjectDto>> getSubjects() {
 
@@ -55,7 +62,12 @@ public class SubjectController {
 
     }
 
-
+    /**
+     * En este metodo se recibe desde el cliente una nueva asignatura para almacenar en base de datos
+     * @param subjectDto es la nueva asignatura que se guardara en base de datos
+     * @param idUser es el administrador que genera la nueva asignatura
+     * @return devuelve diferentes codigos HTTP dependiendo de si se ha podido guardar o no la nueva asignatura
+     */
     @PostMapping("subject/{idUserCre}")
     public ResponseEntity<Void> addSubject(
             @Valid @RequestBody SubjectDto subjectDto,

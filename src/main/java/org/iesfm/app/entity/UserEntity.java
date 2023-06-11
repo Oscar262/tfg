@@ -10,6 +10,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * En esta clase describen los campos que tendra la entidad usuario, asi como los campos en la tabla "user_entity" y sus relaciones
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

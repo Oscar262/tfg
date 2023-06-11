@@ -11,6 +11,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.time.LocalDate;
 
+/**
+ * En esta clase describen los campos que tendra el dto(Data Transfer Object) de la entidad ausencia
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

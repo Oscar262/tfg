@@ -3,9 +3,16 @@ package org.iesfm.app.dto.mapper;
 import org.iesfm.app.dto.AbsenceDto;
 import org.iesfm.app.entity.AbsenceEntity;
 
+/**
+ * En esta clase se encuentran todos los metodos que convierten las entidades en dtos para las ausencias
+ */
 public class AbsenceMapper {
 
-
+    /**
+     * En este metodo se convierte un dto de ausencia a un a entidad de ausencia
+     * @param absenceDto es el dto que se debe transformar
+     * @return devuelve la entidad con algunos de sus campos
+     */
     public static AbsenceEntity toEntity(AbsenceDto absenceDto) {
         AbsenceEntity absenceEntity = new AbsenceEntity();
 
@@ -45,6 +52,11 @@ public class AbsenceMapper {
 //        return absenceEntity;
 //    }
 
+    /**
+     * En este metodo se transforma una entidad de ausencia a un dto de ausencia
+     * @param absence es la entidad que se tiene que trasnformar
+     * @return devuelve el dto con algunos de sus campos
+     */
     public static AbsenceDto toUserDto(AbsenceEntity absence) {
         AbsenceDto absenceDto = new AbsenceDto();
 
@@ -61,7 +73,11 @@ public class AbsenceMapper {
         return absenceDto;
     }
 
-
+    /**
+     * En este metodo se transforma una entidad de ausencia a un dto de ausencia para crear un usuario
+     * @param absence es la entidad a trasnformar
+     * @return devuelve el dto con algunos de sus campos
+     */
     public static AbsenceDto toUserDtoToCreateAbsence(AbsenceEntity absence) {
         AbsenceDto absenceDto = new AbsenceDto();
 

@@ -10,6 +10,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * En esta clase describen los campos que tendra la entidad asignatura, asi como los campos en la tabla "subject" y sus relaciones
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

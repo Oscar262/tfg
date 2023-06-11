@@ -8,6 +8,9 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+/**
+ * En esta clase describen los campos que tendra la entidad ausencia, asi como los campos en la tabla "absence" y sus relaciones
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

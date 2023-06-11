@@ -12,6 +12,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 
+/**
+ * En esta clase describen los campos que tendra el dto(Data Transfer Object) de la entidad usuario
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
