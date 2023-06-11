@@ -13,7 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 
 /**
- * En esta clase se encuentran todos los test que se van a hacer para la clase "ClassService"
+ * En esta clase se encuentran todos los test que se van a hacer para la clase "ClassService" (se deben cambiar los valores
+ *  *  para que coincidan con los datos correctos)
  */
 @SpringBootTest
 @Transactional

@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
@@ -16,7 +15,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * En esta clase se encuentran todos los test que se van a hacer para la clase "AbsenceService"
+ * En esta clase se encuentran todos los test que se van a hacer para la clase "AbsenceService" (se deben cambiar los valores
+ *  *  para que coincidan con los datos correctos)
  */
 @SpringBootTest
 @Transactional

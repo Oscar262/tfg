@@ -9,6 +9,7 @@ import org.iesfm.app.entity.RoleEntity;
 import org.iesfm.app.entity.SubjectEntity;
 import org.iesfm.app.entity.UserEntity;
 import org.iesfm.app.exceptions.ClassListException;
+import org.iesfm.app.exceptions.ClassListExceptionStudent;
 import org.iesfm.app.exceptions.EmptytListException;
 import org.iesfm.app.exceptions.IncorrectUserException;
 import org.junit.jupiter.api.Assertions;
@@ -26,7 +27,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * En esta clase se encuentran todos los test que se van a hacer para la clase "UserService"
+ * En esta clase se encuentran todos los test que se van a hacer para la clase "UserService" (se deben cambiar los valores
+ *  *  para que coincidan con los datos correctos)
  */
 @SpringBootTest
 @Transactional
@@ -212,7 +214,7 @@ public class UserServiceTest {
         entity.setUsuCre(4);
         entity.setClassEntities(classEntities);
         entity.setRole(role);
-        Assertions.assertThrows(ClassListException.class, () -> {
+        Assertions.assertThrows(ClassListExceptionStudent.class, () -> {
             userService.addUser(entity, 4);
         });
     }
